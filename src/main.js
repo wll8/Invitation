@@ -3,38 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'iview/dist/styles/iview.css'
-import axios from 'axios'
-import VueJsonp from 'vue-jsonp'
-import {
-  Alert,
-  Message,
-  Icon,
-  Button,
-  Form,
-  FormItem,
-  Row,
-  Col,
-  Table,
-  Input
-} from 'iview'
-
-Message.config({
-  duration: 2.5
-})
-Vue.prototype.$http = axios
-Vue.prototype.$msg = Message
-Vue.config.productionTip = false
-Vue.use(VueJsonp)
-Vue.component('Alert', Alert)
-Vue.component('Icon', Icon)
-Vue.component('Button', Button)
-Vue.component('Input', Input)
-Vue.component('Form', Form)
-Vue.component('FormItem', FormItem)
-Vue.component('Row', Row)
-Vue.component('Col', Col)
-Vue.component('Table', Table)
+import '../src/assets/css/common.less'
+import tool from './tool/index.js'
+Vue.prototype.g = require('./components/g.vue').default
+Vue.prototype.tool = tool
+Vue.prototype.userType = tool.getQueryString('t') || 'boy'
 
 /* eslint-disable no-new */
 window.vm = new Vue({

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import call from '@/pages/call.vue'
 import t from '@/pages/t.vue'
 
 Vue.use(Router)
@@ -10,12 +9,23 @@ export default new Router({
     {
       path: '/',
       name: 'call',
-      component: call,
+      // component: r => require.ensure([], () => r(require('../pages/call.vue')), 'call.vue'),
+      component: require('../pages/call.vue').default,
+    },
+    {
+      path: '/talk',
+      name: 'talk',
+      component: require('../pages/talk.vue').default,
+    },
+    {
+      path: '/desktop',
+      name: 'desktop',
+      component: require('../pages/desktop.vue').default,
     },
     {
       path: '/t',
       name: 't',
-      component: t,
+      component: t
     }
   ]
 })

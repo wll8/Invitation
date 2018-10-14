@@ -1,7 +1,7 @@
 <template>
-  <div class="page_call">
+  <div class="page_call full-screen oh">
     <bgimg :src="bgimgSrc" animate/>
-    <div class="bg">
+    <div class="mask full-screen">
       <div class="btnBox">
         <img class="tip" src="../assets/images/tip.png"/>
         <img class="message" src="../assets/images/message.png"/>
@@ -43,13 +43,6 @@ export default {
   @import "../assets/css/util.less";
 
   .page_call {
-    .bg {
-      background-color: rgba(0, 0, 0, 0.31);
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-    }
     .btnBox {
       display: flex;
       justify-content: space-around;
