@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import bgimg from '@/components/bgimg.vue'
-
 export default {
   name: 'page_call',
   data() {
@@ -34,7 +32,6 @@ export default {
     }
   },
   components: {
-    bgimg,
   }
 };
 </script>

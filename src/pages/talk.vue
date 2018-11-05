@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import bgimg from '@/components/bgimg.vue'
-
 export default {
   name: 'page_talk',
   data() {
@@ -68,7 +66,6 @@ export default {
     }
   },
   components: {
-    bgimg,
   }
 };
 </script>

@@ -67,31 +67,39 @@ export default {
 <style lang="less" scoped>
 @import "../assets/css/util.less";
 .com_music {
+  background-color: rgba(130, 109, 109, 0.2);
+  border-radius: 50%;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+
   &.music {
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
     position: absolute;
-    right: 20px;
-    top: 20px;
-    z-index: 2;
+    right: 6px;
+    top: 14px;
+    z-index: 999;
 
     i {
-      width: 48px;
-      height: 48px;
+      width: 38px;
+      height: 38px;
       display: block;
       position: absolute;
     }
     .music-icon {
       background: url(../assets/images/music.png) no-repeat;
+      background-size: cover;
     }
     .circle-1 {
       background: url(../assets/images/circle-1.png) no-repeat;
+      background-size: cover;
     }
     .circle-2 {
       background: url(../assets/images/circle-2.png) no-repeat;
+      background-size: cover;
     }
     .circle-3 {
       background: url(../assets/images/circle-3.png) no-repeat;
+      background-size: cover;
     }
   }
 

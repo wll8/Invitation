@@ -23,6 +23,11 @@ export default new Router({
       component: require('../pages/desktop.vue').default,
     },
     {
+      path: '/integrated',
+      name: 'integrated',
+      component: require('../pages/integrated.vue').default,
+    },
+    {
       path: '/t',
       name: 't',
       component: t

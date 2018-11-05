@@ -1,31 +1,254 @@
 <template>
   <div class="page_desktop full-screen oh">
-    desktop
+    <div class="full-page desktop-page">
+        <!-- 背景照片 -->
+        <bgimg :src="bgimgSrc" :animate="true"/>
+        <div class="bg">
+
+          <div class="top iconBox">
+            <hotspot :click="() => $router.push('/integrated')" icon="icon2" head="一月" body="31" foot="日期"/>
+            <hotspot :click="() => 0" icon="icon3" foot="视频"/>
+            <hotspot :click="() => $router.push('/photos')" icon="icon4" foot="相册"/>
+            <hotspot :click="() => 0" icon="icon5" foot="祝福"/>
+          </div>
+
+          <div class="buttom iconBox">
+            <hotspot :click="() => $router.push('/dialing')" num="2" icon="icon6"/>
+            <hotspot :click="() => $router.push('/wechat')" num="1" icon="icon7"/>
+            <hotspot :click="() => $router.push('/photograph')" num="3" icon="icon8"/>
+            <hotspot :click="() => $router.push('/map')" num="1" icon="icon9"/>
+          </div>
+
+        </div>
+        <audio class="hidden" autoPlay id="desktop-audio">
+            <source :src="audioOgg" type="audio/ogg"/>
+            <source :src="audioMp3" type="audio/mpeg"/>
+        </audio>
+
+        <!-- 视频 -->
+        <div v-if="videoShow" class='video' @click="_closeVideo">
+            <img :src="closeImg" class="close" @click="_closeVideo"/>
+            <iframe src="https://v.qq.com/iframe/player.html?vid=d0362vjag67&tiny=0&auto=0" @click="e => e.preventDefault()"></iframe>
+        </div>
+        <!-- 祝福 -->
+        <Bless v-if="blessShow" :close="_closeBless"/>
+    </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 
 export default {
   name: 'page_desktop',
   data() {
     return {
-    };
-  },
-  computed: {},
-  created() {},
-  methods: {
-    _redirectToTalk() {
-      this.$route.push('/talk')
+      bgimgSrc: require('../assets/images/photos/desktop-bg.jpg'),
+      videoShow: false,
+      blessShow: false,
+      audioOgg: '',
+      audioMp3: '',
+      closeImg: '',
+      iconImg: require('../assets/images/icon.png'),
     }
   },
+  computed: {},
+  mounted () {
+    this.tool.autoPlay('desktop-audio')
+  },
+  methods: {
+
+    _openVideo() {
+      this.videoShow = true
+    },
+
+    _closeVideo() {
+      this.videoShow = false
+    },
+
+    _openBless() {
+      this.blessShow = true
+    },
+
+    _closeBless() {
+      this.blessShow = false
+    },
+
+  },
   components: {
+    hotspot: Vue.component('hotspot',{
+        template: `
+          <div :class="['icon', icon]" @click="click">
+            <div v-if="num" :class="['num', 'red-point-animate-' + num]">{{num}}</div>
+            <div class="head">{{head}}</div>
+            <div class="body">{{body}}</div>
+            <div class="foot">{{foot}}</div>
+          </div>
+        `,
+        props: {
+          click: {
+            type: Function,
+            default: () => {},
+          },
+          num: String, // 角标
+          icon: String, // icon 图标
+          head: String, // 头部文字
+          body: String, // 中间文字
+          foot: String, // 下部文字
+        },
+    }),
   }
 };
 </script>
 
-<style lang="less" scoped>
-  @import "../assets/css/util.less";
+<style lang="less">
+@import "../assets/css/util.less";
 
-  .page_desktop {}
+.page_desktop {
+  .bg {
+    position: absolute;
+    z-index: 1;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    .iconBox {
+      width: 100%;
+
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      &.top {
+        @media screen and (max-width: 320px) {
+          margin-top: 10px;
+        }
+      }
+      &.buttom {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: hsla(0,0%,100%,.5);
+        .icon {
+          margin-bottom: 20px;
+          margin-top: 20px;
+        }
+        .foot {
+          display: none;
+        }
+      }
+    }
+  }
+
+
+  .icon(@icon) {
+    background-image: url('../assets/images/icon@{icon}.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .icon {
+    @media screen and (max-width: 320px) {
+      margin: 0;
+    }
+    width: 70px;
+    height: 70px;
+    margin: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    .num {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #f00;
+      color: #fff;
+      line-height: 20px;
+      text-align: center;
+        font-family: SimHei;
+      border-radius: 50%;
+      right: -2px;
+      top: -2px;
+    }
+    .head {
+      line-height: 26px;
+      height: 26px;
+    }
+    .body {
+      line-height: 44px;
+      height: 44px;
+    }
+    .foot {
+      line-height: 26px;
+      height: 26px;
+      font-size: 16px;
+      font-family: ZHSRXT;
+    }
+
+    &.icon2 {
+      .head {
+        color: #fff;
+        font-size: 16px;
+        font-family: FZKaTong;
+      }
+      .body {
+        font-size: 34px;
+        font-family: SimHei;
+        font-weight: bold;
+      }
+      .icon(2)
+    }
+    &.icon3 { .icon(3) }
+    &.icon4 { .icon(4) }
+    &.icon5 { .icon(5) }
+    &.icon6 { .icon(6) }
+    &.icon7 { .icon(7) }
+    &.icon8 { .icon(8) }
+    &.icon9 { .icon(9) }
+  }
+
+  /* 红点动画 1 */
+  .red-point-animate-1 {
+    opacity: 0;
+    /* 2个时间  动画播放时间  动画延时播放 播放次数 播放速度曲线 停留在最后一个动画 */
+    .animation(red-point-animate-1 0.5s 1.5s 2 ease-in-out forwards);
+  }
+  @keyframes red-point-animate-1 {
+    0% {
+      .transform(scale(1));
+      opacity: 1;
+    }
+    50% {
+      .transform(scale(1.2));
+      opacity: 1;
+    }
+    100% {
+      .transform(scale(1));
+      opacity: 1;
+    }
+  }
+  /* 红点动画 2 */
+  .red-point-animate-2 {
+    /* 2个时间  动画播放时间  动画延时播放 播放次数 */
+    .animation(red-point-animate-2 0.3s 0.4s 3);
+  }
+  @keyframes red-point-animate-2 {
+    0% {
+      .transform(rotate(0deg) scale(1.1))
+    }
+    25% {
+      .transform(rotate(-20deg) scale(1.1))
+    }
+    50% {
+      .transform(rotate(0deg) scale(1.1))
+    }
+    75% {
+      .transform(rotate(20deg) scale(1.1))
+    }
+    100% {
+      .transform(rotate(0deg) scale(1.1))
+    }
+  }
+}
 </style>
