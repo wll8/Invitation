@@ -28,6 +28,16 @@ export default new Router({
       component: require('../pages/integrated.vue').default,
     },
     {
+      path: '/photos',
+      name: 'photos',
+      component: require('../pages/photos.vue').default,
+    },
+    {
+      path: '/photos',
+      name: 'photos',
+      component: require('../pages/photos.vue').default,
+    },
+    {
       path: '/t',
       name: 't',
       component: t

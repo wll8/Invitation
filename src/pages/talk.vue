@@ -2,7 +2,7 @@
   <div class="page_talk full-screen oh">
     <bgimg :src="bgimgSrc" animate/>
     <div class="mask full-screen">
-      <div class="">
+      <div class="textInfo">
         <div class="count-down-title">婚礼倒计时</div>
         <div class="count-down-time">{{timestamp | _countDown}}</div>
         <img class="function" :src="functionImg"/>
@@ -26,8 +26,8 @@ export default {
       timestamp: Date.parse(new Date()) / 1000,
       boyMp3: require('../assets/audio/talk.mp3'),
       girlMp3: require('../assets/audio/talk-girl.mp3'),
-      bgimgSrc: require('../assets/images/photos/talk-bg.jpg'),
-      functionImg: require('../assets/images/function.png'),
+      bgimgSrc: require('../assets/images/myimg/18.jpg'),
+      functionImg: require('../assets/images/function2.png'),
       hungUpImg: require('../assets/images/hung-up.png'),
     }
   },
@@ -75,32 +75,55 @@ export default {
 
 .page_talk {
   text-align: center;
-  .function {
-    width: 90%;
-    display: inline-block;
-    margin-top: -110px;
-  }
-  .hung-up {
-    width: 100px;
-    margin-top: -60px;
-  }
 
-  .count-down-time {
-    width: 100%;
-    text-align: center;
-    font-size: 31px;
-    color: #fff;
-  }
+  .textInfo {
 
-  .count-down-title {
-    margin-top: 20px;
-    width: 100%;
-    text-align: center;
-    height: 77px;
-    line-height: 77px;
-    color: #fff;
-    font-size: 42px;
-    font-family: FZKaTong;
+
+
+    .function {
+      width: 80%;
+      display: inline-block;
+      margin-top: 20px;
+
+      width: 80%;
+      display: inline-block;
+      margin-top: 20px;
+      position: absolute;
+      bottom: 30%;
+      margin: auto;
+      left: 0;
+      right: 0;
+
+    }
+    .hung-up {
+      width: 100px;
+      margin-top: 20px;
+      // margin-top: -60px;
+
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      bottom: 5%;
+    }
+
+    .count-down-time {
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      color: #fff;
+    }
+
+    .count-down-title {
+      margin-top: 5%;
+      width: 100%;
+      text-align: center;
+      height: 100%;
+      line-height: 100%;
+      color: #fff;
+      font-size: 3em;
+      font-family: FZKaTong;
+    }
   }
 
 }

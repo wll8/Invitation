@@ -43,11 +43,11 @@ export default {
   name: 'page_desktop',
   data() {
     return {
-      bgimgSrc: require('../assets/images/photos/desktop-bg.jpg'),
+      bgimgSrc: require('../assets/images/myimg/6.jpg'),
       videoShow: false,
       blessShow: false,
-      audioOgg: '',
-      audioMp3: '',
+      audioOgg: require('../assets/audio/duang.ogg'),
+      audioMp3: require('../assets/audio/duang.mp3'),
       closeImg: '',
       iconImg: require('../assets/images/icon.png'),
     }

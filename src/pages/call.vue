@@ -21,8 +21,11 @@ export default {
   name: 'page_call',
   data() {
     return {
-      bgimgSrc: require('../assets/images/photos/call-bg.jpg'),
+      bgimgSrc: require('../assets/images/myimg/14.jpg'),
     };
+  },
+  mounted() {
+    this.tool.autoPlay('call-audio')
   },
   computed: {},
   created() {},
@@ -41,6 +44,7 @@ export default {
 
   .page_call {
     .btnBox {
+      width: 300px;
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;

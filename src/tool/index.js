@@ -1,4 +1,7 @@
 export default {
+  randomFrom (lowerValue, upperValue) {
+    return Math.floor(Math.random() * (upperValue - lowerValue + 1) + lowerValue)
+  },
   getWeek () {
     var weeks = ['日', '一', '二', '三', '四', '五', '六']
     var date = new Date()

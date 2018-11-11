@@ -29,13 +29,12 @@ export default {
       play: false
     }
   },
-  mounted() {
-    if (playMusicArr.includes(this.path)) {
-        this._play();
-    } else {
-        this._pause();
-    }
+  watch: {
+    path(newVal, oldVal) {
+      playMusicArr.includes(this.path) ? this._play() : this._pause()
+    },
   },
+  mounted() {},
   methods: {
     _play() {
         this.play = true
