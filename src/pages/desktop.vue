@@ -5,9 +5,13 @@
         <bgimg :src="bgimgSrc" :animate="true"/>
         <div class="bg">
 
+          <div class="videoBox" v-if="videoShow" @click="_closeVideo">
+            <d-player ref="dplayer" @click.stop="_openVideo" class="videoEr" :options="options"></d-player>
+          </div>
+
           <div class="top iconBox">
             <hotspot :click="() => $router.push('/integrated')" icon="icon2" head="一月" body="31" foot="日期"/>
-            <hotspot :click="() => 0" icon="icon3" foot="视频"/>
+            <hotspot :click="_openVideo" icon="icon3" foot="视频"/>
             <hotspot :click="() => $router.push('/photos')" icon="icon4" foot="相册"/>
             <hotspot :click="() => 0" icon="icon5" foot="祝福"/>
           </div>
@@ -38,11 +42,21 @@
 
 <script>
 import Vue from 'vue'
+import VueDPlayer from 'vue-dplayer'
+import 'vue-dplayer/dist/vue-dplayer.css'
 
 export default {
   name: 'page_desktop',
   data() {
     return {
+      options: {
+        screenshot: true,
+        video: {
+          url: require('../assets/video/video.mp4'),
+          pic: require('../assets/images/play_640.png'),
+        },
+        autoplay: false,
+      },
       bgimgSrc: require('../assets/images/myimg/6.jpg'),
       videoShow: false,
       blessShow: false,
@@ -57,13 +71,19 @@ export default {
     this.tool.autoPlay('desktop-audio')
   },
   methods: {
-
-    _openVideo() {
+    _openVideo(ev) {
+      console.log('_openVideo', ev)
       this.videoShow = true
     },
 
-    _closeVideo() {
-      this.videoShow = false
+    _closeVideo(ev) {
+      let className = ev.target.className || ''
+      if(className.includes('videoBox')) {
+        this.videoShow = false
+      }
+      if(className.includes('dplayer-video')) {
+        this.$refs.dplayer.dp.play()
+      }
     },
 
     _openBless() {
@@ -76,6 +96,7 @@ export default {
 
   },
   components: {
+    'd-player': VueDPlayer,
     hotspot: Vue.component('hotspot',{
         template: `
           <div :class="['icon', icon]" @click="click">
@@ -141,6 +162,23 @@ export default {
     }
   }
 
+  .videoBox {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 9;
+    .videoEr {
+      height: 40%;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 99;
+    }
+  }
 
   .icon(@icon) {
     background-image: url('../assets/images/icon@{icon}.png');

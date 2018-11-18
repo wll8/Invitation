@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import t from '@/pages/t.vue'
+import call from '@/pages/call.vue'
+import talk from '@/pages/talk.vue'
+import desktop from '@/pages/desktop.vue'
+import integrated from '@/pages/integrated.vue'
+import photos from '@/pages/photos.vue'
+import map from '@/pages/map.vue'
 
 Vue.use(Router)
 
@@ -9,33 +15,32 @@ export default new Router({
     {
       path: '/',
       name: 'call',
-      // component: r => require.ensure([], () => r(require('../pages/call.vue')), 'call.vue'),
-      component: require('../pages/call.vue').default,
+      component: call,
     },
     {
       path: '/talk',
       name: 'talk',
-      component: require('../pages/talk.vue').default,
+      component: talk,
     },
     {
       path: '/desktop',
       name: 'desktop',
-      component: require('../pages/desktop.vue').default,
+      component: desktop,
     },
     {
       path: '/integrated',
       name: 'integrated',
-      component: require('../pages/integrated.vue').default,
+      component: integrated,
     },
     {
       path: '/photos',
       name: 'photos',
-      component: require('../pages/photos.vue').default,
+      component: photos,
     },
     {
-      path: '/photos',
-      name: 'photos',
-      component: require('../pages/photos.vue').default,
+      path: '/map',
+      name: 'map',
+      component: map,
     },
     {
       path: '/t',
