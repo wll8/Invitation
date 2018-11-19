@@ -5,6 +5,7 @@ import call from '@/pages/call.vue'
 import talk from '@/pages/talk.vue'
 import desktop from '@/pages/desktop.vue'
 import integrated from '@/pages/integrated.vue'
+import blessing from '@/pages/blessing.vue'
 import photos from '@/pages/photos.vue'
 import map from '@/pages/map.vue'
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/integrated',
       name: 'integrated',
       component: integrated,
+    },
+    {
+      path: '/blessing',
+      name: 'blessing',
+      component: blessing,
     },
     {
       path: '/photos',

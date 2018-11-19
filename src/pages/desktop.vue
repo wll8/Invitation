@@ -19,7 +19,7 @@
           <div class="buttom iconBox">
             <hotspot :click="() => $router.push('/dialing')" num="2" icon="icon6"/>
             <hotspot :click="() => $router.push('/wechat')" num="1" icon="icon7"/>
-            <hotspot :click="() => $router.push('/photograph')" num="3" icon="icon8"/>
+            <hotspot :click="() => $router.push('/blessing')" num="3" icon="icon8"/>
             <hotspot :click="() => $router.push('/map')" num="1" icon="icon9"/>
           </div>
 
@@ -68,7 +68,7 @@ export default {
   },
   computed: {},
   mounted () {
-    this.tool.autoPlay('desktop-audio')
+    this.$tool.autoPlay('desktop-audio')
   },
   methods: {
     _openVideo(ev) {

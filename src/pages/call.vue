@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted() {
-    this.tool.autoPlay('call-audio')
+    this.$tool.autoPlay('call-audio')
   },
   computed: {},
   created() {},

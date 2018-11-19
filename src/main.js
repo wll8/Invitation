@@ -7,9 +7,11 @@ import '../src/assets/css/common.less'
 import tool from './tool/index.js'
 import cfg from './cfg.js'
 import bgimg from '@/components/bgimg.vue'
+import vueBaberrage from 'vue-baberrage'
+Vue.use(vueBaberrage)
 
 Vue.prototype.g = require('./components/g.vue').default
-Vue.prototype.tool = tool
+Vue.prototype.$tool = tool
 Vue.prototype.$cfg = cfg
 Vue.prototype.userType = tool.getQueryString('t') || 'boy' // 添加全局变量值
 Vue.component('bgimg', bgimg) // 全局注册组件
