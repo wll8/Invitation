@@ -12,17 +12,18 @@
       <div class="form">
         <div class="form-group">
           <label for="iptName">您的名字</label>
-          <input class="form-control w100-15" id="iptName" placeholder="点击输入">
+          <input v-model="blessing.name" autofocus="autofocus" class="form-control w100-15" id="iptName" placeholder="点击输入">
         </div>
         <div class="form-group">
           <label for="iptBlessing">您的祝福</label>
-          <textarea class="form-control w100-15"  id="iptBlessing" rows="3" placeholder="点击输入"></textarea>
+          <textarea v-model="blessing.blessing" class="form-control w100-15"  id="iptBlessing" rows="3" placeholder="点击输入"></textarea>
         </div>
       </div>
       <button class="w100-15 sendBtn btn btn-default btn-lg btn-block" @click="addToList">
+        <i :class="['icon', {breathing: blessing.name && blessing.blessing}]" :style="`background-image:url(${sendIcon})`"/>
         <span class="text">发送</span>
-        <i class="icon" style="background-image:url(https://cdn0.iconfinder.com/data/icons/shift-free/32/Paper_Plane-512.png)"/>
       </button>
+      <div class="end">end</div>
     </div>
   </div>
 </template>
@@ -33,8 +34,15 @@ export default {
   name: 'page_blessing',
   data() {
     return {
+      blessing: {
+        name: '',
+        user_id: '',
+        blessing: '',
+      },
+      sendIcon: require('../assets/images/send.png'),
       bgimgSrc: require('../assets/images/myimg/1.jpg'),
       msg: 'Hello vue-baberrage',
+      breathing: false,
       barrageIsShow: true,
       currentId : 0,
       barrageLoop: true,
@@ -54,10 +62,39 @@ export default {
   },
   computed: {},
   mounted(){
+    // 当前有一个 bug ， 需要触发两次这个方法才能正常出现效果。
+    // 所以用此方法先执行一次
+    this.fn({})
   },
   created() {},
   methods: {
-    addToList (){
+    fn(event){
+      var offset = $(".end").offset();
+      var sendBtn = $(this);
+      // var img = sendBtn.parent().find('img').attr('src');
+      var img = this.sendIcon
+      var flyer = $('<img class="u-flyer" src="'+img+'">');
+      console.log('offset', offset)
+      flyer.fly({
+        start: {
+            left: event.pageX - 50, //开始位置（必填）#fly元素会被设置成position: fixed
+            top: event.pageY - 50 //开始位置（必填）
+        },
+        end: {
+            left: offset.left + offset.width/2, //结束位置（必填）
+            top: offset.top + offset.width/2, //结束位置（必填）
+            width: 0, //结束时宽度
+            height: 0 //结束时高度
+        },
+        onEnd: function(){ //结束回调
+            // sendBtn.css("cursor","default").removeClass('orange').unbind('click');
+            // this.destory(); //移除dom
+        }
+      });
+    },
+    addToList (ev){
+      this.fn(ev)
+      return
       this.barrageList.push({
         id: +new Date() + Math.random(),
         avatar: "./static/avatar.jpg",
@@ -76,6 +113,42 @@ export default {
 <style lang="less">
 .page_blessing {
 
+  .breathing {
+    box-shadow: 0 0 60px #FFFFFF;
+    animation: breath 2s;
+    animation-iteration-count:infinite;
+  }
+
+  @-webkit-keyframes breath {
+    0%    {opacity: 0.5;}
+    60%   {opacity:   1;}
+    100%  {opacity: 0.5;}
+  }
+  @-o-keyframes breath {
+    0%    {opacity: 0.5;}
+    60%   {opacity:   1;}
+    100%  {opacity: 0.5;}
+  }
+  @-moz-keyframes breath {
+    0%    {opacity: 0.5;}
+    60%   {opacity:   1;}
+    100%  {opacity: 0.5;}
+  }
+  @keyframes breath {
+    0%    {opacity: 0.5;}
+    60%   {opacity:   1;}
+    100%  {opacity: 0.5;}
+  }
+
+
+  .end {
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    position: absolute;
+    bottom: 40px;
+    right: 20px;
+  }
 
   .w100-15 {
     width: calc(100% - 27px);
@@ -221,8 +294,10 @@ export default {
     .icon {
       vertical-align: middle;
       display: inline-block;
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 4px;
+      margin-top: 4px;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
