@@ -8,7 +8,7 @@
       class="xw2233"
     >
     </vue-baberrage>
-    <div class="formBox">
+    <div class="formBox" v-show="showForm">
       <div class="form">
         <div class="form-group">
           <label for="iptName">您的名字</label>
@@ -23,8 +23,8 @@
         <i :class="['icon', {breathing: blessing.name && blessing.blessing}]" :style="`background-image:url(${sendIcon})`"/>
         <span class="text">发送</span>
       </button>
-      <div class="end">end</div>
     </div>
+    <div :class="['showFormBtn', {show: sendEd}]" @click="showForm = !showForm">祝 福</div>
   </div>
 </template>
 
@@ -34,6 +34,8 @@ export default {
   name: 'page_blessing',
   data() {
     return {
+      showForm: false,
+      sendEd: false, // 已祝福
       blessing: {
         name: '',
         user_id: '',
@@ -47,15 +49,15 @@ export default {
       currentId : 0,
       barrageLoop: true,
       barrageList: [
-        {
-          id: 'idtest',
-          avatar: "//baidu.com/favicon.ico",
-          msg: 'this.msg',
-          // barrageStyle: "normal",
-          time: 5,
-          type: 0,
-          position: 'bottom'
-        }
+        // {
+        //   id: 'idtest',
+        //   avatar: "//baidu.com/favicon.ico",
+        //   msg: 'this.msg',
+        //   // barrageStyle: "normal",
+        //   time: 5,
+        //   type: 0,
+        //   position: 'bottom'
+        // }
       ],
 
     }
@@ -69,7 +71,7 @@ export default {
   created() {},
   methods: {
     fn(event){
-      var offset = $(".end").offset();
+      var offset = $(".showFormBtn").offset();
       var sendBtn = $(this);
       // var img = sendBtn.parent().find('img').attr('src');
       var img = this.sendIcon
@@ -93,17 +95,21 @@ export default {
       });
     },
     addToList (ev){
-      this.fn(ev)
-      return
-      this.barrageList.push({
-        id: +new Date() + Math.random(),
-        avatar: "./static/avatar.jpg",
-        msg: this.msg,
-        // barrageStyle: "normal",
-        time: 5,
-        type: 0,
-        position: 'bottom'
-      })
+      let {name, blessing} = this.blessing
+      if(name && blessing) {
+        this.fn(ev)
+        this.showForm = false
+        this.sendEd = true
+        this.barrageList.push({
+          id: +new Date() + Math.random(),
+          // avatar: "./static/avatar.jpg",
+          msg: this.blessing.name + ': ' + this.blessing.blessing,
+          // barrageStyle: "normal",
+          time: 5,
+          type: 0,
+          position: 'bottom'
+        })
+      }
     },
   },
   components: {}
@@ -112,10 +118,12 @@ export default {
 
 <style lang="less">
 .page_blessing {
-
+  .baberrage-avatar {
+    display: none;
+  }
   .breathing {
     box-shadow: 0 0 60px #FFFFFF;
-    animation: breath 2s;
+    animation: breath 1.5s;
     animation-iteration-count:infinite;
   }
 
@@ -141,13 +149,21 @@ export default {
   }
 
 
-  .end {
+  .showFormBtn {
+    border-radius: 50%;
+    animation: breath 1.5s;
+    animation-iteration-count:infinite;
+    text-align: center;
+    line-height: 60px;
     width: 60px;
     height: 60px;
-    background: #fff;
+    background: rgba(255, 255, 255, .8);
     position: absolute;
     bottom: 40px;
     right: 20px;
+    &.show {
+      animation: none;
+    }
   }
 
   .w100-15 {
