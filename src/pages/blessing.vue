@@ -68,46 +68,73 @@ export default {
     // 所以用此方法先执行一次
     this.fn({})
   },
-  created() {},
+  created() {
+    this.getList()
+  },
   methods: {
+    getList(){
+      this.$fly.get('love').then(res => {
+        // console.log('res', res, this)
+        this.barrageList = (res || []).map(item => ({
+          id: +new Date() + '' + Math.random() + '' + item.user_id, // 创建唯一 id
+          // avatar: '',
+          msg: item.name + ': ' + item.blessing,
+          time: vm.$tool.randomFrom(4, 8),
+          type: 0,
+          position: 'bottom',
+        }))
+      })
+    },
     fn(event){
       var offset = $(".showFormBtn").offset();
       var sendBtn = $(this);
       // var img = sendBtn.parent().find('img').attr('src');
       var img = this.sendIcon
       var flyer = $('<img class="u-flyer" src="'+img+'">');
-      console.log('offset', offset)
       flyer.fly({
         start: {
-            left: event.pageX - 50, //开始位置（必填）#fly元素会被设置成position: fixed
-            top: event.pageY - 50 //开始位置（必填）
+          left: event.pageX - 50, //开始位置（必填）#fly元素会被设置成position: fixed
+          top: event.pageY - 50 //开始位置（必填）
         },
         end: {
-            left: offset.left + offset.width/2, //结束位置（必填）
-            top: offset.top + offset.width/2, //结束位置（必填）
-            width: 0, //结束时宽度
-            height: 0 //结束时高度
+          left: offset.left + offset.width/2, //结束位置（必填）
+          top: offset.top + offset.width/2, //结束位置（必填）
+          width: 0, //结束时宽度
+          height: 0 //结束时高度
         },
         onEnd: function(){ //结束回调
-            // sendBtn.css("cursor","default").removeClass('orange').unbind('click');
-            // this.destory(); //移除dom
+          // sendBtn.css("cursor","default").removeClass('orange').unbind('click');
+          // this.destory(); //移除dom
         }
       });
     },
     addToList (ev){
-      let {name, blessing} = this.blessing
-      if(name && blessing) {
-        this.fn(ev)
-        this.showForm = false
-        this.sendEd = true
-        this.barrageList.push({
-          id: +new Date() + Math.random(),
-          // avatar: "./static/avatar.jpg",
-          msg: this.blessing.name + ': ' + this.blessing.blessing,
-          // barrageStyle: "normal",
-          time: 5,
-          type: 0,
-          position: 'bottom'
+      const vm = this
+      let {name, blessing} = vm.blessing
+      if(name.trim() && blessing.trim()) {
+        vm.fn(ev)
+        vm.showForm = false
+        vm.sendEd = true
+        vm.$deviceCode.then(user_id => {
+          vm.$fly.post(`/love/${user_id}`, {
+            user_id,
+            name,
+            blessing,
+          })
+          .then((res) => {
+            vm.barrageList.push({
+              id: user_id,
+              // avatar: "./static/avatar.jpg",
+              msg: vm.blessing.name + ': ' + vm.blessing.blessing,
+              // barrageStyle: "normal",
+              time: vm.$tool.randomFrom(4, 8),
+              type: 0,
+              position: 'bottom'
+            })
+          })
+          .catch((err) => {
+            console.log('err', err)
+          })
         })
       }
     },
@@ -177,7 +204,7 @@ export default {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: rgba(255,255,255, .2);
+    // background-color: rgba(255,255,255, .2);
     .form {
       position: relative;
       padding: 15px 15px 15px;

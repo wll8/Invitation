@@ -11,8 +11,10 @@ import music from './components/music.vue';
 export default {
   name: 'App',
   mounted(){
-    const vm = this
+    // 禁止页面左右滑动， 否则会产生一些 swiper 相关的 bug
+    document.addEventListener('touchmove', ev => ev.preventDefault(), false);
 
+    const vm = this
     // 点击页面心形
     ;((e, t, a) => {
       var heartClassName = '_click_heart_'
@@ -117,7 +119,6 @@ export default {
       });
     }
     // textShow(window, document)
-
 
   },
   components: {

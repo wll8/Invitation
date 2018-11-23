@@ -1,4 +1,5 @@
 export default {
+  apiUrl: 'http://192.168.18.109:3001/', // 服务器接口地址
   video: '', // 视频
   photos: [ // 相册，建议尺寸axb
     'img1',

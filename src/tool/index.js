@@ -1,3 +1,4 @@
+import Fingerprint2 from 'fingerprintjs2'
 export default {
   word: [
     '两情相悦', '百年好合', '成双成业', '缘定三生', '良缘夙缔',
@@ -36,7 +37,7 @@ export default {
     return day
   },
   autoPlay (eId) {
-    wx.config({
+    window.wx.config({
       // 配置信息, 即使不正确也能使用 wx.ready
       debug: false,
       appId: '',
@@ -45,7 +46,7 @@ export default {
       signature: '',
       jsApiList: []
     })
-    wx.ready(() => {
+    window.wx.ready(() => {
       document.getElementById(eId).play()
     })
   },
@@ -55,17 +56,23 @@ export default {
     return r !== null ? unescape(r[2]) : ''
   },
   storage: {
+    fix: 'love_',
     // 存储
     set (key, value) {
-      window.localStorage.setItem(key, JSON.stringify(value))
+      window.localStorage.setItem('love_' + key, JSON.stringify(value))
     },
     // 取出数据
     get (key) {
-      return JSON.parse(window.localStorage.getItem(key))
+      let val = window.localStorage.getItem('love_' + key)
+      try {
+        return JSON.parse(val)
+      } catch (error) {
+        return val
+      }
     },
     // 删除数据
     remove (key) {
-      window.localStorage.removeItem(key)
+      window.localStorage.removeItem('love_' + key)
     }
-  }
+  },
 }

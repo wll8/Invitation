@@ -8,12 +8,40 @@ import tool from './tool/index.js'
 import cfg from './cfg.js'
 import bgimg from '@/components/bgimg.vue'
 import vueBaberrage from 'vue-baberrage'
+import Fingerprint2 from 'fingerprintjs2'
+const fly = require('flyio')
+fly.config.baseURL = cfg.apiUrl
+// 添加响应拦截器，响应拦截器会在then/catch处理之前执行
+fly.interceptors.response.use(
+  response => {
+    // 只将请求结果的data字段返回
+    return response.data
+  },
+  err => {
+    // 发生网络错误后会走到这里
+    return Promise.resolve(err)
+  }
+)
+
+const deviceCode = new Promise((resolve, reject) => {
+  const localCode = tool.storage.get('deviceCode')
+  localCode ? resolve(localCode) : new Fingerprint2().get(res => {
+    tool.storage.set('deviceCode', res)
+    resolve(res)
+  })
+})
+
 Vue.use(vueBaberrage)
 
-Vue.prototype.g = require('./components/g.vue').default
+Vue.prototype.$deviceCode = deviceCode
+Vue.prototype.$g = require('./components/g.vue').default
 Vue.prototype.$tool = tool
+Vue.prototype.$fly = fly
 Vue.prototype.$cfg = cfg
 Vue.prototype.userType = tool.getQueryString('t') || 'boy' // 添加全局变量值
+if (tool.getQueryString('test')) {
+  window.vConsole = new window.VConsole()
+}
 Vue.component('bgimg', bgimg) // 全局注册组件
 
 /* eslint-disable no-new */
