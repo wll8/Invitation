@@ -13,7 +13,7 @@
             <hotspot :click="() => $router.push('/integrated')" icon="icon2" head="一月" body="31" foot="日期"/>
             <hotspot :click="_openVideo" icon="icon3" foot="视频"/>
             <hotspot :click="() => $router.push('/photos')" icon="icon4" foot="相册"/>
-            <hotspot :click="() => 0" icon="icon5" foot="祝福"/>
+            <hotspot :click="() => $router.push('/blessing')" icon="icon5" foot="祝福"/>
           </div>
 
           <div class="buttom iconBox">
@@ -34,8 +34,6 @@
             <img :src="closeImg" class="close" @click="_closeVideo"/>
             <iframe src="https://v.qq.com/iframe/player.html?vid=d0362vjag67&tiny=0&auto=0" @click="e => e.preventDefault()"></iframe>
         </div>
-        <!-- 祝福 -->
-        <Bless v-if="blessShow" :close="_closeBless"/>
     </div>
   </div>
 </template>
@@ -59,7 +57,6 @@ export default {
       },
       bgimgSrc: require('../assets/images/myimg/6.jpg'),
       videoShow: false,
-      blessShow: false,
       audioOgg: require('../assets/audio/duang.ogg'),
       audioMp3: require('../assets/audio/duang.mp3'),
       closeImg: '',
@@ -78,22 +75,15 @@ export default {
 
     _closeVideo(ev) {
       let className = ev.target.className || ''
-      if(className.includes('videoBox')) {
-        this.videoShow = false
+      if(typeof className === 'string') {
+        if(className.includes('videoBox')) {
+          this.videoShow = false
+        }
+        if(className.includes('dplayer-video')) {
+          this.$refs.dplayer.dp.play()
+        }
       }
-      if(className.includes('dplayer-video')) {
-        this.$refs.dplayer.dp.play()
-      }
     },
-
-    _openBless() {
-      this.blessShow = true
-    },
-
-    _closeBless() {
-      this.blessShow = false
-    },
-
   },
   components: {
     'd-player': VueDPlayer,

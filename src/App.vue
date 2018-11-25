@@ -8,6 +8,7 @@
 
 <script>
 import music from './components/music.vue';
+import Fingerprint2 from 'fingerprintjs2'
 export default {
   name: 'App',
   mounted(){

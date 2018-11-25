@@ -21,6 +21,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'camelcase': 0,
     'comma-dangle': 0, // 最后一项逗号
     // allow async-await
     'generator-star-spacing': 'off',

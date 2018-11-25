@@ -7,6 +7,7 @@ import '../src/assets/css/common.less'
 import tool from './tool/index.js'
 import cfg from './cfg.js'
 import bgimg from '@/components/bgimg.vue'
+import toast from '@/components/toast.js'
 import vueBaberrage from 'vue-baberrage'
 import Fingerprint2 from 'fingerprintjs2'
 const fly = require('flyio')
@@ -19,19 +20,24 @@ fly.interceptors.response.use(
   },
   err => {
     // 发生网络错误后会走到这里
-    return Promise.resolve(err)
+    // 不使用 new Error() catch 不到， 使用 new Error 后需要使用 JSON.stringify
+    // return Promise.reject(new Error(JSON.stringify(err.response.data)))
+    return Promise.reject(err.response.data)
   }
 )
 
-const deviceCode = new Promise((resolve, reject) => {
-  const localCode = tool.storage.get('deviceCode')
-  localCode ? resolve(localCode) : new Fingerprint2().get(res => {
-    tool.storage.set('deviceCode', res)
-    resolve(res)
+const deviceCode = () => {
+  return new Promise((resolve, reject) => {
+    const localCode = tool.storage.get('deviceCode')
+    localCode ? resolve(localCode) : new Fingerprint2().get(res => {
+      tool.storage.set('deviceCode', res)
+      resolve(res)
+    })
   })
-})
+}
 
 Vue.use(vueBaberrage)
+Vue.use(toast)
 
 Vue.prototype.$deviceCode = deviceCode
 Vue.prototype.$g = require('./components/g.vue').default

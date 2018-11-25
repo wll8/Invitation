@@ -11,15 +11,14 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "iview": "^3.0.1",
+    "fingerprintjs2": "^1.8.6",
+    "flyio": "^0.6.4",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "vue": "^2.5.2",
     "vue-amap": "^0.5.8",
     "vue-baberrage": "^1.2.1",
     "vue-dplayer": "^0.0.10",
-    "vue-jsonp": "^0.1.8",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

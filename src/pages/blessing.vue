@@ -5,7 +5,6 @@
       :isShow="barrageIsShow"
       :barrageList ="barrageList"
       :loop ="barrageLoop"
-      class="xw2233"
     >
     </vue-baberrage>
     <div class="formBox" v-show="showForm">
@@ -19,20 +18,22 @@
           <textarea v-model="blessing.blessing" class="form-control w100-15"  id="iptBlessing" rows="3" placeholder="点击输入"></textarea>
         </div>
       </div>
-      <button class="w100-15 sendBtn btn btn-default btn-lg btn-block" @click="addToList">
+      <button class="w100-15 sendBtn btn btn-default btn-lg btn-block" @click="add">
         <i :class="['icon', {breathing: blessing.name && blessing.blessing}]" :style="`background-image:url(${sendIcon})`"/>
         <span class="text">发送</span>
       </button>
     </div>
     <div :class="['showFormBtn', {show: sendEd}]" @click="showForm = !showForm">祝 福</div>
+    <toast/>
   </div>
 </template>
 
 <script>
+import toast from '@/components/toast.vue'
 
 export default {
   name: 'page_blessing',
-  data() {
+  data(){
     return {
       showForm: false,
       sendEd: false, // 已祝福
@@ -48,18 +49,7 @@ export default {
       barrageIsShow: true,
       currentId : 0,
       barrageLoop: true,
-      barrageList: [
-        // {
-        //   id: 'idtest',
-        //   avatar: "//baidu.com/favicon.ico",
-        //   msg: 'this.msg',
-        //   // barrageStyle: "normal",
-        //   time: 5,
-        //   type: 0,
-        //   position: 'bottom'
-        // }
-      ],
-
+      barrageList: [],
     }
   },
   computed: {},
@@ -67,86 +57,103 @@ export default {
     // 当前有一个 bug ， 需要触发两次这个方法才能正常出现效果。
     // 所以用此方法先执行一次
     this.fn({})
+    setTimeout(() => this.getList(), 500) // 延迟加载， 希望获取到的指纹信息一致
   },
-  created() {
-    this.getList()
-  },
+  created(){},
   methods: {
-    getList(){
-      this.$fly.get('love').then(res => {
-        // console.log('res', res, this)
-        this.barrageList = (res || []).map(item => ({
+    async getList(){
+      const vm = this
+      const user_id = await this.$deviceCode()
+      vm.$fly.get('love').then((res = []) => {
+        vm.sendEd = res.some(item => item.user_id === user_id) // 如果已经祝福过， 不再引导祝福
+        vm.barrageList = res.map(item => ({
           id: +new Date() + '' + Math.random() + '' + item.user_id, // 创建唯一 id
-          // avatar: '',
+          // avatar: '//www.baidu.com/favicon.ico',
+          avatar: '',
           msg: item.name + ': ' + item.blessing,
+          barrageStyle: `normal ${item.user_id === user_id ? 'myDanMu' : ''}`,
           time: vm.$tool.randomFrom(4, 8),
           type: 0,
           position: 'bottom',
         }))
       })
     },
+    // 元素飞入动画
     fn(event){
-      var offset = $(".showFormBtn").offset();
-      var sendBtn = $(this);
-      // var img = sendBtn.parent().find('img').attr('src');
+      var offset = $('.showFormBtn').offset()
       var img = this.sendIcon
-      var flyer = $('<img class="u-flyer" src="'+img+'">');
+      var flyer = $(`<img class="u-flyer" src="${img}"/>`)
       flyer.fly({
         start: {
-          left: event.pageX - 50, //开始位置（必填）#fly元素会被设置成position: fixed
-          top: event.pageY - 50 //开始位置（必填）
+          left: event.pageX - 50, // 开始位置（必填）#fly元素会被设置成position: fixed
+          top: event.pageY - 50 // 开始位置（必填）
         },
         end: {
-          left: offset.left + offset.width/2, //结束位置（必填）
-          top: offset.top + offset.width/2, //结束位置（必填）
-          width: 0, //结束时宽度
-          height: 0 //结束时高度
+          left: offset.left + offset.width/2, // 结束位置（必填）
+          top: offset.top + offset.width/2, // 结束位置（必填）
+          width: 0, // 结束时宽度
+          height: 0 // 结束时高度
         },
         onEnd: function(){ //结束回调
-          // sendBtn.css("cursor","default").removeClass('orange').unbind('click');
-          // this.destory(); //移除dom
+          $('img.u-flyer').remove() // 移除dom
         }
-      });
+      })
     },
-    addToList (ev){
+    async add (ev){
       const vm = this
       let {name, blessing} = vm.blessing
-      if(name.trim() && blessing.trim()) {
-        vm.fn(ev)
-        vm.showForm = false
-        vm.sendEd = true
-        vm.$deviceCode.then(user_id => {
-          vm.$fly.post(`/love/${user_id}`, {
-            user_id,
-            name,
-            blessing,
-          })
-          .then((res) => {
-            vm.barrageList.push({
-              id: user_id,
-              // avatar: "./static/avatar.jpg",
-              msg: vm.blessing.name + ': ' + vm.blessing.blessing,
-              // barrageStyle: "normal",
-              time: vm.$tool.randomFrom(4, 8),
-              type: 0,
-              position: 'bottom'
-            })
-          })
-          .catch((err) => {
-            console.log('err', err)
-          })
+      if(name.trim() && blessing.trim()){
+        const user_id = await vm.$deviceCode()
+        vm.$fly.post(`/love/${user_id}`, {
+          user_id,
+          name,
+          blessing,
         })
+        .then(res => {
+          vm.barrageList.push({
+            id: +new Date() + '' + Math.random() + '' + user_id,
+            avatar: '',
+            msg: vm.blessing.name + ': ' + vm.blessing.blessing,
+            barrageStyle: 'normal myDanMu',
+            time: vm.$tool.randomFrom(4, 8),
+            type: 0,
+            position: 'bottom'
+          })
+          vm.fn(ev)
+          vm.showForm = false
+          vm.sendEd = true
+          vm.blessing = {}
+        })
+        .catch(err => {
+          vm.$msg({
+            devCountOverflow: '每个设备只能发送 4 条留言哟',
+            nameCountOverflow: '每个人只能发送 2 条留言哟',
+          }[err.code])
+        })
+      } else {
+        vm.$msg('请先填写名字和内容哟')
       }
     },
   },
-  components: {}
+  components: {
+    toast
+  }
 };
 </script>
 
 <style lang="less">
 .page_blessing {
+  .myDanMu {
+    animation: breath 1.5s;
+    animation-iteration-count:infinite;
+  }
+
   .baberrage-avatar {
-    display: none;
+    // display: none;
+    width: auto !important;
+    img[src=''] {
+      display: none;
+    }
   }
   .breathing {
     box-shadow: 0 0 60px #FFFFFF;
@@ -198,6 +205,7 @@ export default {
   }
 
   .formBox {
+    // background-color: rgba(0,0,0,.2);
     max-width: 640px;;
     overflow: hidden;
 
@@ -242,6 +250,7 @@ export default {
     font-size: 14px;
     line-height: 1.42857143;
     color: #555;
+    font-weight: bold;
     // background-color: transparent;
     background-color: rgba(255,255,255, .2);
     background-image: none;
@@ -258,6 +267,7 @@ export default {
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
+    background-color: #fff;
   }
   textarea.form-control {
     height: auto;

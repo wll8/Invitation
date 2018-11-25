@@ -14,7 +14,6 @@ const Schema = mongoose.Schema
 const blessingSchema = new Schema({
   name: {
     type: String, // 名字
-    unique: true, // mongo 创建唯一索引
     required: true,
   },
   user_id: {
@@ -46,18 +45,36 @@ app.use(
   '/love',
   router
     // 获取所有
-    .get('/', (req, res) => {
-      BlessingModel.find({}, (err, doc) => res.send(err || doc))
+    .get('/', async (req, res) => {
+      res.send(await BlessingModel.find())
     })
     // 获取某人的
-    .get('/:user_id', (req, res) => {
-      const {user_id: userId} = req.params
-      BlessingModel.find({user_id: userId}, (err, doc) => res.send(err || doc))
+    .get('/:user_id', async (req, res) => {
+      const {user_id} = req.params
+      res.send(await BlessingModel.find({user_id}))
     })
     // 添加
-    .post('/:user_id', jsonParser, (req, res) => {
-      const myBlessingModel = new BlessingModel(req.body)
-      myBlessingModel.save(req.body, (err, doc) => res.send(err || doc))
+    .post('/:user_id', jsonParser, async (req, res) => {
+      const {user_id} = req.params
+      const {name = ''} = req.body
+      const devCount = await BlessingModel.find({user_id}).count()
+      const nameCount = await BlessingModel.find({name}).count()
+      // 限制名字及设备写入数量
+      if (devCount >= 4) {
+        // msg 是写给前端开发人员看的， 不是写给用户看的
+        res.status(403).send({ code: 'devCountOverflow', msg: '超出设备数量限制', more: {num: devCount} })
+        return false
+      } else if (nameCount >= 2) {
+        res.status(403).send({ code: 'nameCountOverflow', msg: '超出姓名数量限制', more: {num: nameCount} })
+        return false
+      } else {
+        const myBlessingModel = new BlessingModel(req.body) // 使用 model 验证 body
+        myBlessingModel.save(req.body).then(saveRes => {
+          res.send(saveRes)
+        }).catch(err => {
+          res.status(400).send({ code: 'badReq', msg: '无效的请求内容', more: err })
+        })
+      }
     })
 )
 
