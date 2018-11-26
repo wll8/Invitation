@@ -1,5 +1,24 @@
 import Fingerprint2 from 'fingerprintjs2'
 export default {
+  ctime (inputTime = '20:20') {
+    let arr = '子丑寅卯辰巳午未申酉戌亥'.split('').map((item, index, curArr) => {
+      // 唐前和唐后转换方式不同， 唐前 0:00-2:00 唐后 23:00-1:00 ， 本程序按唐后
+      let date1 = index === 0 ? '23' : index * 2 - 1
+      date1 = date1 < 10 ? '0' + date1 : date1
+      let date2 = index * 2
+      date2 = date2 < 10 ? '0' + date2 : date2
+      return {cn: item, date: `${date1}:00:00-${date2}:59:59`}
+    })
+    let date = '00:01'
+    let temp = '1999/09/09'
+    date = +new Date(`${temp} ${date}`) // 时间字符串横 - mac 不兼容
+    let cdate = arr.find(item => {
+      let date0 = +new Date(`${temp} ${item.date.split('-')[0]}`)
+      let date1 = +new Date(`${temp} ${item.date.split('-')[1]}`)
+      return (date => date0) && (date <= date1)
+    }) || arr[0]
+    return cdate.cn
+  },
   word: [
     '两情相悦', '百年好合', '成双成业', '缘定三生', '良缘夙缔',
     '缔结良缘', '花好月圆', '佳偶天成', '郎才女貌', '佳偶天成',

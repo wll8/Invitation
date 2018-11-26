@@ -45,9 +45,6 @@ Vue.prototype.$tool = tool
 Vue.prototype.$fly = fly
 Vue.prototype.$cfg = cfg
 Vue.prototype.userType = tool.getQueryString('t') || 'boy' // 添加全局变量值
-if (tool.getQueryString('test')) {
-  window.vConsole = new window.VConsole()
-}
 Vue.component('bgimg', bgimg) // 全局注册组件
 
 /* eslint-disable no-new */
