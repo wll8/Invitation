@@ -142,6 +142,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "../assets/css/util.less";
 .page_blessing {
   .myDanMu {
     animation: breath 1.5s;
@@ -351,9 +352,7 @@ export default {
       height: 50px;
       margin-bottom: 4px;
       margin-top: 4px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
+      .mbg(contain);
     }
 
   }

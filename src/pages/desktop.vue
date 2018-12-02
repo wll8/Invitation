@@ -29,11 +29,6 @@
             <source :src="audioMp3" type="audio/mpeg"/>
         </audio>
 
-        <!-- 视频 -->
-        <div v-if="videoShow" class='video' @click="_closeVideo">
-            <img :src="closeImg" class="close" @click="_closeVideo"/>
-            <iframe src="https://v.qq.com/iframe/player.html?vid=d0362vjag67&tiny=0&auto=0" @click="e => e.preventDefault()"></iframe>
-        </div>
     </div>
   </div>
 </template>
@@ -71,6 +66,15 @@ export default {
     _openVideo(ev) {
       console.log('_openVideo', ev)
       this.videoShow = true
+      this.$nextTick(() => {
+        this.$refs.dplayer.dp.on('ended', () => {
+          this.videoShow = false
+          // 播放完毕直接销毁， 以避免微信嵌入广告
+          // 如果不想关闭， 也可在此写回调重新打开
+          // 另一个不显示广告的方法是使用 video 标签并添加 x5-video-player-type="h5" 属性
+        });
+      })
+
     },
 
     _closeVideo(ev) {
@@ -88,25 +92,25 @@ export default {
   components: {
     'd-player': VueDPlayer,
     hotspot: Vue.component('hotspot',{
-        template: `
-          <div :class="['icon', icon]" @click="click">
-            <div v-if="num" :class="['num', 'red-point-animate-' + num]">{{num}}</div>
-            <div class="head">{{head}}</div>
-            <div class="body">{{body}}</div>
-            <div class="foot">{{foot}}</div>
-          </div>
-        `,
-        props: {
-          click: {
-            type: Function,
-            default: () => {},
-          },
-          num: String, // 角标
-          icon: String, // icon 图标
-          head: String, // 头部文字
-          body: String, // 中间文字
-          foot: String, // 下部文字
+      template: `
+        <div :class="['icon', icon]" @click="click">
+          <div v-if="num" :class="['num', 'red-point-animate-' + num]">{{num}}</div>
+          <div class="head">{{head}}</div>
+          <div class="body">{{body}}</div>
+          <div class="foot">{{foot}}</div>
+        </div>
+      `,
+      props: {
+        click: {
+          type: Function,
+          default: () => {},
         },
+        num: String, // 角标
+        icon: String, // icon 图标
+        head: String, // 头部文字
+        body: String, // 中间文字
+        foot: String, // 下部文字
+      },
     }),
   }
 };
@@ -114,7 +118,6 @@ export default {
 
 <style lang="less">
 @import "../assets/css/util.less";
-
 .page_desktop {
   .bg {
     position: absolute;
@@ -172,9 +175,7 @@ export default {
 
   .icon(@icon) {
     background-image: url('../assets/images/icon@{icon}.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    .mbg;
   }
   .icon {
     @media screen and (max-width: 320px) {

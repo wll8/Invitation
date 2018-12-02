@@ -103,6 +103,10 @@ export default {
 </script>
 
 <style lang="less">
+@import "../assets/css/util.less";
+.page_photos {
+  height: 100%;
+
   .swpBox {
     // height: calc(100% - 40px);
     height: 100%;
@@ -114,9 +118,7 @@ export default {
   #swiper-container3 .swiper-slide {
     box-shadow: 1px 2px 4px rgba(0,0,0,.5);
     // overflow: hidden;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    .mbg;
     // background-color: #fff;
     // background-position: 0 -300px;
     // padding: 5px;
@@ -136,9 +138,7 @@ export default {
   #swiper-container3 .swiper-slide .img {
     height: 100%;
     width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    .mbg;
   }
   #swiper-container3 .swiper-slide .bg {
     position: absolute;
@@ -163,9 +163,7 @@ export default {
       height: 100%;
       width: 45%;
       margin: auto;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+      .mbg;
       box-shadow: 1px 2px 4px rgba(0,0,0,.5);
 
       transition: all .5s;
@@ -193,21 +191,19 @@ export default {
       }
     }
   }
-  .page_photos {
-    height: 100%;
-    // .my-swiper-container {
-    //   // width: 12.5%;
-    //   // height: 20px;
-    //   // float: none;
-    //   // overflow: hidden;
-    //   .my-swiper-wrapper {
-    //     .swiper-slide-a {
-    //       text-align: center;
-    //       color: #fff;
-    //       background-color: rgba(0,0,0,.2);
-    //       filter: blur(4px);
-    //     }
-    //   }
-    // }
-  }
+  // .my-swiper-container {
+  //   // width: 12.5%;
+  //   // height: 20px;
+  //   // float: none;
+  //   // overflow: hidden;
+  //   .my-swiper-wrapper {
+  //     .swiper-slide-a {
+  //       text-align: center;
+  //       color: #fff;
+  //       background-color: rgba(0,0,0,.2);
+  //       filter: blur(4px);
+  //     }
+  //   }
+  // }
+}
 </style>

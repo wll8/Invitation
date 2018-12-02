@@ -1,6 +1,6 @@
 <template>
-  <transition name="demo">
-    <div class="toast" v-show="show">
+  <transition name="com_toast">
+    <div class="com_toast" v-show="show">
       {{msg}}
     </div>
   </transition>
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.toast {
+.com_toast {
   position: fixed;
   top: 40%;
   left: 50%;
@@ -31,17 +31,17 @@ export default {
   border-radius: 5px;
 }
 
-.demo-enter-active,
-.demo-leave-active {
+.com_toast-enter-active,
+.com_toast-leave-active {
   transition: 0.3s ease-out;
 }
 
-.demo-enter {
+.com_toast-enter {
   opacity: 0;
   transform: scale(1.2);
 }
 
-.demo-leave-to {
+.com_toast-leave-to {
   opacity: 0;
   transform: scale(0.8);
 }

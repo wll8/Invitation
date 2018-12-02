@@ -1,4 +1,3 @@
-import Fingerprint2 from 'fingerprintjs2'
 export default {
   ctime (inputTime = '20:20') {
     let arr = '子丑寅卯辰巳午未申酉戌亥'.split('').map((item, index, curArr) => {

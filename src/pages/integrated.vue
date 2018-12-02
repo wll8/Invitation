@@ -48,9 +48,9 @@ export default {
   data() {
     return {
       imgList: [
-        'https://c1.staticflickr.com/1/280/31194183824_097a5e5b93_b.jpg',
-        'https://images.freecreatives.com/wp-content/uploads/2016/01/Autumn-Romance-Maple-Leaf-iPhone-5s-Background.jpg',
-        'https://images.unsplash.com/photo-1514897275838-55c3ed3ee738?ixlib=rb-0.3.5&s=6a27c251c8dcbf0fe89aa0e6daf534c5&auto=format&fit=crop&w=1234&q=80',
+        require('../assets/images/31194183824_097a5e5b93_b.jpg'),
+        require('../assets/images/Autumn-Romance-Maple-Leaf-iPhone-5s-Background.jpg'),
+        require('../assets/images/Autumn-Romance-Maple-Leaf-iPhone-5s-Background.jpg'),
       ],
     }
   },

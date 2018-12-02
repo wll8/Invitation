@@ -1,6 +1,6 @@
 <template>
-  <div :class="animate ? 'bg-img bg-img-animate' : 'bg-img'">
-    <div class="bgImg" :style="`background-image: url(${src})`"></div>
+  <div :class="['com_bgimg', animate ? 'bg-img bg-img-animate' : 'bg-img']">
+    <div class="bgImg" :style="`background-color: ${color}; background-image: url(${src})`"></div>
   </div>
 </template>
 
@@ -12,6 +12,7 @@ export default {
   },
   props: {
     src: String,
+    color: String,
     animate: {type: Boolean},
   },
 
@@ -19,29 +20,29 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.bgImg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 @import "../assets/css/util.less";
-
-/*背景大图动画*/
-.bg-img-animate {
+.com_bgimg {
   .bgImg {
-    animation: bgImgAnimate 10s infinite;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .mbg;
   }
-}
 
-@keyframes bgImgAnimate {
-  50% {
-    .transform(scale(1.3))
+  /*背景大图动画*/
+  .bg-img-animate {
+    .bgImg {
+      animation: bgImgAnimate 10s infinite;
+    }
   }
-  100% {
-    .transform(scale(1))
+
+  @keyframes bgImgAnimate {
+    50% {
+      .transform(scale(1.3))
+    }
+    100% {
+      .transform(scale(1))
+    }
   }
 }
 </style>

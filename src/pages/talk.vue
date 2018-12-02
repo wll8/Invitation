@@ -77,15 +77,8 @@ export default {
   text-align: center;
 
   .textInfo {
-
-
-
     .function {
-      width: 80%;
-      display: inline-block;
-      margin-top: 20px;
-
-      width: 80%;
+      width: 70%;
       display: inline-block;
       margin-top: 20px;
       position: absolute;
@@ -115,7 +108,7 @@ export default {
     }
 
     .count-down-title {
-      margin-top: 5%;
+      margin-top: 10%;
       width: 100%;
       text-align: center;
       height: 100%;

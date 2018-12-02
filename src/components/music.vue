@@ -85,20 +85,20 @@ export default {
       position: absolute;
     }
     .music-icon {
-      background: url(../assets/images/music.png) no-repeat;
-      background-size: cover;
+      background-image: url(../assets/images/music.png);
+      .mbg;
     }
     .circle-1 {
-      background: url(../assets/images/circle-1.png) no-repeat;
-      background-size: cover;
+      background-image: url(../assets/images/circle-1.png);
+      .mbg;
     }
     .circle-2 {
-      background: url(../assets/images/circle-2.png) no-repeat;
-      background-size: cover;
+      background-image: url(../assets/images/circle-2.png);
+      .mbg;
     }
     .circle-3 {
-      background: url(../assets/images/circle-3.png) no-repeat;
-      background-size: cover;
+      background-image: url(../assets/images/circle-3.png);
+      .mbg;
     }
   }
 
