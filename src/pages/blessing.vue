@@ -101,7 +101,7 @@ export default {
     },
     async add (ev){
       const vm = this
-      let {name, blessing} = vm.blessing
+      let {name = '', blessing = ''} = vm.blessing
       if(name.trim() && blessing.trim()){
         const user_id = await vm.$deviceCode()
         vm.$fly.post(`/love/${user_id}`, {
