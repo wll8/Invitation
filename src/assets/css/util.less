@@ -1,3 +1,12 @@
+.mbg(@size: cover, @img: '') {
+  background-size: @size;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: 'url(@{img})';
+  // 问题
+  // background-image: 'url(@{img})'; // 这里写引号浏览器解析不了， 不写会报错， 怎么办
+}
+
 .transform(@value) {
   transform: @value;
 }
