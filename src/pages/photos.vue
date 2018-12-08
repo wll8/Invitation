@@ -5,7 +5,7 @@
       <div class="swiper-container" id="swiper-container3" style="max-width:640px; margin:0 auto; position:relative;">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in coverList">
-            <div class="img" :style="`background-image: url(${`${item.img}`})`"></div>
+            <div class="img" :style="`background-image: url(${item.img}); background-position: ${item.pos || 'center'}`"></div>
             <div class="bg">&nbsp;</div>
             <!-- <div class="bg">{{word[$tool.randomFrom(0, (word.length - 1))]}}</div> -->
           </div>
@@ -16,7 +16,7 @@
       <div class="swiper-container" id="swiper-container2">
         <div class="swiper-wrapper">
           <div :class="['swiper-slide', {'active-nav': index === 0}]" v-for="(item, index) in coverList">
-            <div class="img" :style="`background-image: url(${`${item.img}`})`"></div>
+            <div class="img" :style="`background-image: url(${item.img})`"></div>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@ export default {
         {img: require('../assets/images/myimg/5.jpg')},
         {img: require('../assets/images/myimg/6.jpg')},
         {img: require('../assets/images/myimg/14.jpg')},
-        {img: require('../assets/images/myimg/15.jpg')},
+        {pos: 'top', img: require('../assets/images/myimg/15.jpg')},
         {img: require('../assets/images/myimg/16.jpg')},
         {img: require('../assets/images/myimg/21.jpg')},
         {img: require('../assets/images/myimg/25.jpg')},
@@ -51,11 +51,11 @@ export default {
         {img: require('../assets/images/myimg/2.jpg')},
         {img: require('../assets/images/myimg/8.jpg')},
         {img: require('../assets/images/myimg/9.jpg')},
-        {img: require('../assets/images/myimg/3.jpg')},
+        {pos: 'top', img: require('../assets/images/myimg/3.jpg')},
         {img: require('../assets/images/myimg/17.jpg')},
         {img: require('../assets/images/myimg/19.jpg')},
         {img: require('../assets/images/myimg/20.jpg')},
-        {img: require('../assets/images/myimg/23.jpg')},
+        {pos: 'bottom', img: require('../assets/images/myimg/23.jpg')},
         {img: require('../assets/images/myimg/24.jpg')},
       ]
     }

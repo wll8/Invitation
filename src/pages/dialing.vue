@@ -7,9 +7,9 @@
       </div>
     </div>
     <div class="telBox">
-      <a :href="`tel:${item.tel}`" :class="['telItem', item.class]" v-for="item in [{name: '新郎', tel: 18868875314, class: 'animation1'}, {name: '新娘', tel: 18868875314, class: 'animation2'}]">
+      <a :href="`tel:${item.tel}`" :class="['telItem', item.class]" v-for="item in itemList">
         <div class="member">
-          <div class="text name">新郎</div>
+          <div class="text name">{{item.name}}</div>
           <div class="text dev">手机</div>
         </div>
         <div class="time">
@@ -24,9 +24,9 @@
         <div class="iconImg" :style="`background-image: url('${require('../assets/images/star.png')}');`"></div>
         <div class="iconText">个人收藏</div>
       </div>
-      <div class="icon">
+      <div class="icon cur">
         <div class="iconImg" :style="`background-image: url('${require('../assets/images/time.png')}')`"></div>
-        <div class="iconText cur">最近通话</div>
+        <div class="iconText">最近通话</div>
       </div>
       <div class="icon">
         <div class="iconImg" :style="`background-image: url('${require('../assets/images/man.png')}');`"></div>
@@ -47,6 +47,18 @@ export default {
   name: 'page_dialing',
   data() {
     return {
+      itemList: [
+        {
+          name: '新郎',
+          tel: 18868875314,
+          class: 'animation1',
+        },
+        {
+          name: '新娘',
+          tel: 18868875314,
+          class: 'animation2',
+        },
+      ],
       audioMp3: require('../assets/audio/dong.mp3'),
       bgImg: require('../assets/images/bg2.jpg'),
       returnImg: require('../assets/images/return.png'),
@@ -108,7 +120,7 @@ export default {
   }
 
   .telBox {
-    height: 50px;
+    overflow: hidden;
     width: 100%;
     position: absolute;
     top: 50px;
@@ -132,12 +144,13 @@ export default {
       &::after {
         display: block;
         content: '';
-        width: 22px;
+        width: 10%;
         height: 22px;
         position: absolute;
         top: 20px;
-        left: 10px;
+        left: 0;
         .mbg(cover, '../assets/images/phone.png');
+        background-size: auto;
         background-image: url('../assets/images/phone.png');
       }
 
@@ -197,14 +210,13 @@ export default {
     border-top: 1px solid #c4c4c4;
     position: absolute;
     bottom: 0;
-    width: 60%;
-    padding-right: 40%;
+    width: 100%;
+    // padding-right: 40%;
     padding-bottom: 4px;
     padding-top: 4px;
     background: #f9f9f9;
 
     .icon {
-
       width: 33%;
       float: left;
       text-align: center;
@@ -219,8 +231,10 @@ export default {
         font-size: 12px;
         color: #929292;
       }
-      .iconText.cur {
-        color: #007aff;
+      &.cur {
+        .iconText {
+          color: #007aff;
+        }
       }
     }
   }

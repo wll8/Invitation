@@ -46,7 +46,7 @@ export default {
         screenshot: true,
         video: {
           url: require('../assets/video/video.mp4'),
-          pic: require('../assets/images/play_640.png'),
+          pic: require('../assets/images/play_640.jpg'),
         },
         autoplay: false,
       },

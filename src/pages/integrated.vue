@@ -49,8 +49,9 @@ export default {
     return {
       imgList: [
         require('../assets/images/31194183824_097a5e5b93_b.jpg'),
+        // require('../assets/images/00320.jpg'),
         require('../assets/images/Autumn-Romance-Maple-Leaf-iPhone-5s-Background.jpg'),
-        require('../assets/images/Autumn-Romance-Maple-Leaf-iPhone-5s-Background.jpg'),
+        require('../assets/images/photo-1514897275838-55c3ed3ee738.jpeg'),
       ],
     }
   },
