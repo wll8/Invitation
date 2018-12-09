@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       animateStep: 0,
-      bgImg: require('../assets/images/myimg/6.jpg'),
+      bgImg: require('../assets/images/myimg/9.jpg'),
       borderImg: require('../assets/images/photo-border.png'),
       blackWhiteImg: require('../assets/images/black-white.png'),
       blackImg: require('../assets/images/black.jpg'),

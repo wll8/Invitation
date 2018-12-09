@@ -44,7 +44,7 @@ Vue.prototype.$g = require('./components/g.vue').default
 Vue.prototype.$tool = tool
 Vue.prototype.$fly = fly
 Vue.prototype.$cfg = cfg
-Vue.prototype.userType = tool.getQueryString('t') || 'boy' // 添加全局变量值
+Vue.prototype.$userType = tool.getQueryString('t') || 'boy' // 添加全局变量值
 Vue.component('bgimg', bgimg) // 全局注册组件
 
 /* eslint-disable no-new */

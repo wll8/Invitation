@@ -9,7 +9,7 @@
         <img class="hung-up" :src="hungUpImg" @click="()=>this._redirectToDesktop()"/>
       </div>
       <audio class="hidden" id="talk-audio">
-        <source :src="userType === 'boy' ? boyMp3 : girlMp3" type="audio/mpeg"/>
+        <source :src="$userType === 'boy' ? boyMp3 : girlMp3" type="audio/mpeg"/>
       </audio>
     </div>
   </div>
@@ -20,7 +20,6 @@ export default {
   name: 'page_talk',
   data() {
     return {
-      userType: this.userType,
       interval: undefined,
       audioTimer: undefined,
       timestamp: Date.parse(new Date()) / 1000,

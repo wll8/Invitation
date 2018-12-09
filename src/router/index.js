@@ -10,6 +10,7 @@ import dialing from '@/pages/dialing.vue'
 import wechat from '@/pages/wechat.vue'
 import photograph from '@/pages/photograph.vue'
 import integrated from '@/pages/integrated.vue'
+import invite from '@/pages/invite.vue'
 import photos from '@/pages/photos.vue'
 import map from '@/pages/map.vue'
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/date',
       name: 'date',
       component: date,
+    },
+    {
+      path: '/invite',
+      name: 'invite',
+      component: invite,
     },
     {
       path: '/dialing',
