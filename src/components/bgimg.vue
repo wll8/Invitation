@@ -1,5 +1,5 @@
 <template>
-  <div :class="['com_bgimg', animate ? 'bg-img bg-img-animate' : 'bg-img']">
+  <div :class="['com_bgimg bg-img', {'bg-img-animate': animate}]">
     <div class="bgImg" :style="`background-color: ${color}; background-image: url(${src})`"></div>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
   }
 
   /*背景大图动画*/
-  .bg-img-animate {
+  &.bg-img-animate {
     .bgImg {
       animation: bgImgAnimate 10s infinite;
     }
