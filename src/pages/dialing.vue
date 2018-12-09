@@ -34,7 +34,6 @@
       </div>
     </div>
     <!-- <Back /> -->
-    <!-- <img class="return" :src="returnImg" :click="() => 1" /> -->
     <audio class="hidden" id="dialing-audio">
       <source :src="audioMp3" type="audio/mpeg" />
     </audio>

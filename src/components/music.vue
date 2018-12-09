@@ -1,13 +1,13 @@
 <template>
   <div class="com_music" :class="play ? 'music music-play' : ' music'" @click="_toggle()">
-      <i class="music-icon"></i>
-      <i class="circle circle-1"></i>
-      <i class="circle circle-2"></i>
-      <i class="circle circle-3"></i>
+    <i class="music-icon"></i>
+    <i class="circle circle-1"></i>
+    <i class="circle circle-2"></i>
+    <i class="circle circle-3"></i>
 
-      <audio class="hidden" loop id="bgm">
-          <source :src="bgm" type="audio/mpeg"/>
-      </audio>
+    <audio class="hidden" loop id="bgm">
+      <source :src="bgm" type="audio/mpeg"/>
+    </audio>
   </div>
 </template>
 

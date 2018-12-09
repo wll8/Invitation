@@ -38,53 +38,53 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "../assets/css/util.less";
+@import "../assets/css/util.less";
 
-  .page_call {
-    .btnBox {
-      width: 300px;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      position: absolute;
-      bottom: 80px;
-      margin: auto;
-      left: 0;
-      right: 0;
-      img {
-        margin-bottom: 20px;
-      }
-    }
-    .answer {
-      .animation(call-answer-animation 2s infinite);
-    }
-
-    /*接听按钮动画*/
-    @keyframes call-answer-animation {
-      20% {
-        .transform(scale(1.1) rotate(0deg))
-      }
-      30% {
-        .transform(scale(1.1) rotate(10deg))
-      }
-      40% {
-        .transform(scale(1.1) rotate(-10deg))
-      }
-      50% {
-        .transform(scale(1.1) rotate(10deg))
-      }
-      60% {
-        .transform(scale(1.1) rotate(-10deg))
-      }
-      70% {
-        .transform(scale(1.1) rotate(10deg))
-      }
-      80% {
-        .transform(scale(1.1) rotate(-10deg))
-      }
-      90% {
-        .transform(scale(1.1) rotate(10deg))
-      }
+.page_call {
+  .btnBox {
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 80px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    img {
+      margin-bottom: 20px;
     }
   }
+  .answer {
+    .animation(call-answer-animation 2s infinite);
+  }
+
+  /*接听按钮动画*/
+  @keyframes call-answer-animation {
+    20% {
+      .transform(scale(1.1) rotate(0deg))
+    }
+    30% {
+      .transform(scale(1.1) rotate(10deg))
+    }
+    40% {
+      .transform(scale(1.1) rotate(-10deg))
+    }
+    50% {
+      .transform(scale(1.1) rotate(10deg))
+    }
+    60% {
+      .transform(scale(1.1) rotate(-10deg))
+    }
+    70% {
+      .transform(scale(1.1) rotate(10deg))
+    }
+    80% {
+      .transform(scale(1.1) rotate(-10deg))
+    }
+    90% {
+      .transform(scale(1.1) rotate(10deg))
+    }
+  }
+}
 </style>

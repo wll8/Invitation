@@ -62,11 +62,23 @@ export default {
     }
     return day
   },
-  play (eId) {
-    document.getElementById(eId).play()
+  play (eId, audio) {
+    if (audio) {
+      const audioElement = document.getElementById(eId)
+      audioElement.src = audio
+      audioElement.play()
+    } else {
+      document.getElementById(eId).play()
+    }
   },
-  pause (eId) {
-    document.getElementById(eId).pause()
+  pause (eId, audio) {
+    if (audio) {
+      const audioElement = document.getElementById(eId)
+      audioElement.src = audio
+      audioElement.pause()
+    } else {
+      document.getElementById(eId).pause()
+    }
   },
   getQueryString (name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')

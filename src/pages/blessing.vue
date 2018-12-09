@@ -24,13 +24,10 @@
       </button>
     </div>
     <div :class="['showFormBtn', {show: sendEd}]" @click="showForm = !showForm">祝 福</div>
-    <toast/>
   </div>
 </template>
 
 <script>
-import toast from '@/components/toast.vue'
-
 export default {
   name: 'page_blessing',
   data(){
@@ -135,9 +132,7 @@ export default {
       }
     },
   },
-  components: {
-    toast
-  }
+  components: {}
 };
 </script>
 

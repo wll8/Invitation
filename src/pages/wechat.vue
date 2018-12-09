@@ -29,7 +29,6 @@
       </div>
     </div>
     <!-- <Back /> -->
-    <!-- <img class="return" :src="returnImg" :click="() => 1" /> -->
     <audio class="hidden" id="wechat-audio">
       <source :src="audioMp3" type="audio/mpeg" />
     </audio>
@@ -73,9 +72,7 @@ export default {
   },
   methods: {
     _playAudio(type) {
-      const audioElement = document.getElementById('wechat-audio')
-      audioElement.src = this.itemList.find(item => item.key === type).audio
-      audioElement.play()
+      this.$tool.play('wechat-audio', this.itemList.find(item => item.key === type).audio)
     },
   },
   components: {}

@@ -60,7 +60,7 @@ export default {
     }
   },
   mounted() {
-    var mySwiper2 = new Swiper('#swiper-container2',{
+    var mySwiper2 = new Swiper('#swiper-container2', {
       watchSlidesProgress: true,
       watchSlidesVisibility: true,
       slidesPerView: 5,
@@ -68,7 +68,7 @@ export default {
         mySwiper3.slideTo(mySwiper2.clickedIndex)
       }
     })
-    var mySwiper3 = new Swiper('#swiper-container3',{
+    var mySwiper3 = new Swiper('#swiper-container3', {
       // loop: true,
       prevButton:'.swiper-button-prev',
       nextButton:'.swiper-button-next',
