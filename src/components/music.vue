@@ -38,21 +38,19 @@ export default {
   methods: {
     _play() {
         this.play = true
-        const bgm = document.getElementById('bgm');
-        bgm.play();
+        this.$tool.play('bgm')
     },
 
     _pause() {
         this.play = false
-        const bgm = document.getElementById('bgm');
-        bgm.pause();
+        this.$tool.pause('bgm')
     },
 
     _toggle() {
         if (this.play) {
-            this._pause();
+            this._pause()
         } else {
-            this._play();
+            this._play()
         }
     },
   },

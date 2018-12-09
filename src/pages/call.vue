@@ -9,7 +9,7 @@
         <img class="answer" src="../assets/images/answer.png" @click="()=>this._redirectToTalk()"/>
       </div>
     </div>
-    <audio class="hidden" id="call-audio" autoPlay loop>
+    <audio class="hidden" autoPlay id="call-audio" autoPlay loop>
       <source src="../assets/audio/calls.mp3" type="audio/ogg"/>
       <source src="../assets/audio/calls.ogg" type="audio/ogg"/>
     </audio>
@@ -24,9 +24,7 @@ export default {
       bgimgSrc: require('../assets/images/myimg/14.jpg'),
     };
   },
-  mounted() {
-    this.$tool.autoPlay('call-audio')
-  },
+  mounted() {},
   computed: {},
   created() {},
   methods: {

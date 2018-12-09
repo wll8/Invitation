@@ -68,8 +68,7 @@ export default {
   created() {},
   mounted() {
     setTimeout(()=> {
-      this.$tool.autoPlay('wechat-audio')
-      document.getElementById('wechat-audio').play()
+      this.$tool.play('wechat-audio')
     }, 100)
   },
   methods: {

@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import coverflow from 'vue-coverflow'
 export default {
   name: 'page_photos',
   data() {
@@ -98,7 +97,6 @@ export default {
   computed: {},
   created() {},
   methods: {},
-  components: {coverflow}
 };
 </script>
 

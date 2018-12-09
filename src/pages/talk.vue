@@ -37,8 +37,7 @@ export default {
     }, 1000)
     /* 音频延迟 0.1 秒播放 */
     this.audioTimer = setTimeout(()=> {
-        this.$tool.autoPlay('talk-audio')
-        document.getElementById('talk-audio').play()
+        this.$tool.play('talk-audio')
     }, 100)
   },
   destroyed () {

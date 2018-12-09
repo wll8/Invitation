@@ -69,8 +69,7 @@ export default {
   created() {},
   mounted() {
     setTimeout(()=> {
-      this.$tool.autoPlay('dialing-audio')
-      document.getElementById('dialing-audio').play()
+      this.$tool.play('dialing-audio')
     }, 100)
   },
   methods: {},

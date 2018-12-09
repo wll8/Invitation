@@ -1,4 +1,12 @@
 export default {
+  iswx () {
+    var ua = window.navigator.userAgent.toLowerCase()
+    if (ua.match(/MicroMessenger/i) === 'micromessenger' || ua.match(/_SQ_/i) === '_sq_') {
+      return true
+    } else {
+      return false
+    }
+  },
   ctime (inputTime = '20:20') {
     let arr = '子丑寅卯辰巳午未申酉戌亥'.split('').map((item, index, curArr) => {
       // 唐前和唐后转换方式不同， 唐前 0:00-2:00 唐后 23:00-1:00 ， 本程序按唐后
@@ -54,19 +62,11 @@ export default {
     }
     return day
   },
-  autoPlay (eId) {
-    window.wx.config({
-      // 配置信息, 即使不正确也能使用 wx.ready
-      debug: false,
-      appId: '',
-      timestamp: 1,
-      nonceStr: '',
-      signature: '',
-      jsApiList: []
-    })
-    window.wx.ready(() => {
-      document.getElementById(eId).play()
-    })
+  play (eId) {
+    document.getElementById(eId).play()
+  },
+  pause (eId) {
+    document.getElementById(eId).pause()
   },
   getQueryString (name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')

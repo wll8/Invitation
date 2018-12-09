@@ -60,7 +60,7 @@ export default {
   },
   computed: {},
   mounted () {
-    this.$tool.autoPlay('desktop-audio')
+    this.$tool.play('desktop-audio')
   },
   methods: {
     _openVideo(ev) {
