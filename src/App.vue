@@ -2,7 +2,9 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <music :path="$route.name"/>
-    <router-view/>
+    <transition :name="transitionName">
+      <router-view class="child-view"/>
+    </transition>
   </div>
 </template>
 
@@ -11,6 +13,11 @@ import music from './components/music.vue';
 import Fingerprint2 from 'fingerprintjs2'
 export default {
   name: 'App',
+  data(){
+    return {
+      transitionName: 'slide-left',
+    }
+  },
   mounted(){
     // 禁止页面左右滑动， 否则会产生一些 swiper 相关的 bug
     document.addEventListener('touchmove', ev => ev.preventDefault(), false);
@@ -122,6 +129,13 @@ export default {
     // textShow(window, document)
 
   },
+  watch: {
+    '$route' (to, from) {
+      const arr = this.$router.options.routes.map(item => item.path)
+      const compare = arr.indexOf(to.path) > arr.indexOf(from.path)
+      this.transitionName = compare ? 'slide-right' : 'slide-left'
+    }
+  },
   components: {
     music
   }
@@ -131,5 +145,20 @@ export default {
 <style lang="less">
 #app {
   height: 100%;
+
+  .child-view {
+    width: 100%;
+    height: 100%;
+    transition: all .2s cubic-bezier(.55,0,.1,1);
+  }
+  .slide-left-enter, .slide-right-leave-active {
+    opacity: 0;
+    transform: translate(10px, 0);
+  }
+  .slide-left-leave-active, .slide-right-enter {
+    opacity: 0;
+    transform: translate(-10px, 0);
+  }
+
 }
 </style>
