@@ -45,22 +45,20 @@ export default {
         {
           key: 'boy',
           name: '新郎',
-          audio: require('../assets/audio/wechat-boy.mp3'),
+          audio: this.$cfg.wechat.boy.audio,
           class: 'animation1',
-          img: require('../assets/images/myimg/head1.jpg'),
+          img: this.$cfg.wechat.boy.img,
         },
         {
           key: 'girl',
           name: '新娘',
-          audio: require('../assets/audio/wechat-girl.mp3'),
+          audio: this.$cfg.wechat.girl.audio,
           class: 'animation2',
-          img: require('../assets/images/myimg/head2.jpg'),
+          img: this.$cfg.wechat.girl.img,
         },
       ],
       audioMp3: require('../assets/audio/dong.mp3'),
-      bgImg: require('../assets/images/bg2.jpg'),
       returnImg: require('../assets/images/return.png'),
-      itemImg: require('../assets/images/phone-item.jpg'),
     }
   },
   computed: {},
@@ -108,7 +106,7 @@ export default {
         position: absolute;
         top: 8px;
         left: 10px;
-        .mbg(cover, '../assets/images/phone.png');
+        .mbg;
         background-image: url('../assets/images/phone.png');
       }
 

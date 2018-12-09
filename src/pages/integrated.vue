@@ -15,7 +15,7 @@
         :imgSrc="require('../assets/images/circle-2-1.png')"
         title="播映快照"
         intro="独家收藏"
-        :click="() => $router.push('snapshot')"
+        :click="() => $router.push('photos')"
       />
       <integrateditem
         position="item-3"
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       whiteCircleImg: require('../assets/images/white-circle.png'),
-      bgimgSrc: require('../assets/images/myimg/5.jpg'),
+      bgimgSrc: this.$cfg.pageImg.integrated,
     };
   },
   computed: {},

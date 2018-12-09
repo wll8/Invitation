@@ -4,15 +4,9 @@
     <div class="text-box">
       <div class="text-title">
         <p class="english">Our invitation</p>
-        <p>金龙 & 蛋蛋的邀约</p>
+        <p>{{$cfg.inviteText.title}}</p>
       </div>
-      <div class="text-content">
-        <p>各位亲朋好友：</p>
-        <p v-if="$userType === 'boy'">诚挚邀请您于2017年1月31日，星期二，08:00参加金龙和蛋蛋的结婚典礼。</p>
-        <p v-else>诚挚邀请您于2017年2月4日，星期六，11:00参加金龙和蛋蛋的结婚典礼。</p>
-        <p>您的到来是对我们最好的祝福，敬备喜宴，恭请光临。</p>
-        <p>杭州的小伙伴，年后回杭另设宴席。</p>
-      </div>
+      <div class="text-content">{{$cfg.inviteText[$userType]}}</div>
     </div>
   </div>
 </template>
@@ -23,7 +17,7 @@ export default {
   name: 'page_invite',
   data() {
     return {
-      bgimgSrc: require('../assets/images/myimg/6.jpg'),
+      bgimgSrc: this.$cfg.pageImg.invite,
     }
   },
   computed: {},
@@ -61,6 +55,7 @@ export default {
       }
     }
     .text-content {
+      white-space: pre-wrap;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.45);
       color: black;

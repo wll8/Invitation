@@ -4,7 +4,7 @@
     <div class="mask full-screen">
       <div class="textInfo">
         <div class="count-down-title">婚礼倒计时</div>
-        <div class="count-down-time">{{timestamp | _countDown}}</div>
+        <div class="count-down-time">{{timestamp | _countDown(endTimestamp)}}</div>
         <img class="function" :src="functionImg"/>
         <img class="hung-up" :src="hungUpImg" @click="()=>this._redirectToDesktop()"/>
       </div>
@@ -23,9 +23,10 @@ export default {
       interval: undefined,
       audioTimer: undefined,
       timestamp: Date.parse(new Date()) / 1000,
-      boyMp3: require('../assets/audio/talk.mp3'),
-      girlMp3: require('../assets/audio/talk-girl.mp3'),
-      bgimgSrc: require('../assets/images/myimg/18.jpg'),
+      endTimestamp: Date.parse(this.$cfg.date[this.$userType]) / 1000,
+      boyMp3: this.$cfg.pageMp3.talk.boy,
+      girlMp3: this.$cfg.pageMp3.talk.girl,
+      bgimgSrc: this.$cfg.pageImg.talk,
       functionImg: require('../assets/images/function2.png'),
       hungUpImg: require('../assets/images/hung-up.png'),
     }
@@ -44,8 +45,8 @@ export default {
     this.audioTimer && clearTimeout(this.audioTimer)
   },
   filters: {
-    _countDown(timestamp) {
-      var endTimestamp = 1577808000
+    _countDown(timestamp, endTimestamp) {
+      var endTimestamp = endTimestamp
       if (timestamp == 0 || timestamp >= endTimestamp) {
         return '(已超过时间)'
       }

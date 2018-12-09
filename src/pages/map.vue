@@ -15,20 +15,10 @@ export default {
   },
   computed: {
     addrInfo() {
-      // 使用此工具可查询经纬度
-      // //www.gpsspg.com/maps.htm
       return {
-        // boy: {
-        //   name: '男方地址',
-        //   position: [999.9999000000, 999.9999000000],
-        // },
-        // girl: {
-        //   name: '女方地址',
-        //   position: [999.9999000000, 999.9999000000],
-        // },
         boy: this.$cfg.addr.boy,
         girl: this.$cfg.addr.girl,
-      }[this.userType]
+      }[this.$userType]
     }
   },
   mounted(){

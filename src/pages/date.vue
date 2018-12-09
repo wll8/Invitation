@@ -5,9 +5,9 @@
     <div class="section page-when page page-cent" id="s-when">
       <section class="content">
         <div class="clock clock-countdown">
-          <div class="site-config" data-date="01/01/2019 15:30:00" data-date-timezone="+0"></div>
+          <div class="site-config" :data-date="$cfg.date[$userType]" data-date-timezone="+0"></div>
           <header class="header">
-            <strong>倒计时</strong>
+            <strong>婚礼倒计时</strong>
             <!-- <div>2019-10-31 23:00</div> -->
           </header>
           <div class="elem-left">
@@ -49,7 +49,6 @@ export default {
     return {
       imgList: [
         require('../assets/images/31194183824_097a5e5b93_b.jpg'),
-        // require('../assets/images/00320.jpg'),
         require('../assets/images/Autumn-Romance-Maple-Leaf-iPhone-5s-Background.jpg'),
         require('../assets/images/photo-1514897275838-55c3ed3ee738.jpeg'),
       ],

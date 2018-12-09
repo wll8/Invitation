@@ -49,19 +49,17 @@ export default {
       itemList: [
         {
           name: '新郎',
-          tel: 18868875314,
+          tel: this.$cfg.phone.boy,
           class: 'animation1',
         },
         {
           name: '新娘',
-          tel: 18868875314,
+          tel: this.$cfg.phone.girl,
           class: 'animation2',
         },
       ],
       audioMp3: require('../assets/audio/dong.mp3'),
-      bgImg: require('../assets/images/bg2.jpg'),
       returnImg: require('../assets/images/return.png'),
-      itemImg: require('../assets/images/phone-item.jpg'),
     }
   },
   computed: {},
@@ -147,7 +145,7 @@ export default {
         position: absolute;
         top: 20px;
         left: 0;
-        .mbg(cover, '../assets/images/phone.png');
+        .mbg;
         background-size: auto;
         background-image: url('../assets/images/phone.png');
       }

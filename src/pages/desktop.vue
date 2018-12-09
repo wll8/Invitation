@@ -25,7 +25,6 @@
 
         </div>
         <audio class="hidden" autoPlay id="desktop-audio">
-          <source :src="audioOgg" type="audio/ogg"/>
           <source :src="audioMp3" type="audio/mpeg"/>
         </audio>
 
@@ -45,15 +44,14 @@ export default {
       options: {
         screenshot: true,
         video: {
-          url: require('../assets/video/video.mp4'),
-          pic: require('../assets/images/play_640.jpg'),
+          url: this.$cfg.video.url,
+          pic: this.$cfg.video.pic,
         },
         autoplay: false,
       },
-      bgimgSrc: require('../assets/images/myimg/6.jpg'),
+      bgimgSrc: this.$cfg.pageImg.desktop,
       videoShow: false,
-      audioOgg: require('../assets/audio/duang.ogg'),
-      audioMp3: require('../assets/audio/duang.mp3'),
+      audioMp3: this.$cfg.pageMp3.desktop,
       closeImg: '',
       iconImg: require('../assets/images/icon.png'),
     }

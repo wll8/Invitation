@@ -30,33 +30,8 @@ export default {
   data() {
     return {
       word: this.$tool.word,
-      bgimgSrc: require('../assets/images/photos-bg.jpg'),
-      coverList: [
-        {img: require('../assets/images/myimg/13.jpg')},
-        {img: require('../assets/images/myimg/18.jpg')},
-        {img: require('../assets/images/myimg/10.jpg')},
-        {img: require('../assets/images/myimg/11.jpg')},
-        {img: require('../assets/images/myimg/9.jpg')},
-        {img: require('../assets/images/myimg/5.jpg')},
-        {img: require('../assets/images/myimg/6.jpg')},
-        {img: require('../assets/images/myimg/14.jpg')},
-        {pos: 'top', img: require('../assets/images/myimg/15.jpg')},
-        {img: require('../assets/images/myimg/16.jpg')},
-        {img: require('../assets/images/myimg/21.jpg')},
-        {img: require('../assets/images/myimg/25.jpg')},
-        {img: require('../assets/images/myimg/4.jpg')},
-        {img: require('../assets/images/myimg/1.jpg')},
-        {img: require('../assets/images/myimg/7.jpg')},
-        {img: require('../assets/images/myimg/2.jpg')},
-        {img: require('../assets/images/myimg/8.jpg')},
-        {img: require('../assets/images/myimg/9.jpg')},
-        {pos: 'top', img: require('../assets/images/myimg/3.jpg')},
-        {img: require('../assets/images/myimg/17.jpg')},
-        {img: require('../assets/images/myimg/19.jpg')},
-        {img: require('../assets/images/myimg/20.jpg')},
-        {pos: 'bottom', img: require('../assets/images/myimg/23.jpg')},
-        {img: require('../assets/images/myimg/24.jpg')},
-      ]
+      bgimgSrc: this.$cfg.pageImg.photos,
+      coverList: this.$cfg.photos
     }
   },
   mounted() {

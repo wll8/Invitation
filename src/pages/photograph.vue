@@ -1,7 +1,8 @@
 <template>
   <div class="page_photograph">
     <div :class="_getAnimagetClass">
-      <img :src="bgImg" class="photo">
+      <!-- <img :src="bgImg" class="photo"> -->
+      <div class="photo" :style="`background-image: url(${bgImg})`" />
       <img :src="blackWhiteImg" class="black-white">
       <img :src="borderImg" class="photo-border">
       <div class="photograph-focus"></div>
@@ -25,7 +26,7 @@ export default {
   data() {
     return {
       animateStep: 0,
-      bgImg: require('../assets/images/myimg/9.jpg'),
+      bgImg: this.$cfg.pageImg.photograph,
       borderImg: require('../assets/images/photo-border.png'),
       blackWhiteImg: require('../assets/images/black-white.png'),
       blackImg: require('../assets/images/black.jpg'),
@@ -119,6 +120,9 @@ export default {
 @import "../assets/css/util.less";
 
 .page_photograph {
+  .photo {
+    .mbg;
+  }
   .animate {
     .photo {
       .full-screen;

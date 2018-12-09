@@ -10,8 +10,7 @@
       </div>
     </div>
     <audio class="hidden" autoPlay id="call-audio" autoPlay loop>
-      <source src="../assets/audio/calls.mp3" type="audio/ogg"/>
-      <source src="../assets/audio/calls.ogg" type="audio/ogg"/>
+      <source :src="$cfg.pageMp3.call" type="audio/ogg"/>
     </audio>
   </div>
 </template>
@@ -21,7 +20,7 @@ export default {
   name: 'page_call',
   data() {
     return {
-      bgimgSrc: require('../assets/images/myimg/14.jpg'),
+      bgimgSrc: this.$cfg.pageImg.call,
     };
   },
   mounted() {},
