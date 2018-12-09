@@ -10,7 +10,7 @@
           </div>
 
           <div class="top iconBox">
-            <hotspot :click="() => $router.push('/integrated')" icon="icon2" head="一月" body="31" foot="日期"/>
+            <hotspot :click="() => $router.push('/date')" icon="icon2" head="一月" body="31" foot="日期"/>
             <hotspot :click="_openVideo" icon="icon3" foot="视频"/>
             <hotspot :click="() => $router.push('/photos')" icon="icon4" foot="相册"/>
             <hotspot :click="() => $router.push('/blessing')" icon="icon5" foot="祝福"/>
@@ -19,14 +19,14 @@
           <div class="buttom iconBox">
             <hotspot :click="() => $router.push('/dialing')" num="2" icon="icon6"/>
             <hotspot :click="() => $router.push('/wechat')" num="1" icon="icon7"/>
-            <hotspot :click="() => $router.push('/blessing')" num="3" icon="icon8"/>
+            <hotspot :click="() => $router.push('/photograph')" num="3" icon="icon8"/>
             <hotspot :click="() => $router.push('/map')" num="1" icon="icon9"/>
           </div>
 
         </div>
         <audio class="hidden" autoPlay id="desktop-audio">
-            <source :src="audioOgg" type="audio/ogg"/>
-            <source :src="audioMp3" type="audio/mpeg"/>
+          <source :src="audioOgg" type="audio/ogg"/>
+          <source :src="audioMp3" type="audio/mpeg"/>
         </audio>
 
     </div>
@@ -91,7 +91,7 @@ export default {
   },
   components: {
     'd-player': VueDPlayer,
-    hotspot: Vue.component('hotspot',{
+    hotspot: Vue.component('hotspot', {
       template: `
         <div :class="['icon', icon]" @click="click">
           <div v-if="num" :class="['num', 'red-point-animate-' + num]">{{num}}</div>

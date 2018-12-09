@@ -4,10 +4,12 @@ import t from '@/pages/t.vue'
 import call from '@/pages/call.vue'
 import talk from '@/pages/talk.vue'
 import desktop from '@/pages/desktop.vue'
-import integrated from '@/pages/integrated.vue'
+import date from '@/pages/date.vue'
 import blessing from '@/pages/blessing.vue'
 import dialing from '@/pages/dialing.vue'
 import wechat from '@/pages/wechat.vue'
+import photograph from '@/pages/photograph.vue'
+import integrated from '@/pages/integrated.vue'
 import photos from '@/pages/photos.vue'
 import map from '@/pages/map.vue'
 
@@ -31,9 +33,9 @@ export default new Router({
       component: desktop,
     },
     {
-      path: '/integrated',
-      name: 'integrated',
-      component: integrated,
+      path: '/date',
+      name: 'date',
+      component: date,
     },
     {
       path: '/dialing',
@@ -44,6 +46,16 @@ export default new Router({
       path: '/wechat',
       name: 'wechat',
       component: wechat,
+    },
+    {
+      path: '/photograph',
+      name: 'photograph',
+      component: photograph,
+    },
+    {
+      path: '/integrated',
+      name: 'integrated',
+      component: integrated,
     },
     {
       path: '/blessing',

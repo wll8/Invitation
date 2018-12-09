@@ -1,260 +1,209 @@
 <template>
   <div class="page_integrated">
-    <bgimg :src="imgList[$tool.randomFrom(0, imgList.length - 1)]"/>
-    <!-- Begin of timer page -->
-    <div class="section page-when page page-cent" id="s-when">
-      <section class="content">
-        <div class="clock clock-countdown">
-          <div class="site-config" data-date="01/01/2019 15:30:00" data-date-timezone="+0"></div>
-          <header class="header">
-            <strong>倒计时</strong>
-            <!-- <div>2019-10-31 23:00</div> -->
-          </header>
-          <div class="elem-left">
-            <div class="digit hours">00</div>
-            <div class="text">小时</div>
-          </div>
-          <div class="elem-center">
-            <!-- Optional text at top or image logo -->
-            <!--<span class="text top">here in</span>-->
-            <!-- Optional logo at top -->
-            <!-- <span class="text top"><img class="img" alt="Logo" src="http://www.17sucai.com/preview/1076685/2018-02-27/bientot/img/logo_large.png"></span> -->
-            <div class="digit days">000</div>
-            <div class="text">天</div>
-          </div>
-          <div class=" elem-right">
-            <div class="digit minutes">00</div>
-            <div class="text">分</div>
-          </div>
-
-          <!-- second knob here -->
-          <div class="second">
-            <input class="knob container" id="second-knob" data-width="400" data-height="400" data-displayInput=false
-              data-fgColor="#fff" data-bgColor="rgba(255,255,255,0)" data-thickness=".07" value="0" data-displayPrevious=true
-              data-max="6000" />
-          </div>
-        </div>
-
-      </section>
+    <bgimg :src="bgimgSrc"/>
+    <div class="bg">
+      <img :src="whiteCircleImg" class="white-circle" />
+      <integrateditem
+        position="item-1"
+        :imgSrc="require('../assets/images/circle-1-1.png')"
+        title="爱的邀约"
+        intro="邀请信息"
+        :click="() => $router.push('invite')"
+      />
+      <integrateditem
+        position="item-2"
+        :imgSrc="require('../assets/images/circle-2-1.png')"
+        title="播映快照"
+        intro="独家收藏"
+        :click="() => $router.push('snapshot')"
+      />
+      <integrateditem
+        position="item-3"
+        :imgSrc="require('../assets/images/circle-2-1.png')"
+        title="好友动态"
+        intro="祝福留言"
+        :click="() => $router.push('blessing')"
+      />
     </div>
-    <!-- End of timer page -->
   </div>
 </template>
 
 <script>
-
+import Vue from 'vue'
 export default {
-  name: 'page_integrated',
+  name: "page_integrated",
   data() {
     return {
-      imgList: [
-        require('../assets/images/31194183824_097a5e5b93_b.jpg'),
-        // require('../assets/images/00320.jpg'),
-        require('../assets/images/Autumn-Romance-Maple-Leaf-iPhone-5s-Background.jpg'),
-        require('../assets/images/photo-1514897275838-55c3ed3ee738.jpeg'),
-      ],
-    }
+      whiteCircleImg: require('../assets/images/white-circle.png'),
+      bgimgSrc: require('../assets/images/myimg/5.jpg'),
+    };
   },
   computed: {},
-  mounted(){
-    var dateReadableText = 'Upcoming date';
-    if ($('.site-config').attr('data-date-readable') && ($('.site-config').attr('data-date-readable') != '')) {
-      $('.timeout-day').text('');
-      dateReadableText = $('.site-config').attr('data-date-readable');
-      $('.timeout-day').text(dateReadableText);
-    }
-    $('.clock-countdown').downCount({
-      date: $('.site-config').attr('data-date'),
-      offset: +10
-    }, function () {
-      //callback here if finished
-      //alert('YES, done!');
-      var zerodayText = 'An upcoming date';
-      if ($('.site-config').attr('data-zeroday-text') && ($('.site-config').attr('data-zeroday-text') != '')) {
-        $('.timeout-day').text('');
-        zerodayText = $('.site-config').attr('data-zeroday-text');
-      }
-      $('.timeout-day').text(zerodayText);
-    });
-
-    /* Second */
-    $(function () {
-      $("#second-knob").knob();
-    });
-
-
-  },
+  mounted() {},
   created() {},
-  methods: {},
-  components: {}
+  methods: {
+  },
+  components: {
+    integrateditem: Vue.component('integrateditem', {
+      template: `
+        <div :class="'integrated-item ' + position" @click="click">
+          <img :src="imgSrc"/>
+          <p class="p-title">{{title}}</p>
+          <p class="p-intro">{{intro}}</p>
+        </div>
+      `,
+      props: {
+        click: {
+          type: Function,
+          default: () => {},
+        },
+        title: String,
+        intro: String,
+        imgSrc: String,
+        position: String,
+      },
+    }),
+  }
 };
 </script>
 
 <style lang="less">
-/* 6.4 Page clock countdown */
-.page-when {
-  .content {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+@import "../assets/css/util.less";
+.page_integrated {
+  .com_bgimg {
+    .bgImg {
+      transform:scaleX(-1);
+    }
   }
-}
-.page {
-  .content {
-    .clock {
-      width: 430px;
-      height: 430px;
-      margin: 0 auto;
-      border-radius: 100%;
-      background: rgba(255,255,255,0.15);
-      position: relative;
-      &:before {
-        z-index: -1;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        content: "";
-        background: rgba(251, 194, 235, 0.1);
-        border-radius: 100%;
-        box-shadow: 0 0 2px #FBC2EB, 1px -1px 203px #BC9CB3, 2px -2px 124px #ffc2ee, -2px -6px 15px #FDD2F1, 0px 2px 106px #FDDDF4;
-        ;
-      }
-      .header {
-        color: #fff;
-        position: absolute;
-        top: -140px;
-        font-weight: normal;
-        font-size: 40px;
-        text-align: center;
-        width: 100%;
+  .bg {
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: 1;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .white-circle {
+    position: absolute;
+    height: 67%;
+    width: 62%;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    left: 0;
+    top: 18.473763%;
+    opacity: 0.6;
+    -webkit-animation: whiteCircle 2s ease 1 both;
+    animation: whiteCircle 2s ease 1 both;
+  }
 
-        font-family: ZHSRXT;
-        color: white;
-        text-shadow: 0 0 2px #FBC2EB, 1px -1px 203px #BC9CB3, 2px -2px 124px #ffe1f7, -2px -6px 15px #FDD2F1, 0px 2px 106px #FDDDF4;
-      }
-    }
-  }
-  .clock {
-    .text {
-      position: relative;
-      width: 100%;
-      font-family: 'Asap';
-      font-weight: normal;
-      letter-spacing: 0;
-      margin-top: 0.5em;
-      display: block;
-      text-transform: uppercase;
-      color: #fff;
-      text-align: center;
-    }
-    .block {
-      &:last-child {
-        .digit {
-          &:after {
-            display: none;
-          }
-        }
-      }
-    }
-    .elem-center {
-      display: inline-block;
-      position: relative;
-      text-align: center;
-      width: 100%;
-      top: 0;
-      margin-top: 50%;
-      height: 50%;
-      bottom: 0;
-      .digit {
-        position: relative;
-        font-size: 120px;
-        margin-top: -0.5em;
-        letter-spacing: -0.03em;
-        line-height: 1em;
-        font-family: 'Asap';
-        font-weight: bold;
-        width: 100%;
-        color: #fff;
-        display: block;
-      }
-      .text {
-        position: absolute;
-        bottom: 58%;
-        font-size: 24px;
-        margin-top: 0;
-        &.top {
-          bottom: 124%;
-          img {
-            height: 65px;
-            margin-bottom: 20px;
-          }
-        }
-      }
-    }
-    .elem-left {
-      left: 50px;
-    }
-    .elem-right {
-      right: 50px;
-    }
-    .second {
-      position: absolute;
-      left: 15px;
-      top: 15px;
-      bottom: 15px;
-      right: 15px;
-      border: 0px solid #fff;
-      border-radius: 100%;
-      z-index: 2;
-      box-shadow: inset 0px 0px 0px 2px #fff;
-    }
-  }
-}
-/* Mask to disable click */
-.page .clock .elem-right, .page .clock .elem-left {
-  position: absolute;
-  width: 70px;
-  top: 50%;
-  bottom: 0;
-  display: block;
-}
-.page .clock .elem-right .text, .page .clock .elem-left .text {
-  position: absolute;
-  bottom: 58%;
-  font-size: 24px;
-  margin-top: 0;
-}
-.page .clock .elem-right .digit, .page .clock .elem-left .digit {
-  position: relative;
-  text-align: center;
-  font-size: 60px;
-  letter-spacing: -0.03em;
-  margin-top: -0.5em;
-  line-height: 1em;
-  font-family: 'Asap';
-  font-weight: normal;
-  width: 100%;
-  color: #fff;
-  display: block;
-}
-
-.page {
-  .content {
-    .clock {
-      transform: scale(0.5) translateX(-100%) translateY(-100%);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-    }
-  }
-}
-.page-contact {
-  .contact {
+  .item-1 {
+    left: 39.166667%;
+    top: 25.348597%;
     img {
-      height: 32px;
+      .animation(itemImgAnimate 0.7s ease 1 both);
+    }
+    p {
+      .animation(itemTitleAnimate 2s ease 1 both);
     }
   }
-}
+  .item-2 {
+    left: 52.666667%;
+    top: 47.68094535%;
+    img {
+      .animation(itemImgAnimate 0.7s 0.5s ease 1 both);
+    }
+    p {
+      .animation(itemTitleAnimate 2s 0.7s ease 1 both);
+    }
+  }
+  .item-3 {
+    left: 37%;
+    top: 70.317578%;
+    img {
+      .animation(itemImgAnimate 0.7s 1s ease 1 both);
+    }
+    p {
+      .animation(itemTitleAnimate 2s 1.2s ease 1 both);
+    }
+  }
+  .integrated-back {
+    left: 208px;
+    bottom: 20px;
+    .animation(backAnimate 1s 1.5s 1 both);
+  }
+  .integrated-item {
+    position: absolute;
+    width: 334px;
+    height: 134px;
+    img {
+      width: 67px;
+      height: 67px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      .transform(scale(0));
+    }
+    p {
+      position: absolute;
+      font-family: FZKaTong;
+      color: white;
+    }
+    .p-title {
+      left: 68px;
+      font-size: 20px;
+      top: -10px;
+    }
+    .p-intro {
+      font-size: 16.25px;
+      left: 73.5px;
+      top: 22px;
+    }
+  }
+  @keyframes whiteCircle {
+    0% {
+      .transform(translateX(-625px));
+      opacity: 0;
+    }
+    100% {
+      .transform(translateX(0px));
+      opacity: 0.6;
+    }
+  }
+  @keyframes itemImgAnimate {
+    0% {
+      .transform(scale(0));
+    }
+    70% {
+      .transform(scale(1.2));
+    }
+    90% {
+      .transform(scale(0.9));
+    }
+    100% {
+      .transform(scale(1));
+    }
+  }
+  @keyframes itemTitleAnimate {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes backAnimate {
+    0% {
+      .transform(translate(625px) translate3d(0, 0, 0));
+      opacity: 0;
+    }
+    100% {
+      .transform(translateX(0px) translate3d(0, 0, 0));
+      opacity: 0.6;
+    }
+  }
 
+}
 </style>
