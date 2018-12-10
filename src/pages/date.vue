@@ -5,7 +5,7 @@
     <div class="section page-when page page-cent" id="s-when">
       <section class="content">
         <div class="clock clock-countdown">
-          <div class="site-config" :data-date="$cfg.date[$userType]" data-date-timezone="+0"></div>
+          <div class="site-config" :data-date="$cfg.date[$userType]"></div>
           <header class="header">
             <strong>婚礼倒计时</strong>
             <!-- <div>2019-10-31 23:00</div> -->
@@ -64,7 +64,7 @@ export default {
     }
     $('.clock-countdown').downCount({
       date: $('.site-config').attr('data-date'),
-      offset: +10
+      offset: +18,
     }, function () {
       //callback here if finished
       //alert('YES, done!');

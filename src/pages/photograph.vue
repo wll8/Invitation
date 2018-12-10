@@ -120,6 +120,8 @@ export default {
 @import "../assets/css/util.less";
 
 .page_photograph {
+  overflow: hidden;
+  position: relative;
   .photo {
     .mbg;
   }

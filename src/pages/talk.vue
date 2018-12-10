@@ -22,8 +22,8 @@ export default {
     return {
       interval: undefined,
       audioTimer: undefined,
-      timestamp: Date.parse(new Date()) / 1000,
-      endTimestamp: Date.parse(this.$cfg.date[this.$userType]) / 1000,
+      timestamp: Date.parse(new Date()),
+      endTimestamp: Date.parse(this.$cfg.date[this.$userType]),
       boyMp3: this.$cfg.pageMp3.talk.boy,
       girlMp3: this.$cfg.pageMp3.talk.girl,
       bgimgSrc: this.$cfg.pageImg.talk,
@@ -33,7 +33,7 @@ export default {
   },
   mounted() {
     this.interval = setInterval(()=> {
-        this.timestamp = Date.parse(new Date()) / 1000
+        this.timestamp = Date.parse(new Date())
     }, 1000)
     /* 音频延迟 0.1 秒播放 */
     this.audioTimer = setTimeout(()=> {
@@ -46,17 +46,29 @@ export default {
   },
   filters: {
     _countDown(timestamp, endTimestamp) {
-      var endTimestamp = endTimestamp
       if (timestamp == 0 || timestamp >= endTimestamp) {
         return '(已超过时间)'
       }
-      var time = endTimestamp - timestamp
-      var day = Math.floor(time / 86400)
-      var hour = Math.floor((time - day * 86400) / 1440)
-      var minute = Math.floor((time - day * 86400 - hour * 1440) / 60)
-      var second = Math.floor(time - day * 86400 - hour * 1440 - minute * 60)
+      let date1 = new Date(timestamp);  // 开始时间
+      let date2 = new Date(endTimestamp);    // 结束时间
+      let date3 = date2.getTime() - new Date(date1).getTime();   // 时间差的毫秒数
 
-      return `${day}天${hour}小时${minute}分${second}秒`
+      // 计算出相差天数
+      let days = Math.floor(date3 / (24 * 3600 * 1000))
+
+      // 计算出小时数
+
+      let leave1 = date3 % (24 * 3600 * 1000)    // 计算天数后剩余的毫秒数
+      let hours = Math.floor(leave1 / (3600 * 1000))
+      // 计算相差分钟数
+      let leave2 = leave1 % (3600 * 1000)        // 计算小时数后剩余的毫秒数
+      let minutes = Math.floor(leave2 / (60 * 1000))
+      // 计算相差秒数
+      let leave3 = leave2 % (60 * 1000)      // 计算分钟数后剩余的毫秒数
+      let seconds = Math.round(leave3 / 1000)
+
+      return `${days}天${hours}小时${minutes}分${seconds}秒`
+
     }
   },
   methods: {
