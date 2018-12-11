@@ -12,26 +12,18 @@
 </template>
 
 <script>
-const bgm = require('../assets/audio/bgm.mp3');
-const playMusicArr = [
-    'photos',
-    'integrated',
-    'invite',
-    'snapshot',
-    'dialing',
-    'map',
-];
 export default {
   name: 'com_music',
   data () {
     return {
-      bgm,
+      bgm: this.$cfg.pageMp3Base.audio,
+      playMusicArr: this.$cfg.pageMp3Base.page,
       play: false
     }
   },
   watch: {
     path(newVal, oldVal) {
-      playMusicArr.includes(this.path) ? this._play() : this._pause()
+      this.playMusicArr.includes(this.path) ? this._play() : this._pause()
     },
   },
   mounted() {},

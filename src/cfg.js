@@ -45,7 +45,20 @@ export default {
     invite: require('./assets/images/my/6.jpg'), // 邀请
     map: '', // 地图
   },
-  pageMp3Base: '', // 默认背景音乐
+  pageMp3Base: { // 默认背景音乐
+    audio: require('./assets/audio/bgm.mp3'),
+    page: [ // 播放背景音乐的页面
+      // 'desktop', // 桌面
+      'date', // 日期
+      'photos', // 相册
+      'blessing', // 祝福
+      // 'dialing', // 通话记录
+      // 'wechat', // 微信
+      'integrated', // 集成
+      'invite', // 邀请
+      'map', // 地图
+    ],
+  },
   pageMp3: {
     // 页面背景音乐， 为空时为默认音乐
     call: require('./assets/audio/calls.mp3'), // 首页(来电页)
