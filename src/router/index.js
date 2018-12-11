@@ -22,66 +22,79 @@ export default new Router({
       path: '/',
       name: 'call',
       component: call,
+      des: '来电',
     },
     {
       path: '/talk',
       name: 'talk',
       component: talk,
+      des: '接听',
     },
     {
       path: '/desktop',
       name: 'desktop',
       component: desktop,
+      des: '桌面',
     },
     {
       path: '/date',
       name: 'date',
       component: date,
+      des: '日期',
     },
     {
       path: '/invite',
       name: 'invite',
       component: invite,
+      des: '邀请',
     },
     {
       path: '/dialing',
       name: 'dialing',
       component: dialing,
+      des: '通话记录',
     },
     {
       path: '/wechat',
       name: 'wechat',
       component: wechat,
+      des: '微信',
     },
     {
       path: '/photograph',
       name: 'photograph',
       component: photograph,
+      des: '拍照',
     },
     {
       path: '/integrated',
       name: 'integrated',
       component: integrated,
+      des: '集成',
     },
     {
       path: '/blessing',
       name: 'blessing',
       component: blessing,
+      des: '祝福',
     },
     {
       path: '/photos',
       name: 'photos',
       component: photos,
+      des: '相册',
     },
     {
       path: '/map',
       name: 'map',
       component: map,
+      des: '地图',
     },
     {
       path: '/t',
       name: 't',
-      component: t
+      component: t,
+      des: '调试',
     }
   ]
 })

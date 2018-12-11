@@ -53,6 +53,11 @@ app.use(
       const {user_id} = req.params
       res.send(await BlessingModel.find({user_id}))
     })
+    // 删除某条
+    .delete('/:blessing_id', async (req, res) => {
+      const {blessing_id} = req.params
+      res.send(await BlessingModel.remove({_id: mongoose.Types.ObjectId(blessing_id)}))
+    })
     // 添加
     .post('/:user_id', jsonParser, async (req, res) => {
       const {user_id} = req.params

@@ -6,6 +6,21 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
     <title>h5</title>
     <link rel="stylesheet" href="./static/css/loading.css">
+    <script>
+      function loadScript(file, callbackFn) {
+        var script = document.createElement('script');
+        script.src= file;
+        script.type='text/javascript';
+        script.onload = callbackFn;
+        document.getElementsByTagName('head')[0].appendChild(script)
+      }
+      if(!!+window.localStorage.getItem('love_debug')) {
+       loadScript('http://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.2.0', function () {
+         var vConsole = new VConsole();
+         console.log('Hello vConsole');
+       });
+      }
+    </script>
   </head>
   <body>
     <div id="app">

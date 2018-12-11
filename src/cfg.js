@@ -1,5 +1,6 @@
 export default {
   apiUrl: 'http://192.168.18.109:3001/', // 服务器接口地址
+  pw: 'xwlove', // 调试页授权码
   video: {
     pic: require('./assets/images/play_640.jpg'), // 封面图片
     url: require('./assets/video/video.mp4'), // 视频文件
