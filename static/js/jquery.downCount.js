@@ -5,7 +5,7 @@
  */
 $(".alt-clock .clock-place").append("<div class='clock-container' > <header class='c-logo-top'> <img class='logo' src='./img/logo_only.png' alt='Logo image'> </header> <div class='c-metric c-layout'> <div class='c-dot-small'> <div class='rot30 c-rect-s c-rect'> <div class='c-mes'></div> </div> <div class='rot60 c-rect-s c-rect'> <div class='c-mes'></div> </div> <div class='rot120 c-rect-s c-rect'> <div class='c-mes'></div> </div> <div class='rot150 c-rect-s c-rect'> <div class='c-mes'></div> </div> <div class='rot210 c-rect-s c-rect'> <div class='c-mes'></div> </div> <div class='rot240 c-rect-s c-rect'> <div class='c-mes'></div> </div> <div class='rot300 c-rect-s c-rect'> <div class='c-mes'></div> </div> <div class='rot330 c-rect-s c-rect'> <div class='c-mes'></div> </div> </div> <div class='c-minsec-number'> <div class='c-top c-num'>00</div> <div class='c-right c-num'>15</div> <div class='c-bottom c-num'>30</div> <div class='c-left c-num'>45</div> </div> </div> <div class='c-minute-bg c-layout'> <div class='c-circle'></div> </div> <div class='c-minute c-layout '> <div class='c-circle'></div> <div class='c-dot'></div> </div> <div class='c-second-bg c-layout'> <div class='c-circle'></div> </div> <div class='c-second c-layout '> <div class='c-circle'></div> <div class='c-dot'></div> </div> <div class='c-layout c-separator'> <div class='c-fill'> </div> </div> <div class='c-hour c-layout'> <span class='number hours'>00</span> <span class='metric'>h</span> </div> <div class='c-day c-layout'> <span class='number days'>000</span> <span class='metric'>days</span> </div> </div>");
 
-if($(".alt-clock .clock-place").attr('data-logosrc') 
+if($(".alt-clock .clock-place").attr('data-logosrc')
    && $(".alt-clock .clock-place").attr('data-logosrc') != ""){
 	var imgUrlSrc = $(".alt-clock .clock-place").attr('data-logosrc');
 	$(".alt-clock .clock-place .logo").attr("src",imgUrlSrc) ;
@@ -37,28 +37,28 @@ if($(".alt-clock .clock-place").attr('data-logosrc')
          * Change client's local date to match offset timezone
          * @return {Object} Fixed Date object.
          */
-        
+
         var secCount = -1;
         var minCount = -1;
-            
-        var timeZone = +0;  
+
+        var timeZone = +0;
         if($('.site-config').attr('data-date-timezone') && ($('.site-config').attr('data-date-timezone') != '')){
             timeZone = $('.site-config').attr('data-date-timezone');
         }
-        
+
         var currentDate = function () {
             // get client's current date
             var date = new Date();
-            
+
             // turn date to utc
 //            var utc = date.getTime() + (date.getTimezoneOffset() * 60000) - (360000*100);
             var utc = date.getTime() + (date.getTimezoneOffset() * 60000) - (360000*100) +(360000*10)*timeZone;
-           
+
 //            var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
 
             // set new Date object
             var new_date = new Date(utc + (3600000*settings.offset))
-            
+
             return new_date;
         };
 
@@ -114,38 +114,38 @@ if($(".alt-clock .clock-place").attr('data-logosrc')
 			if(seconds == 0){
                 seconds = 60;
             }
-            if(seconds%60 == 0){                
+            if(seconds%60 == 0){
                 secCount--;
             }
-            
-            if(minutes == 0){
+
+            if((minutes == 0) && (+days !== 0) && (+hours !== 0)) {
                 minutes = 60;
             }
-            if((minutes%60 == 0) && (seconds == 59)){                
+            if((minutes%60 == 0) && (seconds == 59)){
                 minCount--;
             }
 
             // set to DOM class or css according to position
             container.find('.days').text(days);
-            container.find('.hours').text(hours);            
-            container.find('.minutes').text(minutes);            
-            container.find('.seconds').text(seconds);            
-			
+            container.find('.hours').text(hours);
+            container.find('.minutes').text(minutes);
+            container.find('.seconds').text(seconds);
+
             container.find('.days_ref').text(ref_days);
             container.find('.hours_ref').text(ref_hours);
             container.find('.minutes_ref').text(ref_minutes);
             container.find('.seconds_ref').text(ref_seconds);
-			
+
 			var minRot = (360*minCount) + minutes*6 + 'deg';
             var secRot = (360*secCount) + seconds*6 + 'deg';
             container.find('.c-minute').css({'transform':'rotate('+minRot+')','-webkit-transform':'rotate('+minRot+')','-ms-transform':'rotate('+minRot+')','-moz-transform':'rotate('+minRot+')'});
             container.find('.c-second').css({'transform':'rotate('+secRot+')','-webkit-transform':'rotate('+secRot+')','-ms-transform':'rotate('+secRot+')','-moz-transform':'rotate('+secRot+')'});
 
-			// set knob value 
-			
+			// set knob value
+
             $(".second .knob").val(centis).trigger("change");
 		};
-        
+
         // start
 //        var interval = setInterval(countdown, 1000);
 //        var interval = setInterval(countdown, 1000*0.1);
