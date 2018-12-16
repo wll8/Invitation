@@ -44,10 +44,18 @@ Vue.prototype.$g = require('./components/g.vue').default
 Vue.prototype.$tool = tool
 Vue.prototype.$fly = fly
 Vue.prototype.$cfg = cfg
-Vue.prototype.$userType = tool.getQueryString('t') || 'boy' // 添加全局变量值
+Vue.prototype.$userType = (() => {
+  let urlType = tool.getQueryString('t')
+  if(urlType === cfg.url.girl) {
+    return 'girl'
+  } else if(urlType === cfg.url.boy) {
+    return 'boy'
+  } else {
+    return cfg.url.default === cfg.url.girl ? 'girl' : 'boy'
+  }
+})()
 Vue.component('bgimg', bgimg) // 全局注册组件
 
-/* eslint-disable no-new */
 window.vm = new Vue({
   el: '#app',
   router,

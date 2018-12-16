@@ -1,6 +1,11 @@
 export default {
   apiUrl: 'http://192.168.18.109:3001/', // 服务器接口地址
   pw: 'xwlove', // 调试页授权码
+  url: { // 页面参数
+    default: 'boy', // 需要是下面值的其中之一
+    boy: 'boy',
+    girl: 'girl', // 在网址参数上添加 ?t=girl 可切换成女生版邀请
+  },
   video: {
     pic: require('./assets/images/play_640.jpg'), // 封面图片
     url: require('./assets/video/video.mp4'), // 视频文件
