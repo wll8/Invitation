@@ -4,13 +4,12 @@ import t from '@/pages/t.vue'
 import call from '@/pages/call.vue'
 import talk from '@/pages/talk.vue'
 import desktop from '@/pages/desktop.vue'
-import date from '@/pages/date.vue'
+import invite from '@/pages/invite.vue'
 import blessing from '@/pages/blessing.vue'
 import dialing from '@/pages/dialing.vue'
 import wechat from '@/pages/wechat.vue'
 import photograph from '@/pages/photograph.vue'
 import integrated from '@/pages/integrated.vue'
-import invite from '@/pages/invite.vue'
 import photos from '@/pages/photos.vue'
 import map from '@/pages/map.vue'
 
@@ -37,9 +36,9 @@ export default new Router({
       des: '桌面',
     },
     {
-      path: '/date',
-      name: 'date',
-      component: date,
+      path: '/invite',
+      name: 'invite',
+      component: invite,
       des: '日期',
     },
     {

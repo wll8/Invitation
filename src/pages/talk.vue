@@ -67,7 +67,7 @@ export default {
       let leave3 = leave2 % (60 * 1000)      // 计算分钟数后剩余的毫秒数
       let seconds = Math.round(leave3 / 1000)
 
-      return `${days}天${hours}小时${minutes}分${seconds}秒`
+      return `${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒`
 
     }
   },
@@ -114,7 +114,8 @@ export default {
     .count-down-time {
       width: 100%;
       text-align: center;
-      font-size: 2em;
+      padding-top: 10px;
+      font-size: 1.5em;
       color: #fff;
     }
 

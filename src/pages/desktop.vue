@@ -10,7 +10,7 @@
           </div>
 
           <div class="top iconBox">
-            <hotspot :click="() => $router.push('/date')" icon="icon2" head="一月" body="31" foot="日期"/>
+            <hotspot :click="() => $router.push('/invite')" icon="icon2" :head="$tool.cnNum(new Date($cfg.date[$userType]).getMonth()) + '月'" :body="new Date($cfg.date[$userType]).getDate() + ''" foot="邀约"/>
             <hotspot :click="_openVideo" icon="icon3" foot="视频"/>
             <hotspot :click="() => $router.push('/photos')" icon="icon4" foot="相册"/>
             <hotspot :click="() => $router.push('/blessing')" icon="icon5" foot="祝福"/>
@@ -210,7 +210,8 @@ export default {
       line-height: 26px;
       height: 26px;
       font-size: 16px;
-      font-family: ZHSRXT;
+      font-weight: 200;
+      // font-family: ZHSRXT;
     }
 
     &.icon2 {

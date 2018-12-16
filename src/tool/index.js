@@ -1,4 +1,8 @@
 export default {
+  cnNum (num) {
+    let cn = '一二三四五六七八九十'
+    return num > 9 ? '十' + cn[('' + num)[1]] : cn[num]
+  },
   dateFtt (fmt, date) { // author: meizz
     var o = {
       'M+': date.getMonth() + 1, // 月份

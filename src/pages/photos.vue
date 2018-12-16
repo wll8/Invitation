@@ -44,7 +44,6 @@ export default {
       }
     })
     var mySwiper3 = new Swiper('#swiper-container3', {
-      // loop: true,
       prevButton:'.swiper-button-prev',
       nextButton:'.swiper-button-next',
       mousewheel: true,

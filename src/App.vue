@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
     <music :path="$route.name"/>
+    <div v-show="$route.path !== '/'" @click="$router.back()" class="com_back" />
     <transition :name="transitionName">
       <router-view class="child-view"/>
     </transition>
@@ -20,6 +20,8 @@ export default {
   },
   mounted(){
     const vm = this
+    document.title = vm.$cfg.inviteText.title
+
     // 点击页面心形
     if(!+vm.$tool.storage.get('debug')) {
       // 如果不是调试模式才加心形效果
@@ -144,9 +146,21 @@ export default {
 </script>
 
 <style lang="less">
+@import "./assets/css/util.less";
 #app {
   touch-action: none; // 禁止浏览器自带的页面左右滑动， 否则会产生一些 swiper 相关的 bug
   height: 100%;
+
+  .com_back {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 44px;
+    height: 44px;
+    .mbg;
+    background-image: url(./assets/images/back.png);
+    z-index: 999;
+  }
 
   .child-view {
     width: 100%;

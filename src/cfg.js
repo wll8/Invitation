@@ -38,12 +38,11 @@ export default {
     call: require('./assets/images/my/14.jpg'), // 首页(来电页)
     talk: require('./assets/images/my/18.jpg'), // 电话接听页
     desktop: require('./assets/images/my/6.jpg'), // 桌面
-    date: require('./assets/images/31194183824_097a5e5b93_b.jpg'), // 日期
     blessing: require('./assets/images/my/1.jpg'), // 祝福
     photos: require('./assets/images/photos-bg.jpg'), // 相册
     photograph: require('./assets/images/my/9.jpg'), // 拍照
     integrated: require('./assets/images/my/5.jpg'), // 集成
-    invite: require('./assets/images/my/6.jpg'), // 邀请
+    invite: require('./assets/images/31194183824_097a5e5b93_b.jpg'), // 邀请
     map: '', // 地图
   },
   pageMp3Base: { // 默认背景音乐
