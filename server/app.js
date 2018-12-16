@@ -3,8 +3,9 @@ const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const router = express()
 const app = express()
+const cfg = require('./cfg.js')
 const mongoose = require('mongoose')
-const DB_URL = 'mongodb://localhost:27017/blessings'
+const DB_URL = cfg.dburl
 mongoose.Promise = global.Promise
 mongoose.set('useCreateIndex', true)
 mongoose.connect(DB_URL, { useNewUrlParser: true })
@@ -25,14 +26,19 @@ const blessingSchema = new Schema({
     required: true,
   },
 })
-const BlessingModel = db.model('blessing', blessingSchema)
+const BlessingModel = db.model('blessings', blessingSchema)
+;(async () => {
+  const res = await BlessingModel.find()
+  console.log('res', res)
+})()
 
 // 跨域设置
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild')
-  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
-  res.header('Access-Control-Allow-Credentials', 'true')
-  res.header('Access-Control-Allow-Origin', req.headers.origin)
+  res.header('Access-Control-Allow-Methods', '*')
+  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Origin', '*')
+  // res.header('Content-Type', 'application/json;charset=utf-8')
   if (req.method === 'OPTIONS') {
     // 让 options 请求快速返回
     res.send(200)
@@ -88,7 +94,12 @@ app.get('/', (req, res) => {
 })
 const port = process.env.PORT || 3001
 
-app.listen(port, () => {
+const server = {
+  http: () => require('http').createServer(app),
+  https: () => require('https').createServer({key: cfg.sslkey, cert: cfg.sslcrt}, app),
+}[cfg.httpType]()
+
+server.listen(port, () => {
   console.log('server port ' + port)
 })
 
