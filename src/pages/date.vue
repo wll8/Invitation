@@ -15,10 +15,6 @@
             <div class="text">小时</div>
           </div>
           <div class="elem-center">
-            <!-- Optional text at top or image logo -->
-            <!--<span class="text top">here in</span>-->
-            <!-- Optional logo at top -->
-            <!-- <span class="text top"><img class="img" alt="Logo" src="http://www.17sucai.com/preview/1076685/2018-02-27/bientot/img/logo_large.png"></span> -->
             <div class="digit days">000</div>
             <div class="text">天</div>
           </div>
@@ -26,7 +22,6 @@
             <div class="digit minutes">00</div>
             <div class="text">分</div>
           </div>
-
           <!-- second knob here -->
           <div class="second">
             <input class="knob container" id="second-knob" data-width="400" data-height="400" data-displayInput=false
@@ -48,9 +43,7 @@ export default {
   data() {
     return {
       imgList: [
-        require('../assets/images/31194183824_097a5e5b93_b.jpg'),
-        require('../assets/images/Autumn-Romance-Maple-Leaf-iPhone-5s-Background.jpg'),
-        require('../assets/images/photo-1514897275838-55c3ed3ee738.jpeg'),
+        this.$cfg.pageImg.date,
       ],
     }
   },

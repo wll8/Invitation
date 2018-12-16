@@ -19,12 +19,6 @@ export default {
     }
   },
   mounted(){
-    console.log('this.$tool.browser().versions.mobile', this.$tool.browser().versions.mobile)
-    if(this.$tool.browser().versions.mobile) {
-      // 禁止页面左右滑动， 否则会产生一些 swiper 相关的 bug
-      document.addEventListener('touchmove', ev => ev.preventDefault(), false);
-    }
-
     const vm = this
     // 点击页面心形
     if(!+vm.$tool.storage.get('debug')) {
@@ -151,6 +145,7 @@ export default {
 
 <style lang="less">
 #app {
+  touch-action: none; // 禁止浏览器自带的页面左右滑动， 否则会产生一些 swiper 相关的 bug
   height: 100%;
 
   .child-view {

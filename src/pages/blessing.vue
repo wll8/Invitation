@@ -40,7 +40,7 @@ export default {
         blessing: '',
       },
       sendIcon: require('../assets/images/send.png'),
-      bgimgSrc: this.$cfg.pageImg.date,
+      bgimgSrc: this.$cfg.pageImg.blessing,
       breathing: false,
       barrageIsShow: true,
       currentId : 0,
@@ -53,14 +53,16 @@ export default {
     // 当前有一个 bug ， 需要触发两次这个方法才能正常出现效果。
     // 所以用此方法先执行一次
     this.fn({})
-    setTimeout(() => this.getList(), 500) // 延迟加载， 希望获取到的指纹信息一致
+    this.getList()
+    // setTimeout(() => this.getList(), 500) // 延迟加载， 希望获取到的指纹信息一致
   },
   created(){},
   methods: {
     async getList(){
       const vm = this
-      const user_id = await this.$deviceCode()
-      vm.$fly.get('love').then((res = []) => {
+      vm.$fly.get('love').then( async (res = []) => {
+        const user_id = await this.$deviceCode()
+        console.log('user_id', user_id)
         vm.sendEd = res.some(item => item.user_id === user_id) // 如果已经祝福过， 不再引导祝福
         vm.barrageList = res.map(item => ({
           id: +new Date() + '' + Math.random() + '' + item.user_id, // 创建唯一 id
@@ -97,6 +99,8 @@ export default {
     },
     async add (ev){
       const vm = this
+      vm.fn(ev)
+      vm.showForm = false
       let {name = '', blessing = ''} = vm.blessing
       if(name.trim() && blessing.trim()){
         const user_id = await vm.$deviceCode()
@@ -115,14 +119,12 @@ export default {
             type: 0,
             position: 'bottom'
           })
-          vm.fn(ev)
-          vm.showForm = false
           vm.sendEd = true
           vm.blessing = {}
         })
         .catch(err => {
           vm.$msg({
-            devCountOverflow: '每个设备只能发送 4 条留言哟',
+            devCountOverflow: '每个设备只能发送 2 对条留言哟',
             nameCountOverflow: '每个人只能发送 2 条留言哟',
           }[err.code])
         })
@@ -139,8 +141,9 @@ export default {
 @import "../assets/css/util.less";
 .page_blessing {
   .myDanMu {
-    animation: breath 1.5s;
-    animation-iteration-count:infinite;
+    // animation: breath 1.5s;
+    // animation-iteration-count:infinite;
+    background: rgba(251, 194, 235, .7) !important;
   }
 
   .baberrage-avatar {

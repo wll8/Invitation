@@ -2,22 +2,22 @@
   <div class="page_test">
     <section>
       <!-- open为展开菜单，close 为折叠菜单 -->
-      <details class="menu" open>
+      <details>
         <summary>路由列表</summary>
         <ul>
-          <li v-for="item in $router.options.routes"><a :href="'#' + item.path">{{item.path}} {{item.des}}</a></li>
+          <li v-for="item in $router.options.routes" @click="$router.push(item.path)">{{item.path}} {{item.des}}</li>
         </ul>
       </details>
-      <details class="menu" close>
+      <details open>
         <summary>配置</summary>
         <ul>
-          <li @click="debug"><a>debug {{!!this.$tool.storage.get('debug')}}</a></li>
+          <li @click="debug"><a>debug {{isDebug}}</a></li>
         </ul>
       </details>
-      <details class="menu" close>
-        <summary>祝福(双击删除)</summary>
+      <details open>
+        <summary>祝福</summary>
         <ul>
-          <li @dblclick="deleteItem(item._id)" v-for="item in blessing"><a>{{item.name}}: {{item.blessing}}</a></li>
+          <li @click="deleteItem(item._id)" v-for="item in blessing">{{item.name}}: {{item.blessing}}</li>
         </ul>
       </details>
     </section>
@@ -32,6 +32,7 @@ export default {
     return {
       blessing: [],
       pw: this.$cfg.pw,
+      isDebug: !!this.$tool.storage.get('debug'),
     }
   },
   created(){
@@ -48,13 +49,14 @@ export default {
       this.$fly.get('/love').then(res => this.blessing = res)
     },
     deleteItem(id) {
-      this.$fly.delete(`/love/${id}`).then(res => {
+      confirm('否则删除？') && this.$fly.delete(`/love/${id}`).then(res => {
         this.$msg('已删除')
         this.getBlessing()
       })
     },
     debug() {
-      this.$tool.storage.set('debug', +!+this.$tool.storage.get('debug'))
+      this.isDebug = !+this.$tool.storage.get('debug')
+      this.$tool.storage.set('debug', +this.isDebug)
       this.$msg('刷新生效')
     },
   },
@@ -64,8 +66,23 @@ export default {
 <style lang="less" scoped>
 .page_test {
   overflow: scroll;
-  .menu {
+  .click {
+    cursor: pointer;
+    &:hover {
+      background: #eee;
+    }
+    &:active {
+      background: #ddd;
+    }
+  }
+  details {
+    .del {
+      color: #f00;
+      font-weight: bold;
+      font-size: 16px;
+    }
     summary {
+      .click;
       height: 40px;
       line-height: 40px;
       text-indent: 10px;
@@ -77,6 +94,7 @@ export default {
     ul {
       padding: 10px 0;
       li {
+        .click;
         list-style: none;
         text-indent: 25px;
         font-size: 12px;
@@ -84,13 +102,6 @@ export default {
         line-height: 30px;
         a {
           display: block;
-          cursor: pointer;
-        }
-        &:hover {
-          background: #eee;
-        }
-        &:active {
-          background: #ddd;
         }
       }
     }

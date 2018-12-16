@@ -76,7 +76,7 @@ export default {
     }
   }
   .bg {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
     z-index: 1;
     margin: auto;

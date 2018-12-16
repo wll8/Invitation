@@ -15,7 +15,7 @@
         document.getElementsByTagName('head')[0].appendChild(script)
       }
       if(!!+window.localStorage.getItem('love_debug')) {
-       loadScript('http://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.2.0', function () {
+       loadScript('//wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.2.0', function () {
          var vConsole = new VConsole();
          console.log('Hello vConsole');
        });
@@ -41,16 +41,15 @@
         </div>
       </div>
     </div>
-    <link rel="stylesheet" href="./static/css/swiper.min.css">
-    <script src="./static/js/zepto.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
     <script> var jQuery = $; </script>
     <script src="./static/js/fx.js"></script>
     <script src="./static/js/fly.js"></script>
-    <script src="./static/js/swiper.min.js"></script>
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="./static/js/jquery.downCount.js"></script>
     <script src="./static/js/jquery.knob.min.js"></script>
-    <script src="./static/js/jweixin-1.0.0.js"></script>
-    <script src="./static/js/maps.js?v=1.3&key=0a2d1ca5b6f6bc3f3d173ebc38904d04"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=0a2d1ca5b6f6bc3f3d173ebc38904d04"></script>
   </body>
 
 </html>
