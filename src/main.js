@@ -1,6 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
+// import Vue from 'vue'
 import App from './App'
 import router from './router'
 import '../src/assets/css/common.less'
@@ -8,8 +8,8 @@ import tool from './tool/index.js'
 import cfg from './cfg.js'
 import bgimg from '@/components/bgimg.vue'
 import toast from '@/components/toast.js'
-import vueBaberrage from 'vue-baberrage'
-import Fingerprint2 from 'fingerprintjs2'
+// import vueBaberrage from 'vue-baberrage'
+// import Fingerprint2 from 'fingerprintjs2'
 const fly = require('flyio')
 fly.config.baseURL = cfg.apiUrl
 // 添加响应拦截器，响应拦截器会在then/catch处理之前执行
@@ -25,18 +25,37 @@ fly.interceptors.response.use(
     return Promise.reject(err.response.data)
   }
 )
+const {Vue, Fingerprint2 = {}} = window
 
 const deviceCode = () => {
   return new Promise((resolve, reject) => {
     const localCode = tool.storage.get('deviceCode')
-    localCode ? resolve(localCode) : new Fingerprint2().get(res => {
-      tool.storage.set('deviceCode', res)
-      resolve(res)
-    })
+    localCode ? resolve(localCode) : (() => {
+      function getDeviceCode () {
+        Fingerprint2.get(com => {
+          let values = com.map(item => { return item.value })
+          let murmur = Fingerprint2.x64hash128(values.join(''), 31)
+          tool.storage.set('device', com)
+          tool.storage.set('deviceCode', murmur)
+          resolve(murmur)
+        })
+      }
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(() => { getDeviceCode() })
+      } else {
+        setTimeout(() => { getDeviceCode() }, 500)
+      }
+    })()
+
+    // const localCode = tool.storage.get('deviceCode')
+    // localCode ? resolve(localCode) : Fingerprint2.get(res => {
+    //   tool.storage.set('deviceCode', res)
+    //   resolve(res)
+    // })
   })
 }
 
-Vue.use(vueBaberrage)
+// Vue.use(vueBaberrage)
 Vue.use(toast)
 
 Vue.prototype.$deviceCode = deviceCode
@@ -45,14 +64,17 @@ Vue.prototype.$tool = tool
 Vue.prototype.$fly = fly
 Vue.prototype.$cfg = cfg
 Vue.prototype.$userType = (() => {
+  let userType = ''
   let urlType = tool.getQueryString('t')
-  if(urlType === cfg.url.girl) {
-    return 'girl'
-  } else if(urlType === cfg.url.boy) {
-    return 'boy'
+  if (urlType === cfg.url.girl) {
+    userType = 'girl'
+  } else if (urlType === cfg.url.boy) {
+    userType = 'boy'
   } else {
-    return cfg.url.default === cfg.url.girl ? 'girl' : 'boy'
+    userType = tool.storage.get('userType') || (cfg.url.default === cfg.url.girl ? 'girl' : 'boy')
   }
+  tool.storage.set('userType', userType)
+  return userType
 })()
 Vue.component('bgimg', bgimg) // 全局注册组件
 

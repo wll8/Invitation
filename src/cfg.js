@@ -13,45 +13,46 @@ export default {
   photos: [ // 相册， 建议尺寸 750×1334 px
     // img 图片地址
     // pos 偏移 top|right|bottom|left ， 如果图片焦点逼近右边时， 可以使用 right 值保证焦点可见
-    {img: require('./assets/images/my/13.jpg')},
-    {img: require('./assets/images/my/18.jpg')},
-    {img: require('./assets/images/my/10.jpg')},
-    {img: require('./assets/images/my/11.jpg')},
-    {img: require('./assets/images/my/9.jpg')},
-    {img: require('./assets/images/my/5.jpg')},
-    {img: require('./assets/images/my/6.jpg')},
-    {img: require('./assets/images/my/14.jpg')},
-    {pos: 'top', img: require('./assets/images/my/15.jpg')},
-    {img: require('./assets/images/my/16.jpg')},
-    {img: require('./assets/images/my/21.jpg')},
-    {img: require('./assets/images/my/25.jpg')},
-    {img: require('./assets/images/my/4.jpg')},
-    {img: require('./assets/images/my/1.jpg')},
-    {img: require('./assets/images/my/7.jpg')},
-    {img: require('./assets/images/my/2.jpg')},
-    {img: require('./assets/images/my/8.jpg')},
-    {img: require('./assets/images/my/9.jpg')},
+    require('./assets/images/my/13.jpg'),
+    require('./assets/images/my/18.jpg'),
+    require('./assets/images/my/10.jpg'),
+    require('./assets/images/my/11.jpg'),
+    require('./assets/images/my/9.jpg'),
+    require('./assets/images/my/5.jpg'),
+    require('./assets/images/my/6.jpg'),
+    require('./assets/images/my/14.jpg'),
+    // {pos: 'top', img: require('./assets/images/my/15.jpg')},
+    require('./assets/images/my/16.jpg'),
+    require('./assets/images/my/21.jpg'),
+    require('./assets/images/my/25.jpg'),
+    require('./assets/images/my/4.jpg'),
+    require('./assets/images/my/1.jpg'),
+    require('./assets/images/my/7.jpg'),
+    require('./assets/images/my/2.jpg'),
+    require('./assets/images/my/8.jpg'),
     {pos: 'top', img: require('./assets/images/my/3.jpg')},
-    {img: require('./assets/images/my/17.jpg')},
-    {img: require('./assets/images/my/19.jpg')},
-    {img: require('./assets/images/my/20.jpg')},
+    require('./assets/images/my/17.jpg'),
+    require('./assets/images/my/19.jpg'),
+    require('./assets/images/my/20.jpg'),
     {pos: 'bottom', img: require('./assets/images/my/23.jpg')},
-    {img: require('./assets/images/my/24.jpg')},
+    require('./assets/images/my/24.jpg'),
   ],
-  pageImg: {
+  pageBg: {
     // 页面背景图片，为空时显示渐变背景色
-    call: require('./assets/images/my/14.jpg'), // 首页(来电页)
-    talk: require('./assets/images/my/18.jpg'), // 电话接听页
-    desktop: require('./assets/images/my/6.jpg'), // 桌面
+    call: {src: require('./assets/images/my/14.jpg'), animate: true}, // 首页(来电页)
+    talk: {src: require('./assets/images/my/18.jpg'), animate: true}, // 电话接听页
+    desktop: {src: require('./assets/images/my/6.jpg'), animate: true}, // 桌面
     blessing: require('./assets/images/my/1.jpg'), // 祝福
+    dialing: {color: '#fff'}, // 通话记录
+    wechat: {color: '#fff'}, // 微信
     photos: require('./assets/images/photos-bg.jpg'), // 相册
     photograph: require('./assets/images/my/9.jpg'), // 拍照
     integrated: require('./assets/images/my/5.jpg'), // 集成
-    invite: require('./assets/images/31194183824_097a5e5b93_b.jpg'), // 邀请
+    invite: require('./assets/images/my/15.jpg'), // 邀请
     map: '', // 地图
   },
   pageMp3Base: { // 默认背景音乐
-    audio: require('./assets/audio/bgm.mp3'),
+    audio: require('./assets/audio/bgm_min.mp3'),
     page: [ // 播放背景音乐的页面
       // 'desktop', // 桌面
       'date', // 日期

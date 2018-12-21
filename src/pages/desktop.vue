@@ -2,7 +2,7 @@
   <div class="page_desktop full-screen oh">
     <div class="full-page desktop-page">
         <!-- 背景照片 -->
-        <bgimg :src="bgimgSrc" :animate="true"/>
+        <bgimg :bg="bgimgSrc"/>
         <div class="bg">
 
           <div class="videoBox" v-if="videoShow" @click="_closeVideo">
@@ -33,9 +33,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VueDPlayer from 'vue-dplayer'
-import 'vue-dplayer/dist/vue-dplayer.css'
+// import Vue from 'vue'
+// import VueDPlayer from 'vue-dplayer'
 
 export default {
   name: 'page_desktop',
@@ -49,7 +48,7 @@ export default {
         },
         autoplay: false,
       },
-      bgimgSrc: this.$cfg.pageImg.desktop,
+      bgimgSrc: this.$cfg.pageBg.desktop,
       videoShow: false,
       audioMp3: this.$cfg.pageMp3.desktop,
       closeImg: '',
@@ -88,7 +87,7 @@ export default {
     },
   },
   components: {
-    'd-player': VueDPlayer,
+    // 'd-player': VueDPlayer,
     hotspot: Vue.component('hotspot', {
       template: `
         <div :class="['icon', icon]" @click="click">

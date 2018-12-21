@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import t from '@/pages/t.vue'
+// import Vue from 'vue'
+// import Router from 'vue-router'
+// import t from '@/pages/t.vue'
 import call from '@/pages/call.vue'
 import talk from '@/pages/talk.vue'
 import desktop from '@/pages/desktop.vue'
@@ -9,13 +9,13 @@ import blessing from '@/pages/blessing.vue'
 import dialing from '@/pages/dialing.vue'
 import wechat from '@/pages/wechat.vue'
 import photograph from '@/pages/photograph.vue'
-import integrated from '@/pages/integrated.vue'
+// import integrated from '@/pages/integrated.vue'
 import photos from '@/pages/photos.vue'
 import map from '@/pages/map.vue'
 
-Vue.use(Router)
+// Vue.use(Router)
 
-export default new Router({
+export default new VueRouter({
   routes: [
     {
       path: '/',
@@ -33,6 +33,7 @@ export default new Router({
       path: '/desktop',
       name: 'desktop',
       component: desktop,
+      // component: () => import('@/pages/desktop.vue'),
       des: '桌面',
     },
     {
@@ -68,7 +69,8 @@ export default new Router({
     {
       path: '/integrated',
       name: 'integrated',
-      component: integrated,
+      // component: integrated,
+      component: () => import('@/pages/integrated.vue'),
       des: '集成',
     },
     {
@@ -92,7 +94,8 @@ export default new Router({
     {
       path: '/t',
       name: 't',
-      component: t,
+      // component: t,
+      component: () => import('@/pages/t.vue'),
       des: '调试',
     }
   ]

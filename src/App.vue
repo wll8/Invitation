@@ -10,7 +10,6 @@
 
 <script>
 import music from './components/music.vue';
-import Fingerprint2 from 'fingerprintjs2'
 export default {
   name: 'App',
   data(){
@@ -160,6 +159,7 @@ export default {
     .mbg;
     background-image: url(./assets/images/back.png);
     z-index: 999;
+    opacity: .7;
   }
 
   .child-view {

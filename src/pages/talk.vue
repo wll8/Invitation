@@ -1,6 +1,6 @@
 <template>
   <div class="page_talk full-screen oh">
-    <bgimg :src="bgimgSrc" animate/>
+    <bgimg :bg="bgimgSrc"/>
     <div class="mask full-screen">
       <div class="textInfo">
         <div class="count-down-title">婚礼倒计时</div>
@@ -26,7 +26,7 @@ export default {
       endTimestamp: Date.parse(this.$cfg.date[this.$userType]),
       boyMp3: this.$cfg.pageMp3.talk.boy,
       girlMp3: this.$cfg.pageMp3.talk.girl,
-      bgimgSrc: this.$cfg.pageImg.talk,
+      bgimgSrc: this.$cfg.pageBg.talk,
       functionImg: require('../assets/images/function2.png'),
       hungUpImg: require('../assets/images/hung-up.png'),
     }
@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import "../assets/css/util.less";
 
 .page_talk {

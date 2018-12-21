@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .page_test {
   overflow: scroll;
   .click {

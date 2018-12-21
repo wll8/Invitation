@@ -1,6 +1,6 @@
 <template>
   <div class="page_photos">
-    <bgimg :src="bgimgSrc"/>
+    <bgimg :bg="bgimgSrc"/>
     <div class="swpBox">
       <div class="swiper-container" id="swiper-container3" style="max-width:640px; margin:0 auto; position:relative;">
         <div class="swiper-wrapper">
@@ -30,8 +30,8 @@ export default {
   data() {
     return {
       word: this.$tool.word,
-      bgimgSrc: this.$cfg.pageImg.photos,
-      coverList: this.$cfg.photos
+      bgimgSrc: this.$cfg.pageBg.photos,
+      coverList: this.$cfg.photos.map(item => typeof(item) === 'string' ? {img: item} : item)
     }
   },
   mounted() {

@@ -24,6 +24,13 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+  externals: {
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'vue-baberrage': 'vue-baberrage',
+    'vue-dplayer': 'vue-dplayer',
+    'Fingerprint2': 'Fingerprint2',
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

@@ -1,6 +1,12 @@
 <template>
-  <div :class="['com_bgimg bg-img', {'bg-img-animate': animate}]">
-    <div class="bgImg" :style="`background-color: ${color}; background-image: url(${src})`"></div>
+  <div :class="['com_bgimg bg-img', {'bg-img-animate': obj.animate}]">
+    <div class="bgImg" :style="
+      `
+        ${obj.src ? `background-image: url(${obj.src}); ` : ''};
+        ${obj.color ? `background-color: ${obj.color}` : ''};
+        ${obj.pos ? `background-position: ${obj.pos}` : ''};
+      `
+    "></div>
   </div>
 </template>
 
@@ -10,16 +16,17 @@ export default {
   data () {
     return {}
   },
-  props: {
-    src: String,
-    color: String,
-    animate: {type: Boolean},
+  props: ['bg'],
+  computed: {
+    obj() {
+      return (typeof(this.bg) === 'string' ? {src: this.bg} : this.bg) || {}
+    },
   },
 
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import "../assets/css/util.less";
 .com_bgimg {
   .bgImg {

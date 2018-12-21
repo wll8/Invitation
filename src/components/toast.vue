@@ -17,7 +17,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .com_toast {
   position: fixed;
   top: 40%;

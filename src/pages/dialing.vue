@@ -1,6 +1,6 @@
 <template>
   <div class="page_dialing">
-    <bgimg color="#fff" :animate="false"/>
+    <bgimg :bg="$cfg.pageBg.dialing"/>
     <div class="topBar">
       <div class="tabBox">
         <div class="tab cur">所有通话</div><div class="tab">未接来电</div>
@@ -121,7 +121,7 @@ export default {
     position: absolute;
     top: 50px;
     left: 0;
-    z-index: 999;
+    z-index: 99;
     .telItem {
       .transform(translateX(100%));
       &.animation1 {

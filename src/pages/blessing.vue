@@ -1,6 +1,6 @@
 <template>
   <div class="page_blessing">
-    <bgimg :src="bgimgSrc"/>
+    <bgimg :bg="bgimgSrc"/>
     <vue-baberrage
       :isShow="barrageIsShow"
       :barrageList ="barrageList"
@@ -40,7 +40,7 @@ export default {
         blessing: '',
       },
       sendIcon: require('../assets/images/send.png'),
-      bgimgSrc: this.$cfg.pageImg.blessing,
+      bgimgSrc: this.$cfg.pageBg.blessing,
       breathing: false,
       barrageIsShow: true,
       currentId : 0,
@@ -99,10 +99,10 @@ export default {
     },
     async add (ev){
       const vm = this
-      vm.fn(ev)
-      vm.showForm = false
       let {name = '', blessing = ''} = vm.blessing
       if(name.trim() && blessing.trim()){
+        vm.fn(ev)
+        vm.showForm = false
         const user_id = await vm.$deviceCode()
         vm.$fly.post(`/love/${user_id}`, {
           user_id,

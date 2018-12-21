@@ -1,6 +1,6 @@
 <template>
   <div class="page_integrated">
-    <bgimg :src="bgimgSrc"/>
+    <bgimg :bg="bgimgSrc"/>
     <div class="bg">
       <img :src="whiteCircleImg" class="white-circle" />
       <integrateditem
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import Vue from 'vue'
+// import Vue from 'vue'
 export default {
   name: "page_integrated",
   data() {
     return {
       whiteCircleImg: require('../assets/images/white-circle.png'),
-      bgimgSrc: this.$cfg.pageImg.integrated,
+      bgimgSrc: this.$cfg.pageBg.integrated,
     };
   },
   computed: {},

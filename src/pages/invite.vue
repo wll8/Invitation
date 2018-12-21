@@ -1,8 +1,7 @@
 <template>
   <div class="page_invite">
-    <bgimg :src="imgList[$tool.randomFrom(0, imgList.length - 1)]"/>
-    <div class="countdown_box"></div>
-    <div class="section page-when page page-cent">
+    <bgimg :bg="$cfg.pageBg.invite"/>
+    <div v-show="showClock" class="section page-when page page-cent">
       <section class="content">
         <div class="clock clock-countdown">
           <div class="site-config" :data-date="$cfg.date[$userType]"></div>
@@ -48,38 +47,42 @@ export default {
   name: 'page_invite',
   data() {
     return {
-      imgList: [
-        this.$cfg.pageImg.invite,
-      ],
+      showClock: true,
     }
   },
   computed: {},
   mounted(){
-    var dateReadableText = 'Upcoming date';
-    if ($('.site-config').attr('data-date-readable') && ($('.site-config').attr('data-date-readable') != '')) {
-      $('.timeout-day').text('');
-      dateReadableText = $('.site-config').attr('data-date-readable');
-      $('.timeout-day').text(dateReadableText);
-    }
-    $('.clock-countdown').downCount({
-      date: $('.site-config').attr('data-date'),
-      offset: +18,
-    }, function () {
-      //callback here if finished
-      //alert('YES, done!');
-      var zerodayText = 'An upcoming date';
-      if ($('.site-config').attr('data-zeroday-text') && ($('.site-config').attr('data-zeroday-text') != '')) {
+    try {
+      // 未知 bug
+      // 有时候下面代码报错导致倒计时出现问题， 所以在报错时干脆不显示倒计时
+      var dateReadableText = 'Upcoming date';
+      if ($('.site-config').attr('data-date-readable') && ($('.site-config').attr('data-date-readable') != '')) {
         $('.timeout-day').text('');
-        zerodayText = $('.site-config').attr('data-zeroday-text');
+        dateReadableText = $('.site-config').attr('data-date-readable');
+        $('.timeout-day').text(dateReadableText);
       }
-      $('.timeout-day').text(zerodayText);
-    });
+      $('.clock-countdown').downCount({
+        date: $('.site-config').attr('data-date'),
+        offset: +18,
+      }, function () {
+        //callback here if finished
+        //alert('YES, done!');
+        var zerodayText = 'An upcoming date';
+        if ($('.site-config').attr('data-zeroday-text') && ($('.site-config').attr('data-zeroday-text') != '')) {
+          $('.timeout-day').text('');
+          zerodayText = $('.site-config').attr('data-zeroday-text');
+        }
+        $('.timeout-day').text(zerodayText);
+      });
 
-    /* Second */
-    $(function () {
-      $("#second-knob").knob();
-    });
-
+      /* Second */
+      $(function () {
+        $("#second-knob").knob();
+      });
+    } catch (error) {
+      console.log('showClock error', error)
+      this.showClock = false
+    }
 
   },
   created() {},

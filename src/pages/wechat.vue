@@ -1,6 +1,6 @@
 <template>
   <div class="page_wechat">
-    <bgimg color="#fff" :animate="false"/>
+    <bgimg :bg="$cfg.pageBg.wechat"/>
     <div class="telBox">
       <a href="javascript:;" :class="['telItem']" v-for="item in itemList" @click="_playAudio(item.key)">
         <div class="after" :style="`background-image: url(${item.img});`"></div>
@@ -88,7 +88,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: 99;
     .telItem {
       display: block;
       height: 56px;

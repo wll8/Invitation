@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <!-- 禁止缩放 -->
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
-    <title>邀请函</title>
+    <title>辛福邀请函</title>
     <link rel="icon" href="./static/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="./static/css/loading.css">
@@ -43,7 +43,25 @@
         </div>
       </div>
     </div>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script>
+      function loadCss(url) {
+        var link = document.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = url;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      };
+      loadCss('https://xwtest-1255591119.cos.ap-hongkong.myqcloud.com/mycdn/unpkg.com/vue-dplayer@0.0.10/dist/vue-dplayer.min.css')
+      loadCss('https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css')
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.0.3/fingerprint2.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/2.7.0/vue-router.min.js"></script>
+    <script src="	https://xwtest-1255591119.cos.ap-hongkong.myqcloud.com/mycdn/unpkg.com/vue-dplayer@0.0.10/dist/vue-dplayer.min.js"></script>
+    <script> Vue.component('d-player', VueDPlayer) </script>
+    <script src="https://xwtest-1255591119.cos.ap-hongkong.myqcloud.com/mycdn/raw.githack.com/superhos/vue-baberrage/master/dist/vue-baberrage.js"></script>
+
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
     <script> var jQuery = $; </script>
     <script src="./static/js/fx.js"></script>
@@ -51,6 +69,7 @@
     <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
     <script src="./static/js/jquery.downCount.js"></script>
     <script src="./static/js/jquery.knob.min.js"></script>
+
     <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=0a2d1ca5b6f6bc3f3d173ebc38904d04"></script>
   </body>
 

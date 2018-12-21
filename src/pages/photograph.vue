@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       animateStep: 0,
-      bgImg: this.$cfg.pageImg.photograph,
+      bgImg: this.$cfg.pageBg.photograph,
       borderImg: require('../assets/images/photo-border.png'),
       blackWhiteImg: require('../assets/images/black-white.png'),
       blackImg: require('../assets/images/black.jpg'),

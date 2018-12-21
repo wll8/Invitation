@@ -1,6 +1,6 @@
 <template>
   <div class="page_call full-screen oh">
-    <bgimg :src="bgimgSrc" animate/>
+    <bgimg :bg="bgimgSrc"/>
     <div class="mask full-screen">
       <div class="btnBox">
         <img class="tip" src="../assets/images/tip.png"/>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <audio class="hidden" autoPlay id="call-audio" autoPlay loop>
-      <source :src="$cfg.pageMp3.call" type="audio/ogg"/>
+      <source :src="$cfg.pageMp3.call" type="audio/mpeg"/>
     </audio>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   name: 'page_call',
   data() {
     return {
-      bgimgSrc: this.$cfg.pageImg.call,
+      bgimgSrc: this.$cfg.pageBg.call,
     };
   },
   mounted() {},
@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import "../assets/css/util.less";
 
 .page_call {
