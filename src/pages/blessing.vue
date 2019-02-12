@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
           <label for="iptBlessing">您的祝福</label>
-          <textarea v-model="blessing.blessing" class="form-control w100-15"  id="iptBlessing" rows="3" placeholder="点击输入"></textarea>
+          <textarea v-model="blessing.blessing" class="form-control w100-15"  id="iptBlessing" rows="2" placeholder="点击输入"></textarea>
         </div>
       </div>
       <button class="w100-15 sendBtn btn btn-default btn-lg btn-block" @click="add">
@@ -45,7 +45,7 @@ export default {
       barrageIsShow: true,
       currentId : 0,
       barrageLoop: true,
-      barrageList: [],
+      barrageList: this.$g.barrageList || [],
     }
   },
   computed: {},
@@ -53,6 +53,20 @@ export default {
     // 当前有一个 bug ， 需要触发两次这个方法才能正常出现效果。
     // 所以用此方法先执行一次
     this.fn({})
+
+    ;(() => {
+      // 预加载留言
+      const vm = this
+      vm.barrageList = vm.barrageList.map(item => ({
+        id: +new Date() + '' + Math.random(), // 创建唯一 id
+        avatar: '',
+        msg: item.name + ': ' + item.blessing,
+        time: vm.$tool.randomFrom(4, 8),
+        type: 0,
+        position: 'bottom',
+      }))
+    })()
+
     this.getList()
     // setTimeout(() => this.getList(), 500) // 延迟加载， 希望获取到的指纹信息一致
   },
@@ -189,7 +203,8 @@ export default {
     line-height: 60px;
     width: 60px;
     height: 60px;
-    background: rgba(255, 255, 255, .8);
+    background: rgba(255, 255, 255, .96);
+    // background: rgb(251, 194, 235, .96);
     position: absolute;
     bottom: 40px;
     right: 20px;
@@ -213,7 +228,7 @@ export default {
     // background-color: rgba(255,255,255, .2);
     .form {
       position: relative;
-      padding: 15px 15px 15px;
+      padding: 60px 15px 15px;
       margin: 0 -15px 15px;
       border-color: #e5e5e5 #eee #eee;
       border-style: solid;
@@ -250,7 +265,7 @@ export default {
     color: #555;
     font-weight: bold;
     // background-color: transparent;
-    background-color: rgba(255,255,255, .2);
+    background-color: rgba(255,255,255, .8);
     background-image: none;
     border: 1px solid #fbc2eb;
     border-radius: 4px;
@@ -345,8 +360,8 @@ export default {
     .icon {
       vertical-align: middle;
       display: inline-block;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       margin-bottom: 4px;
       margin-top: 4px;
       .mbg(contain);

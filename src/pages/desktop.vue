@@ -10,17 +10,17 @@
           </div>
 
           <div class="top iconBox">
-            <hotspot :click="() => $router.push('/invite')" icon="icon2" :head="$tool.cnNum(new Date($cfg.date[$userType]).getMonth()) + '月'" :body="new Date($cfg.date[$userType]).getDate() + ''" foot="邀约"/>
-            <hotspot :click="_openVideo" icon="icon3" foot="视频"/>
-            <hotspot :click="() => $router.push('/photos')" icon="icon4" foot="相册"/>
-            <hotspot :click="() => $router.push('/blessing')" icon="icon5" foot="祝福"/>
+            <div class="iconRefBox"><hotspot :click="_openVideo" icon="icon3" foot="视频"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push('/invite')" icon="icon2" :head="$tool.cnNum(new Date($cfg.date[$userType]).getMonth()) + '月'" :body="new Date($cfg.date[$userType]).getDate() + ''" foot="邀约"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push('/photos')" icon="icon4" foot="相册"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push('/blessing')" icon="icon5" foot="祝福"/></div>
           </div>
 
           <div class="buttom iconBox">
-            <hotspot :click="() => $router.push('/dialing')" num="2" icon="icon6"/>
-            <hotspot :click="() => $router.push('/wechat')" num="1" icon="icon7"/>
-            <hotspot :click="() => $router.push('/photograph')" num="3" icon="icon8"/>
-            <hotspot :click="() => $router.push('/map')" num="1" icon="icon9"/>
+            <div class="iconRefBox"><hotspot :click="() => $router.push('/dialing')" num="2" icon="icon6"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push('/wechat')" num="1" icon="icon7"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push('/photograph')" num="3" icon="icon8"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push('/map')" num="1" icon="icon9"/></div>
           </div>
 
         </div>
@@ -77,10 +77,10 @@ export default {
     _closeVideo(ev) {
       let className = ev.target.className || ''
       if(typeof className === 'string') {
-        if(className.includes('videoBox')) {
+        if(!className.indexOf('videoBox')) {
           this.videoShow = false
         }
-        if(className.includes('dplayer-video')) {
+        if(!className.indexOf('dplayer-video')) {
           this.$refs.dplayer.dp.play()
         }
       }
@@ -127,10 +127,16 @@ export default {
     .iconBox {
       width: 100%;
 
-      display: flex;
-      justify-content: space-evenly;
-      flex-wrap: wrap;
-      align-content: flex-start;
+      &.top {
+        margin-top: 20px;
+      }
+      .iconRefBox {
+        width: 25%;
+        float: left;
+        .icon {
+          margin: auto;
+        }
+      }
       &.top {
         @media screen and (max-width: 320px) {
           margin-top: 10px;

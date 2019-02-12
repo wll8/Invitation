@@ -9,7 +9,7 @@
         <img class="answer" src="../assets/images/answer.png" @click="()=>this._redirectToTalk()"/>
       </div>
     </div>
-    <audio class="hidden" autoPlay id="call-audio" autoPlay loop>
+    <audio class="hidden" id="call-audio" autoPlay loop>
       <source :src="$cfg.pageMp3.call" type="audio/mpeg"/>
     </audio>
   </div>

@@ -70,13 +70,11 @@ export default {
 <style lang="less">
 .page_map {
   #container {
-    position: absolute !important;
+    position: fixed !important;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    // width: 500px;
-    // height: 500px;
   }
 
 

@@ -59,7 +59,7 @@ export default {
   background-color: rgba(130, 109, 109, 0.2);
   border-radius: 50%;
   box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
-  opacity: .7;
+  // opacity: .7;
 
   &.music {
     width: 38px;

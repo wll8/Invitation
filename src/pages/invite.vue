@@ -52,6 +52,20 @@ export default {
   },
   computed: {},
   mounted(){
+    function gt_ios8() {
+      // 判断是否 iPhone 或者 iPod
+      if((navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i))) {
+        // 判断系统版本号是否小于 8，下面条件成立就表示小于8否则>=8
+        return Boolean(navigator.userAgent.match(/OS [3-7]_\d[_\d]* like Mac OS X/i));
+      } else {
+        return false;
+      }
+    }
+    console.log('gt_ios8()', gt_ios8())
+    if(gt_ios8()) {
+      this.showClock = false
+      return
+    }
     try {
       // 未知 bug
       // 有时候下面代码报错导致倒计时出现问题， 所以在报错时干脆不显示倒计时
@@ -309,11 +323,12 @@ export default {
   .page {
     .content {
       .clock {
-        transform: scale(0.5) translateX(-100%) translateY(-100%);
+        zoom: 0.5;
         position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 2;
+        left: 0;
+        right: 0;
+        top: 14%;
+        margin: auto;
       }
     }
   }

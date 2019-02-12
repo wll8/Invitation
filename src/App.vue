@@ -21,6 +21,14 @@ export default {
     const vm = this
     document.title = vm.$cfg.inviteText.title
 
+    // 预加载留言
+    ;(() => {
+      vm.$fly.get('love').then(res => {
+        console.log('barrageList', res)
+        this.$g.barrageList = res
+      })
+    })()
+
     // 点击页面心形
     if(!+vm.$tool.storage.get('debug')) {
       // 如果不是调试模式才加心形效果
@@ -159,7 +167,24 @@ export default {
     .mbg;
     background-image: url(./assets/images/back.png);
     z-index: 999;
-    opacity: .7;
+    // opacity: .7;
+
+    background-color: rgba(130, 109, 109, 0.2);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    // &::after {
+    //   content: '';
+    //   display: block;
+    //   width: 100%;
+    //   height: 100%;
+    //   position: absolute;
+    //   left: 0;
+    //   top: 0;
+    //   background-color: rgba(0,0,0, .5);
+    //   border-radius: 50%;
+    //   z-index: -1;
+    // }
+
   }
 
   .child-view {
