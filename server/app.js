@@ -26,16 +26,46 @@ const blessingSchema = new Schema({
     required: true,
   },
 })
+const reqSchema = new Schema({
+  ip: {
+    type: String, // ip
+  },
+  ua: {
+    type: Object, // user-agent
+  },
+})
 const BlessingModel = db.model('blessings', blessingSchema)
-;(async () => {
-  const res = await BlessingModel.find()
-  console.log('res', res)
-})()
-
+const ReqModel = db.model('reqs', reqSchema)
 // 跨域设置
 app.all('*', function (req, res, next) {
+  /**
+   * @getClientIP
+   * @desc 获取用户 ip 地址
+   * @param {Object} req - 请求
+   */
+  // 获取客户端ip地址
+  function getClientIp (req) {
+    var ip = req.headers['x-forwarded-for'] ||
+          req.ip ||
+          req.connection.remoteAddress ||
+          req.socket.remoteAddress ||
+          req.connection.socket.remoteAddress || ''
+    if (ip.split(',').length > 0) {
+      ip = ip.split(',')[0]
+    }
+    ip = ip.substr(ip.lastIndexOf(':') + 1, ip.length)
+    return ip
+  };
+  const clientInfo = {
+    ip: getClientIp(req),
+    ua: req.headers['user-agent'],
+  }
+  console.log('clientInfo', clientInfo)
+  const myReqModel = new ReqModel(clientInfo)
+  myReqModel.save(req)
+
   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild')
-  res.header('Access-Control-Allow-Methods', '*')
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
   res.header('Access-Control-Allow-Credentials', true)
   res.header('Access-Control-Allow-Origin', '*')
   // res.header('Content-Type', 'application/json;charset=utf-8')
