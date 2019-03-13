@@ -112,7 +112,7 @@ export default {
   },
   wechat: { // 微信语音
     boy: {
-      audio: require('./assets/audio/my/wechat-boy.mp3'), // 语音
+      audio: require('./assets/audio/my/wechat.mp3'), // 语音
       img: require('./assets/images/my/head1.jpg'), // 头像
     },
     girl: {
