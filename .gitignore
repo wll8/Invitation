@@ -17,3 +17,10 @@ src/assets/audio/wechat-girl.mp3
 src/assets/audio/talk-girl.mp3
 src/assets/audio/talk.mp3
 wx
+src/assets
+static
+server/dburl.js
+server/web.crt
+server/web.key
+rp.rp
+temp.md
