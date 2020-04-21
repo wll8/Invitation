@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import '../src/assets/css/common.less'
 import tool from './tool/index.js'
+import mock from './mock.js'
 import cfg from './cfg.js'
 import bgimg from '@/components/bgimg.vue'
 import toast from '@/components/toast.js'
@@ -61,7 +62,7 @@ Vue.use(toast)
 Vue.prototype.$deviceCode = deviceCode
 Vue.prototype.$g = require('./components/g.vue').default
 Vue.prototype.$tool = tool
-Vue.prototype.$fly = fly
+Vue.prototype.$fly = cfg.apiUrl === false ? mock.fly : fly
 Vue.prototype.$cfg = cfg
 Vue.prototype.$userType = (() => {
   let userType = ''

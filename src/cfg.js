@@ -8,7 +8,6 @@ const randomImg = function randomImg(cfg) {
     textColor: `#${randomColor()}`,
     ...cfg,
   })
-  console.log(`simpleSvgPlaceholder`, img)
   return img
 }
 
@@ -16,7 +15,8 @@ const randomImg = function randomImg(cfg) {
 console.log(`randomColor()`, randomColor())
 
 export default {
-  apiUrl: 'http://192.168.18.109:3001/', // 服务器接口地址
+  // apiUrl: 'http://192.168.18.109:3001/',
+  apiUrl: false, // 服务器接口地址, false 为演示模式, 有示例留言, 操作结果将保存在 localStorage 中
   pw: 'xwlove', // 调试页授权码
   url: { // 页面参数
     default: 'boy', // 需要是下面值的其中之一
