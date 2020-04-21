@@ -54,6 +54,8 @@ export default {
     {pos: 'bottom', img: randomImg()},
     randomImg(),
   ],
+  photosTextShow: false, // 是否显示相册中相片下的随机文字
+  photosSwitchShow: false, // 是否显示相册的翻页按钮
   pageBg: {
     // 页面背景图片，为空时显示渐变背景色
     call: {src: randomImg(), animate: true}, // 首页(来电页)

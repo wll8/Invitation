@@ -6,12 +6,12 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in coverList">
             <div class="img" :style="`background-image: url(${item.img}); background-position: ${item.pos || 'center'}`"></div>
-            <div class="bg">&nbsp;</div>
-            <!-- <div class="bg">{{word[$tool.randomFrom(0, (word.length - 1))]}}</div> -->
+            <div v-if="$cfg.photosTextShow" class="bg">{{word[$tool.randomFrom(0, (word.length - 1))]}}</div>
+            <div v-else class="bg">&nbsp;</div>
           </div>
         </div>
-        <!-- <div class="swiper-button-prev"></div> -->
-        <!-- <div class="swiper-button-next"></div> -->
+        <div v-if="$cfg.photosSwitchShow" class="swiper-button-prev"></div>
+        <div v-if="$cfg.photosSwitchShow" class="swiper-button-next"></div>
       </div>
       <div class="swiper-container" id="swiper-container2">
         <div class="swiper-wrapper">
