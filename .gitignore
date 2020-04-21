@@ -12,10 +12,6 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-src/assets/audio/wechat-boy.mp3
-src/assets/audio/wechat-girl.mp3
-src/assets/audio/talk-girl.mp3
-src/assets/audio/talk.mp3
 wx
 src/assets
 static
