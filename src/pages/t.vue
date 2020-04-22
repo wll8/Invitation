@@ -92,14 +92,16 @@ export default {
       border-bottom: 1px solid #eee;
     }
     ul {
-      padding: 10px 0;
+      padding: 0;
       li {
         .click;
         list-style: none;
-        text-indent: 25px;
+        text-indent: 2em;
         font-size: 12px;
-        height: 30px;
-        line-height: 30px;
+        line-height: 1.5;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: 10px;
         a {
           display: block;
         }
