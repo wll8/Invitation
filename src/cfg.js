@@ -3,7 +3,7 @@ const {simpleSvgPlaceholder, randomColor} = tool
 const randomImg = function randomImg(cfg) {
   const img = simpleSvgPlaceholder({
     width: 750,
-    height: 1400,
+    height: 1334,
     bgColor: `#${randomColor()}`,
     textColor: `#${randomColor()}`,
     ...cfg,
