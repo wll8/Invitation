@@ -24,7 +24,7 @@ export default {
     girl: 'girl', // 在网址参数上添加 ?t=girl 可切换成女生版邀请
   },
   video: {
-    pic: randomImg({width: 640, height: 362}), // 封面图片
+    pic: require('./assets/images/play_640.jpg'), // 封面图片
     url: require('./assets/video/video.mp4'), // 视频文件
   }, // 视频
   photos: [ // 相册， 建议尺寸 750×1334 px
@@ -54,8 +54,8 @@ export default {
     {pos: 'bottom', img: randomImg()},
     randomImg(),
   ],
-  photosTextShow: false, // 是否显示相册中相片下的随机文字
-  photosSwitchShow: false, // 是否显示相册的翻页按钮
+  photosTextShow: true, // 是否显示相册中相片下的随机文字
+  photosSwitchShow: true, // 是否显示相册的翻页按钮
   pageBg: {
     // 页面背景图片，为空时显示渐变背景色
     call: {src: randomImg(), animate: true}, // 首页(来电页)
@@ -134,6 +134,7 @@ export default {
       // 坐标
       // 使用此工具可查询经纬度
       // www.gpsspg.com/maps.htm
+      // https://lbs.amap.com/console/show/picker 高德地图经纬查询
       position: [116.397477, 39.908692],
     },
     girl: {
