@@ -102,6 +102,7 @@ export default {
   },
   inviteText: { // 邀约文本， 空格和换行原样显示
     title: '小龙女 & 杨过的邀约',
+    contentStyle: `text-align: center;`,
     boy: `
 举案齐眉心中想，白头偕老我所愿，执子之手永不变，誓言今朝终实现，百年好合盼祝愿，
 今邀好友来捧场，一定赏光勿迟到，好酒好菜管到饱，

@@ -36,7 +36,7 @@
         <p class="english">Our invitation</p>
         <p>{{$cfg.inviteText.title}}</p>
       </div>
-      <div class="text-content">{{$cfg.inviteText[$userType]}}</div>
+      <div :style="$cfg.inviteText.contentStyle" class="text-content">{{$cfg.inviteText[$userType]}}</div>
     </div>
   </div>
 </template>
