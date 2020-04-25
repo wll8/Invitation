@@ -41,7 +41,8 @@ const reqSchema = new Schema({
 const BlessingModel = db.model('blessings', blessingSchema)
 const ReqModel = db.model('reqs', reqSchema)
 
-let authorization = `xw` // 授权信息
+const authorizationDefault = `xw`
+let authorization = authorizationDefault // 授权信息
 
 // 跨域设置
 app.all('*', function (req, res, next) {
@@ -71,6 +72,8 @@ app.all('*', function (req, res, next) {
 
   if(req.headers['authorization']) {
     authorization = req.headers['authorization']
+  } else {
+    authorization = authorizationDefault
   }
 
   const myReqModel = new ReqModel(clientInfo)
