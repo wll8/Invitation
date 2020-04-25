@@ -34,7 +34,7 @@ export default {
   name: "page_integrated",
   data() {
     return {
-      whiteCircleImg: require('../assets/images/white-circle.png'),
+      whiteCircleImg: require('../assets/images/white-circle2.png'),
       bgimgSrc: this.$cfg.pageBg.integrated,
     };
   },
