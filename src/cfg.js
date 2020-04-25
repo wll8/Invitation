@@ -96,9 +96,9 @@ export default {
     photos: '', // 相册
     map: '', // 地图
   },
-  date: { // 宴席日期
-    boy: `${(new Date).getFullYear()+1}-05-20 15:30:00`,
-    girl: `${(new Date).getFullYear()+1}-05-20 12:30:00`,
+  date: { // 宴席日期, 格式: YYYY/MM/DD HH:mm:ss
+    boy: `${(new Date).getFullYear()+1}/05/20 15:30:00`,
+    girl: `${(new Date).getFullYear()+1}/05/20 12:30:00`,
   },
   inviteText: { // 邀约文本， 空格和换行原样显示
     title: '小龙女 & 杨过的邀约',
