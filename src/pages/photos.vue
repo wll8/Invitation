@@ -2,7 +2,7 @@
   <div class="page_photos">
     <bgimg :bg="bgimgSrc"/>
     <div class="swpBox">
-      <div class="swiper-container" id="swiper-container3" style="max-width:640px; margin:0 auto; position:relative;">
+      <div class="swiper-container" id="swiper-big" style="max-width:640px; margin:0 auto; position:relative;">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in coverList">
             <div class="img" :style="`background-image: url(${item.img}); background-position: ${item.pos || 'center'}`"></div>
@@ -13,7 +13,7 @@
         <div v-if="$cfg.photosSwitchShow" class="swiper-button-prev"></div>
         <div v-if="$cfg.photosSwitchShow" class="swiper-button-next"></div>
       </div>
-      <div class="swiper-container" id="swiper-container2">
+      <div class="swiper-container" id="swiper-small">
         <div class="swiper-wrapper">
           <div :class="['swiper-slide', {'active-nav': index === 0}]" v-for="(item, index) in coverList">
             <div class="img" :style="`background-image: url(${item.img})`"></div>
@@ -35,15 +35,7 @@ export default {
     }
   },
   mounted() {
-    var mySwiper2 = new Swiper('#swiper-container2', {
-      watchSlidesProgress: true,
-      watchSlidesVisibility: true,
-      slidesPerView: 5,
-      onTap: function() {
-        mySwiper3.slideTo(mySwiper2.clickedIndex)
-      }
-    })
-    var mySwiper3 = new Swiper('#swiper-container3', {
+    var mySwiperBig = new Swiper('#swiper-big', {
       prevButton:'.swiper-button-prev',
       nextButton:'.swiper-button-next',
       mousewheel: true,
@@ -55,15 +47,24 @@ export default {
       }
     })
 
+    var mySwiperSmall = new Swiper('#swiper-small', {
+      watchSlidesProgress: true,
+      watchSlidesVisibility: true,
+      slidesPerView: 5,
+      onTap: function() {
+        mySwiperBig.slideTo(mySwiperSmall.clickedIndex)
+      }
+    })
+
     function updateNavPosition() {
-      $('#swiper-container2 .active-nav').removeClass('active-nav')
-      var activeNav = $($('#swiper-container2 .swiper-slide').eq(mySwiper3.activeIndex)).addClass('active-nav');
+      $('#swiper-small .active-nav').removeClass('active-nav')
+      var activeNav = $($('#swiper-small .swiper-slide').eq(mySwiperBig.activeIndex)).addClass('active-nav');
       if (!activeNav.hasClass('swiper-slide-visible')) {
-        if (mySwiper3.activeIndex > mySwiper2.activeIndex) {
-          var thumbsPerNav = Math.floor(mySwiper2.width / activeNav.width()) - 1
-          mySwiper2.slideTo(mySwiper3.activeIndex - thumbsPerNav)
+        if (mySwiperBig.activeIndex > mySwiperSmall.activeIndex) {
+          var thumbsPerNav = Math.floor(mySwiperSmall.width / activeNav.width()) - 1
+          mySwiperSmall.slideTo(mySwiperBig.activeIndex - thumbsPerNav)
         } else {
-          mySwiper2.slideTo(mySwiper3.activeIndex)
+          mySwiperSmall.slideTo(mySwiperBig.activeIndex)
         }
       }
     }
@@ -85,11 +86,11 @@ export default {
     width: 100%;
     overflow: hidden;
   }
-  #swiper-container3 {
+  #swiper-big {
     height: 90%;
     // padding-bottom: 1%;
   }
-  #swiper-container3 .swiper-slide {
+  #swiper-big .swiper-slide {
     box-shadow: 1px 2px 4px rgba(0,0,0,.5);
     // overflow: hidden;
     .mbg;
@@ -109,12 +110,12 @@ export default {
 
     }
   }
-  #swiper-container3 .swiper-slide .img {
+  #swiper-big .swiper-slide .img {
     height: 100%;
     width: 100%;
     .mbg;
   }
-  #swiper-container3 .swiper-slide .bg {
+  #swiper-big .swiper-slide .bg {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -122,14 +123,14 @@ export default {
     text-align: center;
   }
 
-  #swiper-container2 {
+  #swiper-small {
     bottom: 1%;
+    padding-top: 20px;
     height: 8%;
     position: absolute;
-    overflow: inherit;
     width: 100%;
   }
-  #swiper-container2 .swiper-slide {
+  #swiper-small .swiper-slide {
     text-align: center;
     .img {
       // filter: blur(1px);
@@ -152,7 +153,7 @@ export default {
     }
   }
 
-  #swiper-container2 .active-nav {
+  #swiper-small .active-nav {
     .img {
       filter: blur(0);
       position: absolute;
