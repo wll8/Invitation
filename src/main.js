@@ -14,6 +14,12 @@ import toast from '@/components/toast.js'
 const fly = require('flyio')
 fly.config.baseURL = cfg.apiUrl
 // 添加响应拦截器，响应拦截器会在then/catch处理之前执行
+fly.interceptors.request.use((request)=>{
+  if(cfg.phone.boy) {
+    request.headers['Authorization'] = cfg.phone.boy
+  }
+  return request
+})
 fly.interceptors.response.use(
   response => {
     // 只将请求结果的data字段返回
