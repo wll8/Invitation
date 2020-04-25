@@ -159,10 +159,10 @@ export default {
       document.getElementById(eId).pause()
     }
   },
-  getQueryString (name) {
-    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
-    var r = (window.location.href.match(/\?.*/) || [''])[0].substr(1).match(reg)
-    return r !== null ? unescape(r[2]) : ''
+  getQueryString (name) { // js正则获取url参数，包含hash[#]和search[?]两种通用
+    const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+    const r = window.location.search.substr(1).match(reg) || window.location.hash.substring((window.location.hash.search(/\?/)) + 1).match(reg);
+    return r != null ? decodeURIComponent(r[2]) : ''
   },
   storage: {
     fix: 'love_',

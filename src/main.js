@@ -85,6 +85,21 @@ Vue.prototype.$userType = (() => {
 })()
 Vue.component('bgimg', bgimg) // 全局注册组件
 
+router.beforeEach((to, from, next) => {
+  // 页面更改时, 加上用户类型参数, 以免参数丢失导致用户分享后是另一种用户类型的页面
+  const userType = Vue.prototype.$userType
+  console.log({to, from, next})
+  console.log(`userType`, userType)
+  if(!to.query.t) {
+    next({
+      path: to.path,
+      query: {t: userType},
+      // replace: true,
+    })
+  } else {
+    next()
+  }
+  next()})
 window.vm = new Vue({
   el: '#app',
   router,
