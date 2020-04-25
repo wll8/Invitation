@@ -11,19 +11,19 @@
       <div class="form">
         <div class="form-group">
           <label for="iptName">您的名字</label>
-          <input v-model="blessing.name" autofocus="autofocus" class="form-control w100-15" id="iptName" placeholder="点击输入">
+          <input v-model="blessing.name" autofocus="autofocus" class="form-control w100-15" id="iptName" placeholder="点击输入您的名字">
         </div>
         <div class="form-group">
           <label for="iptBlessing">您的祝福</label>
-          <textarea v-model="blessing.blessing" class="form-control w100-15"  id="iptBlessing" rows="2" placeholder="点击输入"></textarea>
+          <textarea v-model="blessing.blessing" class="form-control w100-15"  id="iptBlessing" rows="2" placeholder="点击输入您的祝福"></textarea>
         </div>
       </div>
       <button class="w100-15 sendBtn btn btn-default btn-lg btn-block" @click="add">
         <i :class="['icon', {breathing: blessing.name && blessing.blessing}]" :style="`background-image:url(${sendIcon})`"/>
-        <span class="text">发送</span>
+        <span class="text">发送祝福</span>
       </button>
     </div>
-    <div :class="['showFormBtn', {show: sendEd}]" @click="showForm = !showForm">祝 福</div>
+    <div :style="`visibility: ${showForm ? `hidden` : `visible`}`" :class="['showFormBtn', {show: sendEd}]" @click="showForm = !showForm">祝 福</div>
   </div>
 </template>
 
@@ -45,7 +45,8 @@ export default {
       barrageIsShow: true,
       currentId : 0,
       barrageLoop: true,
-      barrageList: this.$g.barrageList || [],
+      // barrageList: this.$g.barrageList || [],
+      barrageList: [],
     }
   },
   computed: {},
@@ -54,18 +55,18 @@ export default {
     // 所以用此方法先执行一次
     this.fn({})
 
-    ;(() => {
-      // 预加载留言
-      const vm = this
-      vm.barrageList = vm.barrageList.map(item => ({
-        id: +new Date() + '' + Math.random(), // 创建唯一 id
-        avatar: '',
-        msg: item.name + ': ' + item.blessing,
-        time: vm.$tool.randomFrom(4, 8),
-        type: 0,
-        position: 'bottom',
-      }))
-    })()
+    // ;(() => {
+    //   // 预加载留言
+    //   const vm = this
+    //   vm.barrageList = vm.barrageList.map(item => ({
+    //     id: +new Date() + '' + Math.random(), // 创建唯一 id
+    //     avatar: '',
+    //     msg: item.name + ': ' + item.blessing,
+    //     time: vm.$tool.randomFrom(4, 8),
+    //     type: 0,
+    //     position: 'bottom',
+    //   }))
+    // })()
 
     this.getList()
     // setTimeout(() => this.getList(), 500) // 延迟加载， 希望获取到的指纹信息一致
@@ -160,7 +161,14 @@ export default {
     background: rgba(251, 194, 235, .7) !important;
   }
 
-  .baberrage-avatar {
+  .baberrage-item { // 取消头像占用的位置
+    padding-left: 0;
+    display: none; // 在没有 transform 属性之前不显示, 以避免刚加载时弹幕会显示在中间
+    &[style*="transform"] {
+      display: block;
+    }
+  }
+  .baberrage-avatar { // 隐藏头像
     // display: none;
     width: auto !important;
     img[src=''] {
@@ -228,7 +236,7 @@ export default {
     // background-color: rgba(255,255,255, .2);
     .form {
       position: relative;
-      padding: 60px 15px 15px;
+      padding: 50px 15px 0 15px;
       margin: 0 -15px 15px;
       border-color: #e5e5e5 #eee #eee;
       border-style: solid;
@@ -246,7 +254,7 @@ export default {
     }
   }
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 6px;
   }
   label {
     display: inline-block;
@@ -255,6 +263,7 @@ export default {
     font-weight: 700;
   }
   .form-control {
+    resize: vertical;
     display: block;
     width: 100%;
     .w100-15;

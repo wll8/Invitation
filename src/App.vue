@@ -23,10 +23,10 @@ export default {
 
     // 预加载留言
     ;(() => {
-      vm.$fly.get('love').then(res => {
-        console.log('barrageList', res)
-        this.$g.barrageList = res
-      })
+      // vm.$fly.get('love').then(res => {
+      //   console.log('barrageList', res)
+      //   this.$g.barrageList = res
+      // })
     })()
 
     // 点击页面心形
