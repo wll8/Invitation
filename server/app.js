@@ -25,6 +25,10 @@ const blessingSchema = new Schema({
     type: String, // 祝福
     required: true,
   },
+  by: {
+    type: String, // 所属邀请函
+    required: true,
+  },
 })
 const reqSchema = new Schema({
   ip: {
@@ -36,6 +40,9 @@ const reqSchema = new Schema({
 })
 const BlessingModel = db.model('blessings', blessingSchema)
 const ReqModel = db.model('reqs', reqSchema)
+
+let authorization = `xw` // 授权信息
+
 // 跨域设置
 app.all('*', function (req, res, next) {
   /**
@@ -61,6 +68,11 @@ app.all('*', function (req, res, next) {
     ua: req.headers['user-agent'],
   }
   console.log('clientInfo', clientInfo)
+
+  if(req.headers['authorization']) {
+    authorization = req.headers['authorization']
+  }
+
   const myReqModel = new ReqModel(clientInfo)
   myReqModel.save(req)
 
@@ -82,12 +94,12 @@ app.use(
   router
     // 获取所有
     .get('/', async (req, res) => {
-      res.send(await BlessingModel.find())
+      res.send(await BlessingModel.find({by: authorization}))
     })
     // 获取某人的
     .get('/:user_id', async (req, res) => {
       const {user_id} = req.params
-      res.send(await BlessingModel.find({user_id}))
+      res.send(await BlessingModel.find({user_id, by: authorization}))
     })
     // 删除某条
     .delete('/:blessing_id', async (req, res) => {
@@ -95,11 +107,10 @@ app.use(
       res.send(await BlessingModel.remove({_id: mongoose.Types.ObjectId(blessing_id)}))
     })
     // 添加
-    .post('/:user_id', jsonParser, async (req, res) => {
-      const {user_id} = req.params
-      const {name = ''} = req.body
-      const devCount = await BlessingModel.find({user_id}).count()
-      const nameCount = await BlessingModel.find({name}).count()
+    .post(['/', '/:user_id'], jsonParser, async (req, res) => {
+      const {name = '', user_id} = req.body
+      const devCount = await BlessingModel.find({user_id, by: authorization}).count()
+      const nameCount = await BlessingModel.find({name, by: authorization}).count()
       // 限制名字及设备写入数量
       if (devCount >= 4) {
         // msg 是写给前端开发人员看的， 不是写给用户看的
@@ -109,8 +120,9 @@ app.use(
         res.status(403).send({ code: 'nameCountOverflow', msg: '超出姓名数量限制', more: {num: nameCount} })
         return false
       } else {
-        const myBlessingModel = new BlessingModel(req.body) // 使用 model 验证 body
-        myBlessingModel.save(req.body).then(saveRes => {
+        const body = {...req.body, by: authorization}
+        const myBlessingModel = new BlessingModel(body) // 使用 model 验证 body
+        myBlessingModel.save(body).then(saveRes => {
           res.send(saveRes)
         }).catch(err => {
           res.status(400).send({ code: 'badReq', msg: '无效的请求内容', more: err })
