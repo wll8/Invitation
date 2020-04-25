@@ -38,6 +38,12 @@ export default {
     /* 音频延迟 0.1 秒播放 */
     this.audioTimer = setTimeout(()=> {
         this.$tool.play('talk-audio')
+
+        const audio = document.getElementById('talk-audio');
+        audio.addEventListener('ended', () => {
+          this._redirectToDesktop()
+        }, false);
+
     }, 100)
   },
   destroyed () {
