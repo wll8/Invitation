@@ -1,4 +1,5 @@
 import tool from './tool/index.js'
+const baseUrl = `http://127.0.0.1:9000`
 const {simpleSvgPlaceholder, randomColor} = tool
 const randomImg = function randomImg(cfg) {
   const img = simpleSvgPlaceholder({
@@ -25,7 +26,7 @@ export default {
   },
   video: {
     pic: require('./assets/images/play_640.jpg'), // 封面图片
-    url: require('./assets/video/video.mp4'), // 视频文件
+    url: `${baseUrl}/video`, // 视频文件
   }, // 视频
   photos: [ // 相册， 建议尺寸 750×1334 px
     // img 图片地址
