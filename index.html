@@ -23,7 +23,7 @@
         document.getElementsByTagName('head')[0].appendChild(script)
       }
       if(!!+window.localStorage.getItem('love_debug')) {
-       loadScript('//wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.2.0', function () {
+       loadScript('//cdn.jsdelivr.net/npm/vconsole@3.15.0/dist/vconsole.min.js', function () {
          var vConsole = new VConsole();
          console.log('Hello vConsole');
        });
@@ -64,6 +64,7 @@
     <script src="https://cdn.bootcss.com/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
     <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/vue-router/2.7.0/vue-router.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.js"></script>
     <script src="https://xwtest-1255591119.cos.ap-hongkong.myqcloud.com/mycdn/unpkg.com/vue-dplayer@0.0.10/dist/vue-dplayer.min.js"></script>
     <script> Vue.component('d-player', VueDPlayer) </script>
     <script src="https://xwtest-1255591119.cos.ap-hongkong.myqcloud.com/mycdn/unpkg.com/vue-baberrage%402.1.9/dist/vue-baberrage.js"></script>

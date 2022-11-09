@@ -1,21 +1,21 @@
 <template>
-  <div class="page_photos">
+  <div class="page_photos" v-if="coverList.length">
     <bgimg :bg="bgimgSrc"/>
     <div class="swpBox">
       <div class="swiper-container" id="swiper-big" style="max-width:640px; margin:0 auto; position:relative;">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item, index) in coverList">
+          <div class="swiper-slide" v-for="(item) in coverList" :key="item.id">
             <div class="img" :style="`background-image: url(${item.img}); background-position: ${item.pos || 'center'}`"></div>
-            <div v-if="$cfg.photosTextShow" class="bg">{{word[$tool.randomFrom(0, (word.length - 1))]}}</div>
+            <div v-if="$root.weddingConfig.photosTextShow" class="bg">{{word[$tool.randomFrom(0, (word.length - 1))]}}</div>
             <div v-else class="bg">&nbsp;</div>
           </div>
         </div>
-        <div v-if="$cfg.photosSwitchShow" class="swiper-button-prev"></div>
-        <div v-if="$cfg.photosSwitchShow" class="swiper-button-next"></div>
+        <div v-if="$root.weddingConfig.photosSwitchShow" class="swiper-button-prev"></div>
+        <div v-if="$root.weddingConfig.photosSwitchShow" class="swiper-button-next"></div>
       </div>
       <div class="swiper-container" id="swiper-small">
         <div class="swiper-wrapper">
-          <div :class="['swiper-slide', {'active-nav': index === 0}]" v-for="(item, index) in coverList">
+          <div :class="['swiper-slide', {'active-nav': index === 0}]" v-for="(item, index) in coverList" :key="item.id">
             <div class="img" :style="`background-image: url(${item.img})`"></div>
           </div>
         </div>
@@ -30,48 +30,57 @@ export default {
   data() {
     return {
       word: this.$tool.word,
-      bgimgSrc: this.$cfg.pageBg.photos,
-      coverList: this.$cfg.photos.map(item => typeof(item) === 'string' ? {img: item} : item)
+      bgimgSrc: this.$root.weddingConfig.pageBg.photos,
+      coverList: []
     }
   },
   mounted() {
-    var mySwiperBig = new Swiper('#swiper-big', {
-      prevButton:'.swiper-button-prev',
-      nextButton:'.swiper-button-next',
-      mousewheel: true,
-      effect: 'coverflow',
-      speed: 300,
-      watchSlidesProgress: true,
-      onSlideChangeStart: function() {
-        updateNavPosition()
-      }
+  },
+  computed: {},
+  async created() {
+    const data = await this.$fly.get(`/weddings/${this.$root.weddingId}/photos`)
+    this.coverList = data
+    this.$nextTick(() => {
+      this.swiper()
     })
+  },
+  methods: {
+    swiper() {
+      const mySwiperBig = new Swiper('#swiper-big', {
+        prevButton:'.swiper-button-prev',
+        nextButton:'.swiper-button-next',
+        mousewheel: true,
+        effect: 'coverflow',
+        speed: 300,
+        watchSlidesProgress: true,
+        onSlideChangeStart: function() {
+          updateNavPosition()
+        }
+      })
 
-    var mySwiperSmall = new Swiper('#swiper-small', {
-      watchSlidesProgress: true,
-      watchSlidesVisibility: true,
-      slidesPerView: 5,
-      onTap: function() {
-        mySwiperBig.slideTo(mySwiperSmall.clickedIndex)
-      }
-    })
+      const mySwiperSmall = new Swiper('#swiper-small', {
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        slidesPerView: 5,
+        onTap: function() {
+          mySwiperBig.slideTo(mySwiperSmall.clickedIndex)
+        }
+      })
 
-    function updateNavPosition() {
-      $('#swiper-small .active-nav').removeClass('active-nav')
-      var activeNav = $($('#swiper-small .swiper-slide').eq(mySwiperBig.activeIndex)).addClass('active-nav');
-      if (!activeNav.hasClass('swiper-slide-visible')) {
-        if (mySwiperBig.activeIndex > mySwiperSmall.activeIndex) {
-          var thumbsPerNav = Math.floor(mySwiperSmall.width / activeNav.width()) - 1
-          mySwiperSmall.slideTo(mySwiperBig.activeIndex - thumbsPerNav)
-        } else {
-          mySwiperSmall.slideTo(mySwiperBig.activeIndex)
+      function updateNavPosition() {
+        $('#swiper-small .active-nav').removeClass('active-nav')
+        const activeNav = $($('#swiper-small .swiper-slide').eq(mySwiperBig.activeIndex)).addClass('active-nav');
+        if (!activeNav.hasClass('swiper-slide-visible')) {
+          if (mySwiperBig.activeIndex > mySwiperSmall.activeIndex) {
+            const thumbsPerNav = Math.floor(mySwiperSmall.width / activeNav.width()) - 1
+            mySwiperSmall.slideTo(mySwiperBig.activeIndex - thumbsPerNav)
+          } else {
+            mySwiperSmall.slideTo(mySwiperBig.activeIndex)
+          }
         }
       }
     }
   },
-  computed: {},
-  created() {},
-  methods: {},
 };
 </script>
 

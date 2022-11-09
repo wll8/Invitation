@@ -5,7 +5,7 @@
       <details>
         <summary>路由列表</summary>
         <ul>
-          <li v-for="item in $router.options.routes" @click="$router.push(item.path)">{{item.path}} {{item.des}}</li>
+          <li v-for="item in $router.options.routes" :key="item.id" @click="$router.push({name: item.name})">{{item.path}} {{item.des}}</li>
         </ul>
       </details>
       <details open>
@@ -17,7 +17,7 @@
       <details open>
         <summary>祝福</summary>
         <ul>
-          <li @click="deleteItem(item._id)" v-for="item in blessing">{{item.name}}: {{item.blessing}}</li>
+          <li @click="deleteItem(item.id)" v-for="item in blessing" :key="item.id">{{item.name}}: {{item.content}}</li>
         </ul>
       </details>
     </section>
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       blessing: [],
-      pw: this.$cfg.pw,
+      pw: this.$root.weddingConfig.pw,
       isDebug: !!this.$tool.storage.get('debug'),
     }
   },
@@ -41,18 +41,21 @@ export default {
     if(inputPw === this.pw) {
       this.getBlessing()
     } else {
-      this.$router.push('/')
+      this.$router.push({name: `call`})
     }
   },
   methods: {
     getBlessing(){
-      this.$fly.get('/love').then(res => this.blessing = res)
+      this.$fly.get(`/weddings/${this.$root.weddingId}/bless`).then(res => this.blessing = res)
     },
     deleteItem(id) {
-      confirm('否则删除？') && this.$fly.delete(`/love/${id}`).then(res => {
-        this.$msg('已删除')
-        this.getBlessing()
-      })
+      // 放在 setTimeout 中以让浏览器响应鼠标 hover 完成
+      setTimeout(() => {
+        confirm('否则删除？') && this.$fly.delete(`/bless/${id}`).then(res => {
+          this.$msg('已删除')
+          this.getBlessing()
+        })
+      }, 0);
     },
     debug() {
       this.isDebug = !+this.$tool.storage.get('debug')

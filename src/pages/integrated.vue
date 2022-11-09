@@ -8,21 +8,21 @@
         :imgSrc="require('../assets/images/circle-1-1.png')"
         title="爱的邀约"
         intro="邀请信息"
-        :click="() => $router.push('invite')"
+        :click="() => $router.push({name: `invite`})"
       />
       <integrateditem
         position="item-2"
         :imgSrc="require('../assets/images/circle-2-1.png')"
         title="播映快照"
         intro="独家收藏"
-        :click="() => $router.push('photos')"
+        :click="() => $router.push({name: `photos`})"
       />
       <integrateditem
         position="item-3"
         :imgSrc="require('../assets/images/circle-2-1.png')"
         title="好友动态"
         intro="祝福留言"
-        :click="() => $router.push('blessing')"
+        :click="() => $router.push({name: `blessing`})"
       />
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       whiteCircleImg: require('../assets/images/white-circle2.png'),
-      bgimgSrc: this.$cfg.pageBg.integrated,
+      bgimgSrc: this.$root.weddingConfig.pageBg.integrated,
     };
   },
   computed: {},

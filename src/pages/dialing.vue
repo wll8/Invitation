@@ -1,13 +1,13 @@
 <template>
   <div class="page_dialing">
-    <bgimg :bg="$cfg.pageBg.dialing"/>
+    <bgimg :bg="$root.weddingConfig.pageBg.dialing"/>
     <div class="topBar">
       <div class="tabBox">
         <div class="tab cur">所有通话</div><div class="tab">未接来电</div>
       </div>
     </div>
     <div class="telBox">
-      <a :href="`tel:${item.tel}`" :class="['telItem', item.class]" v-for="item in itemList">
+      <a :href="`tel:${item.tel}`" :class="['telItem', item.class]" v-for="item in itemList" :key="item.tel">
         <div class="member">
           <div class="text name">{{item.name}}</div>
           <div class="text dev">手机</div>
@@ -49,12 +49,12 @@ export default {
       itemList: [
         {
           name: '新郎',
-          tel: this.$cfg.phone.boy,
+          tel: this.$root.weddingConfig.phone.boy,
           class: 'animation1',
         },
         {
           name: '新娘',
-          tel: this.$cfg.phone.girl,
+          tel: this.$root.weddingConfig.phone.girl,
           class: 'animation2',
         },
       ],

@@ -11,16 +11,16 @@
 
           <div class="top iconBox">
             <div class="iconRefBox"><hotspot :click="_openVideo" icon="icon3" foot="视频"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push('/invite')" icon="icon2" :head="$tool.cnNum(new Date($cfg.date[$userType]).getMonth()) + '月'" :body="new Date($cfg.date[$userType]).getDate() + ''" foot="邀约"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push('/photos')" icon="icon4" foot="相册"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push('/blessing')" icon="icon5" foot="祝福"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `invite`})" icon="icon2" :head="$tool.cnNum(new Date($root.weddingConfig.date[$root.urlStatus.type]).getMonth()) + '月'" :body="new Date($root.weddingConfig.date[$root.urlStatus.type]).getDate() + ''" foot="邀约"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `photos`})" icon="icon4" foot="相册"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `blessing`})" icon="icon5" foot="祝福"/></div>
           </div>
 
           <div class="buttom iconBox">
-            <div class="iconRefBox"><hotspot :click="() => $router.push('/dialing')" num="2" icon="icon6"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push('/wechat')" num="1" icon="icon7"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push('/photograph')" num="3" icon="icon8"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push('/map')" num="1" icon="icon9"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `dialing`})" num="2" icon="icon6"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `wechat`})" num="1" icon="icon7"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `photograph`})" num="3" icon="icon8"/></div>
+            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `map`})" num="1" icon="icon9"/></div>
           </div>
 
         </div>
@@ -43,14 +43,14 @@ export default {
       options: {
         screenshot: true,
         video: {
-          url: this.$cfg.video.url,
-          pic: this.$cfg.video.pic,
+          url: this.$root.weddingConfig.video.url,
+          pic: this.$root.weddingConfig.video.pic,
         },
         autoplay: false,
       },
-      bgimgSrc: this.$cfg.pageBg.desktop,
+      bgimgSrc: this.$root.weddingConfig.pageBg.desktop,
       videoShow: false,
-      audioMp3: this.$cfg.pageMp3.desktop,
+      audioMp3: this.$root.weddingConfig.pageMp3.desktop,
       closeImg: '',
       iconImg: require('../assets/images/icon.png'),
     }

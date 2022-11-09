@@ -16,9 +16,9 @@ export default {
   computed: {
     addrInfo() {
       return {
-        boy: this.$cfg.addr.boy,
-        girl: this.$cfg.addr.girl,
-      }[this.$userType]
+        boy: this.$root.weddingConfig.addr.boy,
+        girl: this.$root.weddingConfig.addr.girl,
+      }[this.$root.urlStatus.type]
     }
   },
   mounted(){

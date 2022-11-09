@@ -1,10 +1,10 @@
 <template>
   <div class="page_invite">
-    <bgimg :bg="$cfg.pageBg.invite"/>
+    <bgimg :bg="$root.weddingConfig.pageBg.invite"/>
     <div v-show="showClock" class="section page-when page page-cent">
       <section class="content">
         <div class="clock clock-countdown">
-          <div class="site-config" :data-date="$cfg.date[$userType]"></div>
+          <div class="site-config" :data-date="$root.weddingConfig.date[$root.urlStatus.type]"></div>
           <header class="header">
             <strong>婚礼倒计时</strong>
             <!-- <div>2019-10-31 23:00</div> -->
@@ -34,9 +34,9 @@
     <div class="text-box">
       <div class="text-title">
         <p class="english">Our invitation</p>
-        <p>{{$cfg.inviteText.title}}</p>
+        <p>{{$root.weddingConfig.inviteText.title}}</p>
       </div>
-      <div :style="$cfg.inviteText.contentStyle" class="text-content">{{$cfg.inviteText[$userType]}}</div>
+      <div :style="$root.weddingConfig.inviteText.contentStyle" class="text-content">{{$root.weddingConfig.inviteText[$root.urlStatus.type]}}</div>
     </div>
   </div>
 </template>

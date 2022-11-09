@@ -10,7 +10,7 @@
       </div>
     </div>
     <audio class="hidden" id="call-audio" autoPlay loop>
-      <source :src="$cfg.pageMp3.call" type="audio/mpeg"/>
+      <source :src="$root.weddingConfig.pageMp3.call" type="audio/mpeg"/>
     </audio>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   name: 'page_call',
   data() {
     return {
-      bgimgSrc: this.$cfg.pageBg.call,
+      bgimgSrc: this.$root.weddingConfig.pageBg.call,
     };
   },
   mounted() {},
@@ -28,7 +28,7 @@ export default {
   created() {},
   methods: {
     _redirectToTalk() {
-      this.$router.push('/talk')
+      this.$router.push({name: `talk`})
     }
   },
   components: {

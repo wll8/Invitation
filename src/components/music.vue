@@ -16,8 +16,8 @@ export default {
   name: 'com_music',
   data () {
     return {
-      bgm: this.$cfg.pageMp3Base.audio,
-      playMusicArr: this.$cfg.pageMp3Base.page,
+      bgm: this.$root.weddingConfig.pageMp3Base.audio,
+      playMusicArr: this.$root.weddingConfig.pageMp3Base.page,
       play: false
     }
   },

@@ -15,11 +15,11 @@
         </div>
         <div class="form-group">
           <label for="iptBlessing">您的祝福</label>
-          <textarea v-model="blessing.blessing" class="form-control w100-15"  id="iptBlessing" rows="2" placeholder="点击输入您的祝福"></textarea>
+          <textarea v-model="blessing.content" class="form-control w100-15"  id="iptBlessing" rows="2" placeholder="点击输入您的祝福"></textarea>
         </div>
       </div>
       <button class="w100-15 sendBtn btn btn-default btn-lg btn-block" @click="add">
-        <i :class="['icon', {breathing: blessing.name && blessing.blessing}]" :style="`background-image:url(${sendIcon})`"/>
+        <i :class="['icon', {breathing: blessing.name && blessing.content}]" :style="`background-image:url(${sendIcon})`"/>
         <span class="text">发送祝福</span>
       </button>
     </div>
@@ -40,12 +40,11 @@ export default {
         blessing: '',
       },
       sendIcon: require('../assets/images/send.png'),
-      bgimgSrc: this.$cfg.pageBg.blessing,
+      bgimgSrc: this.$root.weddingConfig.pageBg.blessing,
       breathing: false,
       barrageIsShow: true,
       currentId : 0,
       barrageLoop: true,
-      // barrageList: this.$g.barrageList || [],
       barrageList: [],
     }
   },
@@ -75,16 +74,16 @@ export default {
   methods: {
     async getList(){
       const vm = this
-      vm.$fly.get('love').then( async (res = []) => {
-        const user_id = await this.$deviceCode()
-        console.log('user_id', user_id)
-        vm.sendEd = res.some(item => item.user_id === user_id) // 如果已经祝福过， 不再引导祝福
+      vm.$fly.get(`/weddings/${this.$root.weddingId}/bless`).then( async (res = []) => {
+        const userId = vm.$root.userId
+        console.log('userId', userId)
+        vm.sendEd = res.some(item => item.userId === userId) // 如果已经祝福过， 不再引导祝福
         vm.barrageList = res.map(item => ({
-          id: +new Date() + '' + Math.random() + '' + item.user_id, // 创建唯一 id
+          id: +new Date() + '' + Math.random() + '' + item.userId, // 创建唯一 id
           // avatar: '//www.baidu.com/favicon.ico',
           avatar: '',
-          msg: item.name + ': ' + item.blessing,
-          barrageStyle: `normal ${item.user_id === user_id ? 'myDanMu' : ''}`,
+          msg: item.name + ': ' + item.content,
+          barrageStyle: `normal ${item.userId === userId ? 'myDanMu' : ''}`,
           time: vm.$tool.randomFrom(4, 8),
           type: 0,
           position: 'bottom',
@@ -114,21 +113,21 @@ export default {
     },
     async add (ev){
       const vm = this
-      let {name = '', blessing = ''} = vm.blessing
-      if(name.trim() && blessing.trim()){
-        vm.fn(ev)
-        vm.showForm = false
-        const user_id = await vm.$deviceCode()
-        vm.$fly.post(`/love/${user_id}`, {
-          user_id,
+      let {name = '', content = ''} = vm.blessing
+      vm.fn(ev)
+      vm.showForm = false
+      if(name.trim() && content.trim()){
+        const userId = vm.$root.userId
+        vm.$fly.post(`/weddings/${this.$root.weddingId}/bless`, {
+          userId,
           name,
-          blessing,
+          content,
         })
         .then(res => {
           vm.barrageList.push({
-            id: +new Date() + '' + Math.random() + '' + user_id,
+            id: +new Date() + '' + Math.random() + '' + userId,
             avatar: '',
-            msg: vm.blessing.name + ': ' + vm.blessing.blessing,
+            msg: vm.blessing.name + ': ' + vm.blessing.content,
             barrageStyle: 'normal myDanMu',
             time: vm.$tool.randomFrom(4, 8),
             type: 0,
@@ -138,10 +137,7 @@ export default {
           vm.blessing = {}
         })
         .catch(err => {
-          vm.$msg({
-            devCountOverflow: '每个设备只能发送 2 对条留言哟',
-            nameCountOverflow: '每个人只能发送 2 条留言哟',
-          }[err.code])
+          vm.$msg(err.data.msg)
         })
       } else {
         vm.$msg('请先填写名字和内容哟')

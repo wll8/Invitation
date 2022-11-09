@@ -1,8 +1,8 @@
 <template>
   <div class="page_wechat">
-    <bgimg :bg="$cfg.pageBg.wechat"/>
+    <bgimg :bg="$root.weddingConfig.pageBg.wechat"/>
     <div class="telBox">
-      <a href="javascript:;" :class="['telItem']" v-for="item in itemList" @click="_playAudio(item.key)">
+      <a href="javascript:;" :class="['telItem']" v-for="item in itemList" @click="_playAudio(item.key)" :key="item.key">
         <div class="after" :style="`background-image: url(${item.img});`"></div>
         <div :class="['member', item.class]">
           <div class="text name">{{item.name}}</div>
@@ -45,16 +45,16 @@ export default {
         {
           key: 'boy',
           name: '新郎',
-          audio: this.$cfg.wechat.boy.audio,
+          audio: this.$root.weddingConfig.wechat.boy.audio,
           class: 'animation1',
-          img: this.$cfg.wechat.boy.img,
+          img: this.$root.weddingConfig.wechat.boy.img,
         },
         {
           key: 'girl',
           name: '新娘',
-          audio: this.$cfg.wechat.girl.audio,
+          audio: this.$root.weddingConfig.wechat.girl.audio,
           class: 'animation2',
-          img: this.$cfg.wechat.girl.img,
+          img: this.$root.weddingConfig.wechat.girl.img,
         },
       ],
       audioMp3: require('../assets/audio/dong.mp3'),

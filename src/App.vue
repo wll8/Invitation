@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="$store.state.weddingConfig.id">
     <music :path="$route.name"/>
     <div v-show="$route.path !== '/'" @click="$router.back()" class="com_back" />
     <transition :name="transitionName">
@@ -19,7 +19,6 @@ export default {
   },
   mounted(){
     const vm = this
-    document.title = vm.$cfg.inviteText.title
 
     // 预加载留言
     ;(() => {

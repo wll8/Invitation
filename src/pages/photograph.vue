@@ -10,7 +10,7 @@
       <img :src="weddingImg" class="wedding">
       <div class="wedding-result" @click="doTimerSecond">
         <img :src="loveImg" class="love-start">
-        <div class="start-button" @click="$router.push('/integrated')">开启</div>
+        <div class="start-button" @click="$router.push({name: `integrated`})">开启</div>
       </div>
     </div>
     <audio class="hidden" id="photograph-audio">
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       animateStep: 0,
-      bgImg: this.$cfg.pageBg.photograph,
+      bgImg: this.$root.weddingConfig.pageBg.photograph,
       borderImg: require('../assets/images/photo-border.png'),
       blackWhiteImg: require('../assets/images/black-white.png'),
       blackImg: require('../assets/images/black.jpg'),

@@ -9,7 +9,7 @@
         <img class="hung-up" :src="hungUpImg" @click="()=>this._redirectToDesktop()"/>
       </div>
       <audio class="hidden" id="talk-audio">
-        <source :src="$userType === 'boy' ? boyMp3 : girlMp3" type="audio/mpeg"/>
+        <source :src="$root.urlStatus.type === 'boy' ? boyMp3 : girlMp3" type="audio/mpeg"/>
       </audio>
     </div>
   </div>
@@ -23,10 +23,10 @@ export default {
       interval: undefined,
       audioTimer: undefined,
       timestamp: Date.parse(new Date()),
-      endTimestamp: Date.parse(this.$cfg.date[this.$userType]),
-      boyMp3: this.$cfg.pageMp3.talk.boy,
-      girlMp3: this.$cfg.pageMp3.talk.girl,
-      bgimgSrc: this.$cfg.pageBg.talk,
+      endTimestamp: Date.parse(this.$root.weddingConfig.date[this.$root.urlStatus.type]),
+      boyMp3: this.$root.weddingConfig.pageMp3.talk.boy,
+      girlMp3: this.$root.weddingConfig.pageMp3.talk.girl,
+      bgimgSrc: this.$root.weddingConfig.pageBg.talk,
       functionImg: require('../assets/images/function2.png'),
       hungUpImg: require('../assets/images/hung-up.png'),
     }
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     _redirectToDesktop() {
-      this.$router.push('/desktop')
+      this.$router.push({name: `desktop`})
     }
   },
   components: {
