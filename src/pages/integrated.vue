@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       whiteCircleImg: require('../assets/images/white-circle2.png'),
-      bgimgSrc: this.$root.weddingConfig.pageBg.integrated,
+      bgimgSrc: this.$root.weddingConfig.pageBg.integrated.src,
     };
   },
   computed: {},

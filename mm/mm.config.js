@@ -9,16 +9,12 @@ const { wrapApiData } = require(`./util.js`)
 module.exports = util => {
   return {
     guard: false,
-    dbCover: false,
-    port: 9000,
-    testPort: 9005,
-    replayPort: 9001,
+    dbCover: true,
+    port: 9020,
+    testPort: 9025,
+    replayPort: 9021,
     watch: [`./api/`],
     apiWeb: `./apiWeb.json`,
-    proxy: {
-      '/': `https://hongqiye.com:3001/`, // 后端接口主域
-      '/video': `https://www.w3school.com.cn/i/movie.mp4`,
-    },
     api: {
       // 在其他文件里的 api
       ...api(util).api,

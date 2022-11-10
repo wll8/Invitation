@@ -46,12 +46,12 @@ export default {
   },
   methods: {
     getBlessing(){
-      this.$fly.get(`/weddings/${this.$root.weddingId}/bless`).then(res => this.blessing = res)
+      this.$http.get(`/weddings/${this.$root.weddingId}/bless`).then(res => this.blessing = res)
     },
     deleteItem(id) {
       // 放在 setTimeout 中以让浏览器响应鼠标 hover 完成
       setTimeout(() => {
-        confirm('否则删除？') && this.$fly.delete(`/bless/${id}`).then(res => {
+        confirm('否则删除？') && this.$http.delete(`/bless/${id}`).then(res => {
           this.$msg('已删除')
           this.getBlessing()
         })

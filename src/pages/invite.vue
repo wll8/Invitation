@@ -1,6 +1,6 @@
 <template>
   <div class="page_invite">
-    <bgimg :bg="$root.weddingConfig.pageBg.invite"/>
+    <bgimg :bg="$root.weddingConfig.pageBg.invite.src"/>
     <div v-show="showClock" class="section page-when page page-cent">
       <section class="content">
         <div class="clock clock-countdown">

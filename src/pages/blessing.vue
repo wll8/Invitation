@@ -40,7 +40,7 @@ export default {
         blessing: '',
       },
       sendIcon: require('../assets/images/send.png'),
-      bgimgSrc: this.$root.weddingConfig.pageBg.blessing,
+      bgimgSrc: this.$root.weddingConfig.pageBg.blessing.src,
       breathing: false,
       barrageIsShow: true,
       currentId : 0,
@@ -74,7 +74,7 @@ export default {
   methods: {
     async getList(){
       const vm = this
-      vm.$fly.get(`/weddings/${this.$root.weddingId}/bless`).then( async (res = []) => {
+      vm.$http.get(`/weddings/${this.$root.weddingId}/bless`).then( async (res = []) => {
         const userId = vm.$root.userId
         console.log('userId', userId)
         vm.sendEd = res.some(item => item.userId === userId) // 如果已经祝福过， 不再引导祝福
@@ -118,7 +118,7 @@ export default {
       vm.showForm = false
       if(name.trim() && content.trim()){
         const userId = vm.$root.userId
-        vm.$fly.post(`/weddings/${this.$root.weddingId}/bless`, {
+        vm.$http.post(`/weddings/${this.$root.weddingId}/bless`, {
           userId,
           name,
           content,

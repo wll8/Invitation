@@ -6,7 +6,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item) in coverList" :key="item.id">
             <div class="img" :style="`background-image: url(${item.img}); background-position: ${item.pos || 'center'}`"></div>
-            <div v-if="$root.weddingConfig.photosTextShow" class="bg">{{word[$tool.randomFrom(0, (word.length - 1))]}}</div>
+            <div v-if="$root.weddingConfig.photosTextShow" class="bg">{{item.text || ``}}</div>
             <div v-else class="bg">&nbsp;</div>
           </div>
         </div>
@@ -29,8 +29,7 @@ export default {
   name: 'page_photos',
   data() {
     return {
-      word: this.$tool.word,
-      bgimgSrc: this.$root.weddingConfig.pageBg.photos,
+      bgimgSrc: this.$root.weddingConfig.pageBg.photos.src,
       coverList: []
     }
   },
@@ -38,7 +37,7 @@ export default {
   },
   computed: {},
   async created() {
-    const data = await this.$fly.get(`/weddings/${this.$root.weddingId}/photos`)
+    const data = await this.$http.get(`/weddings/${this.$root.weddingId}/photos`)
     this.coverList = data
     this.$nextTick(() => {
       this.swiper()

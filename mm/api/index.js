@@ -1,10 +1,21 @@
-const { wrapApiData } = require(`../util.js`)
+const { wrapApiData, removeLeft, sweetNothing, randomFrom } = require(`../util.js`)
 
 /** @type {import('mockm/@types/config').Config} */
 module.exports = util => {
   const {
     libObj: { mockjs },
   } = util
+
+  // 随机背景色、前景色、文字图片
+  const img = (size) => {
+    return mockjs.mock(`@image(${size}, @color, @color, @word)`)
+  }
+
+  // 随机获取一个甜言蜜语
+  const sweet = () => {
+    return sweetNothing[randomFrom(0, (sweetNothing.length - 1))]
+  }
+  
   return {
     api: {
       // 创建祝福
@@ -49,7 +60,7 @@ module.exports = util => {
           },
           // 视频
           video: {
-            pic: `@image`, // 封面图片
+            pic: img(`640x320`), // 封面图片
             url: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/Invitation-hyy/static/media/video.b9f90f1.mp4`, // 视频文件
           },
           // 是否显示相册中相片下的随机文字
@@ -58,17 +69,17 @@ module.exports = util => {
           photosSwitchShow: true,
           // 页面背景图片，为空时显示渐变背景色
           pageBg: {
-            call: {src: `@image`, animate: true}, // 首页(来电页)
-            talk: {src: `@image`, animate: true}, // 电话接听页
-            desktop: {src: `@image`, animate: true}, // 桌面
-            blessing: `@image`, // 祝福
+            call: {src: img(`750x1334`), animate: true}, // 首页(来电页)
+            talk: {src: img(`750x1334`), animate: true}, // 电话接听页
+            desktop: {src: img(`750x1334`), animate: true}, // 桌面
+            blessing: {src: img(`750x1334`)}, // 祝福
             dialing: {color: '#fff'}, // 通话记录
             wechat: {color: '#fff'}, // 微信
-            photos: `@image`, // 相册
-            photograph: `@image`, // 拍照
-            integrated: `@image`, // 集成
-            invite: `@image`, // 邀请
-            map: '', // 地图
+            photos: {src: img(`750x1334`)}, // 相册
+            photograph: {src: img(`750x1334`)}, // 拍照
+            integrated: {src: img(`750x1334`)}, // 集成
+            invite: {src: img(`750x1334`)}, // 邀请
+            map: {}, // 地图
           },
           pageMp3Base: { // 默认背景音乐
             audio: 'https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/Invitation-hyy/static/media/bgm_min.5106e88.mp3',
@@ -98,20 +109,20 @@ module.exports = util => {
           },
           date: { // 宴席日期, 格式: YYYY/MM/DD HH:mm:ss
             boy: `${(new Date).getFullYear()+1}/05/20 15:30:00`,
-            girl: `${(new Date).getFullYear()+1}/05/20 12:30:00`,
+            girl: `${(new Date).getFullYear()+1}/05/21 12:30:00`,
           },
           inviteText: { // 邀约文本， 空格和换行原样显示
             title: '小龙女 & 杨过的邀约',
             contentStyle: `text-align: center;`,
-            boy: `
+            boy: removeLeft(`
               举案齐眉心中想，白头偕老我所愿，执子之手永不变，誓言今朝终实现，百年好合盼祝愿，
               今邀好友来捧场，一定赏光勿迟到，好酒好菜管到饱，
               欢乐开心婚姻好。
-            `,
-            girl: `
+            `),
+            girl: removeLeft(`
               红叶传情久，终觅佳期成佳偶;秋雁送书来，诚邀亲友话亲情;
               佳人佳偶逢佳期，君至可添喜;亲友亲事话亲情，您来能增辉。
-            `,
+            `),
           },
           phone: { // 电话
             boy: 18212341234,
@@ -120,11 +131,11 @@ module.exports = util => {
           wechat: { // 微信语音
             boy: {
               audio: 'https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/Invitation-hyy/static/media/wechat.37e0561.mp3', // 语音
-              img: `@image('100x100')`, // 头像
+              img: img(`100x100`), // 头像
             },
             girl: {
               audio: 'https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/Invitation-hyy/static/media/wechat-girl.f81c3f3.mp3',
-              img: `@image('100x100')`,
+              img: img(`100x100`),
             },
           },
           addr: { // 地图显示的地址
@@ -151,22 +162,53 @@ module.exports = util => {
         },
       ],
       bless: [
-        // {
-        //   "id": "@uuid",
-        //   "name": "李莫愁", // 发送祝福的人姓名
-        //   "content": "风雨同舟，任他沧海桑田", // 祝福内容
-        //   "userId": "@uuid", // 发送人ID
-        //   "weddingId": `xw`, // 对应的邀请函
-        // },
+        ...[
+          {
+            "name": "李莫愁",
+            "content": "风雨同舟，任他沧海桑田",
+          },
+          {
+            "name": "郭芙",
+            "content": "缘定三生，白头厮守",
+          },
+          {
+            "name": "郭襄",
+            "content": "花瓣飞，彩蝶追，欢腾的喜庆在飘摇；蓝天蓝，白云白，千紫万红梦相随",
+          },
+          {
+            "name": "裘千尺",
+            "content": "白首齐眉鸳鸯比翼，青阳启瑞桃李同心。",
+          },
+          {
+            "name": "陆无双",
+            "content": "琴和瑟相伴，花好月也圆",
+          },
+          {
+            "name": "金轮法王",
+            "content": "姻缘一线牵，甜蜜两心间，佳偶天成心相印，百年好合乐无边",
+          },
+          {
+            "name": "赵志敬",
+            "content": "缘何相聚，还诺前世；聚何相爱，为惜今生",
+          },
+        ].map(item => ({
+          "id": "@uuid",
+          "name": "@cname", // 发送祝福的人姓名
+          "content": "@ctitle", // 祝福内容
+          ...item,
+          "userId": "@uuid", // 发送人ID
+          "weddingId": `18212341234`, // 对应的邀请函
+        }))
       ],
       // 相册
       photos: [
-        // {
-        //   "id": String,
-        //   "pos": String, // 偏移 top|right|bottom|left ， 如果图片焦点逼近右边时， 可以使用 right 值保证焦点可见
-        //   "img": String, // 图片地址
-        //   "weddingId": String, // 所属邀请函
-        // },
+        ...[...new Array(18)].map(() => ({
+          "id": `@uuid`,
+          "pos": `@pick(top,right,bottom,left)`, // 偏移 top|right|bottom|left ， 如果图片焦点逼近右边时， 可以使用 right 值保证焦点可见
+          "img": img(`750x1334`), // 图片地址
+          "text": sweet(), // 图片的文字
+          "weddingId": `18212341234`, // 所属邀请函
+        })),
       ],
     }),
   }

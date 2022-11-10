@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       animateStep: 0,
-      bgImg: this.$root.weddingConfig.pageBg.photograph,
+      bgImg: this.$root.weddingConfig.pageBg.photograph.src,
       borderImg: require('../assets/images/photo-border.png'),
       blackWhiteImg: require('../assets/images/black-white.png'),
       blackImg: require('../assets/images/black.jpg'),

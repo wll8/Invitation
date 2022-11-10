@@ -109,34 +109,6 @@ export default {
 
       })(window, document)
     }
-
-    // 文字
-    const textShow = (e, t, a) => {
-      $(document).ready(function ($) {
-        $("body").click(function (e) {
-          var $i = $("<span/>").text(vm.$tool.word[vm.$tool.randomFrom(0, vm.$tool.word.length - 1)]);
-          var x = e.pageX
-            , y = e.pageY;
-          $i.css({
-            "z-index": 100000000,
-            "top": y - 20,
-            "left": x,
-            "position": "absolute",
-            "font-weight": "bold",
-            "color": "#ff6651"
-          });
-          $("body").append($i);
-          $i.animate({
-            "top": y - 180,
-            "opacity": 0
-          }, 1500, function () {
-            $i.remove();
-          });
-        });
-      });
-    }
-    // textShow(window, document)
-
   },
   watch: {
     '$route' (to, from) {
