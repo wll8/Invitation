@@ -2120,7 +2120,7 @@
     path-to-regexp "0.1.7"
     ws "7.5.5"
 
-"@wll8/json-server@^0.17.2-alpha.5":
+"@wll8/json-server@^0.17.2-alpha.6":
   version "0.17.2-alpha.6"
   resolved "https://registry.npmmirror.com/@wll8/json-server/-/json-server-0.17.2-alpha.6.tgz#199d7af6a2391dc68f2e5346f95676d413e49ad8"
   integrity sha512-A0Jio1mgWVMYzr/KERK2ay9c7BYt3hRGj50HtRSAwypkunQY3iiNp3v88SvC1fDBwUsAsqlxD5Eficq64yIyXQ==
@@ -8050,15 +8050,15 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.npmmirror.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-mockm@1.1.26-alpha.41:
-  version "1.1.26-alpha.41"
-  resolved "https://registry.npmmirror.com/mockm/-/mockm-1.1.26-alpha.41.tgz#efb01b582c38d7c03a9a2750705da735c96befd6"
-  integrity sha512-o3pNYUgCY+ftN0qB8KjFrLZgy//P4rGB75+vrf3NilU3zbGR41jhmbz01/+JhAmpJ9TUwrStIs9CyZ1NN98Tzw==
+mockm@1.1.26-alpha.42:
+  version "1.1.26-alpha.42"
+  resolved "https://registry.npmmirror.com/mockm/-/mockm-1.1.26-alpha.42.tgz#ba23a9015299fba22e150865599492d2729c0223"
+  integrity sha512-ryzcbwRuLjfNMs3jx9lOeatzdZHpfmBenhyLziBDy/+V0TT4hwz8z2wrrujuzSp6cGmCqtpUBX1DHsjWxyDUDg==
   dependencies:
     "@babel/runtime-corejs3" "^7.17.2"
     "@wll8/better-mock" "^0.3.3-alpha"
     "@wll8/express-ws" "^1.0.3"
-    "@wll8/json-server" "^0.17.2-alpha.5"
+    "@wll8/json-server" "^0.17.2-alpha.6"
     address "^1.2.0"
     axios "^0.26.0"
     body-parser "^1.19.0"
