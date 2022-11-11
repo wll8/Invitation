@@ -71,7 +71,7 @@ export default {
             this.$msg(`已删除`)
             this.getBlessing()
           })
-      }, 0)
+      }, 300)
     },
     debug() {
       this.isDebug = !+this.$tool.storage.get(`debug`)
