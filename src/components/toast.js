@@ -1,4 +1,4 @@
-import ToastComponent from './toast.vue'// 引入先前写好的vue
+import ToastComponent from './toast.vue' // 引入先前写好的vue
 const Toast = {}
 
 // 注册Toast
@@ -10,7 +10,7 @@ Toast.install = function (Vue) {
 
   // 将这个实例挂载在我创建的div上
   // 并将此div加入全局挂载点内部
-  instance.$mount(document.createElement('div'))
+  instance.$mount(document.createElement(`div`))
   document.body.appendChild(instance.$el)
 
   // 通过Vue的原型注册一个方法

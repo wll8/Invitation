@@ -1,6 +1,6 @@
-import tool from './tool/index.js'
+import tool from '@/util/index.js'
 
-const {Vue, Vuex} = window
+const { Vue, Vuex } = window
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
@@ -12,19 +12,21 @@ const store = new Vuex.Store({
     // 当前 url 状态
     urlStatus(state) {
       const url = state.weddingConfig.url
-      if(!url) {
+      if (!url) {
         return {}
       }
-      let type = ''
-      let urlType = tool.getQueryString('t')
+      let type = ``
+      let urlType = tool.getQueryString(`t`)
       if (urlType === url.girl) {
-        type = 'girl'
+        type = `girl`
       } else if (urlType === url.boy) {
-        type = 'boy'
+        type = `boy`
       } else {
-        type = tool.storage.get('userType') || (url.default === url.girl ? 'girl' : 'boy')
+        type =
+          tool.storage.get(`userType`) ||
+          (url.default === url.girl ? `girl` : `boy`)
       }
-      tool.storage.set('userType', type)
+      tool.storage.set(`userType`, type)
       const tag = url ? url[type] : type
       return {
         type,

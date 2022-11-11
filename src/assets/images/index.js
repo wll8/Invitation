@@ -1,10 +1,10 @@
 // var sharp = require('sharp');
 
 // 引入fs文件处理模块
-var fs = require("fs");
+var fs = require(`fs`)
 // 现在我们要关心的是'icons'文件夹
 // 我们不妨用变量表示这个文件夹名称，方便日后维护和管理
-var src = './myimg';
+var src = `./myimg`
 
 // API文档中中找到遍历文件夹的API
 // 找到了，是fs.readdir(path, callback)
@@ -20,11 +20,12 @@ fs.readdir(src, function (err, files) {
     // API文档中找到重命名的API，如下
     // fs.rename(oldPath, newPath, callback)
     // 下面，我们就可以依葫芦画瓢，确定新旧文件名称：
-    var oldPath = src + '/' + filename, newPath = src + '/' + filename.replace('.jpg_rename', '');
+    var oldPath = src + `/` + filename,
+      newPath = src + `/` + filename.replace(`.jpg_rename`, ``)
     // 重命名走起
 
-    console.log('oldPath', oldPath)
-    console.log('newPath', newPath)
+    console.log(`oldPath`, oldPath)
+    console.log(`newPath`, newPath)
 
     // sharp(oldPath).resize(750).toFile(`${oldPath}_rename.jpg`, function (err) {
     // 	if (err) {
@@ -32,12 +33,10 @@ fs.readdir(src, function (err, files) {
     // 	}
     // });
 
-
     fs.rename(oldPath, newPath, function (err) {
       if (!err) {
-        console.log(filename + '下划线替换成功!');
+        console.log(filename + `下划线替换成功!`)
       }
     })
-  });
-});
-
+  })
+})

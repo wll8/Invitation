@@ -1,11 +1,17 @@
 <template>
   <div class="page_wechat">
-    <bgimg :bg="$root.weddingConfig.pageBg.wechat"/>
+    <bgimg :bg="$root.weddingConfig.pageBg.wechat" />
     <div class="telBox">
-      <a href="javascript:;" :class="['telItem']" v-for="item in itemList" @click="_playAudio(item.key)" :key="item.key">
+      <a
+        href="javascript:;"
+        :class="['telItem']"
+        v-for="item in itemList"
+        @click="_playAudio(item.key)"
+        :key="item.key"
+      >
         <div class="after" :style="`background-image: url(${item.img});`"></div>
         <div :class="['member', item.class]">
-          <div class="text name">{{item.name}}</div>
+          <div class="text name">{{ item.name }}</div>
           <div class="text dev">语音消息</div>
         </div>
         <div class="time">
@@ -16,15 +22,24 @@
     </div>
     <div class="footBar">
       <div class="icon cur">
-        <div class="iconImg" :style="`background-image: url('${require('../assets/images/w_msg.png')}');`"></div>
+        <div
+          class="iconImg"
+          :style="`background-image: url('${require('../assets/images/w_msg.png')}');`"
+        ></div>
         <div class="iconText">微信</div>
       </div>
       <div class="icon">
-        <div class="iconImg" :style="`background-image: url('${require('../assets/images/w_mail_list.png')}')`"></div>
+        <div
+          class="iconImg"
+          :style="`background-image: url('${require('../assets/images/w_mail_list.png')}')`"
+        ></div>
         <div class="iconText">通讯录</div>
       </div>
       <div class="icon">
-        <div class="iconImg" :style="`background-image: url('${require('../assets/images/w_discovery.png')}');`"></div>
+        <div
+          class="iconImg"
+          :style="`background-image: url('${require('../assets/images/w_discovery.png')}');`"
+        ></div>
         <div class="iconText">发现</div>
       </div>
     </div>
@@ -36,49 +51,51 @@
 </template>
 
 <script>
-
 export default {
-  name: 'page_wechat',
+  name: `page_wechat`,
   data() {
     return {
       itemList: [
         {
-          key: 'boy',
-          name: '新郎',
+          key: `boy`,
+          name: `新郎`,
           audio: this.$root.weddingConfig.wechat.boy.audio,
-          class: 'animation1',
+          class: `animation1`,
           img: this.$root.weddingConfig.wechat.boy.img,
         },
         {
-          key: 'girl',
-          name: '新娘',
+          key: `girl`,
+          name: `新娘`,
           audio: this.$root.weddingConfig.wechat.girl.audio,
-          class: 'animation2',
+          class: `animation2`,
           img: this.$root.weddingConfig.wechat.girl.img,
         },
       ],
-      audioMp3: require('../assets/audio/dong.mp3'),
-      returnImg: require('../assets/images/return.png'),
+      audioMp3: require(`../assets/audio/dong.mp3`),
+      returnImg: require(`../assets/images/return.png`),
     }
   },
   computed: {},
   created() {},
   mounted() {
-    setTimeout(()=> {
-      this.$tool.play('wechat-audio')
+    setTimeout(() => {
+      this.$tool.play(`wechat-audio`)
     }, 100)
   },
   methods: {
     _playAudio(type) {
-      this.$tool.play('wechat-audio', this.itemList.find(item => item.key === type).audio)
+      this.$tool.play(
+        `wechat-audio`,
+        this.itemList.find((item) => item.key === type).audio
+      )
     },
   },
-  components: {}
-};
+  components: {},
+}
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 
 .page_wechat {
   background-color: #fff;
@@ -198,7 +215,6 @@ export default {
       }
     }
   }
-
 
   .wechat-item {
     position: absolute;

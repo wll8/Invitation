@@ -1,7 +1,7 @@
 <template>
   <transition name="com_toast">
     <div class="com_toast" v-show="show">
-      {{msg}}
+      {{ msg }}
     </div>
   </transition>
 </template>
@@ -11,10 +11,10 @@ export default {
   data() {
     return {
       show: false,
-      msg: ""
-    };
-  }
-};
+      msg: ``,
+    }
+  },
+}
 </script>
 
 <style lang="less">

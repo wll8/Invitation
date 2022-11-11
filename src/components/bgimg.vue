@@ -1,33 +1,33 @@
 <template>
-  <div :class="['com_bgimg bg-img', {'bg-img-animate': obj.animate}]">
-    <div class="bgImg" :style="
-      `
+  <div :class="['com_bgimg bg-img', { 'bg-img-animate': obj.animate }]">
+    <div
+      class="bgImg"
+      :style="`
         ${obj.src ? `background-image: url(${obj.src}); ` : ''};
         ${obj.color ? `background-color: ${obj.color}` : ''};
         ${obj.pos ? `background-position: ${obj.pos}` : ''};
-      `
-    "></div>
+      `"
+    ></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'bgimg',
-  data () {
+  name: `bgimg`,
+  data() {
     return {}
   },
-  props: ['bg'],
+  props: [`bg`],
   computed: {
     obj() {
-      return (typeof(this.bg) === 'string' ? {src: this.bg} : this.bg) || {}
+      return (typeof this.bg === `string` ? { src: this.bg } : this.bg) || {}
     },
   },
-
 }
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 .com_bgimg {
   .bgImg {
     position: absolute;
@@ -50,10 +50,10 @@ export default {
 
   @keyframes bgImgAnimate {
     50% {
-      .transform(scale(1.3))
+      .transform(scale(1.3));
     }
     100% {
-      .transform(scale(1))
+      .transform(scale(1));
     }
   }
 }
