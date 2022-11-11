@@ -48,6 +48,8 @@ export default {
           return `animate animate-second`
         case 3:
           return `animate animate-third`
+        default:
+          return undefined
       }
     },
   },
