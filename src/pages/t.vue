@@ -5,19 +5,33 @@
       <details>
         <summary>路由列表</summary>
         <ul>
-          <li v-for="item in $router.options.routes" :key="item.id" @click="$router.push({name: item.name})">{{item.path}} {{item.des}}</li>
+          <li
+            v-for="item in $router.options.routes"
+            :key="item.id"
+            @click="$router.push({ name: item.name })"
+          >
+            {{ item.path }} {{ item.des }}
+          </li>
         </ul>
       </details>
       <details open>
         <summary>配置</summary>
         <ul>
-          <li @click="debug"><a>debug {{isDebug}}</a></li>
+          <li @click="debug">
+            <a>debug {{ isDebug }}</a>
+          </li>
         </ul>
       </details>
       <details open>
         <summary>祝福</summary>
         <ul>
-          <li @click="deleteItem(item.id)" v-for="item in blessing" :key="item.id">{{item.name}}: {{item.content}}</li>
+          <li
+            @click="deleteItem(item.id)"
+            v-for="item in blessing"
+            :key="item.id"
+          >
+            {{ item.name }}: {{ item.content }}
+          </li>
         </ul>
       </details>
     </section>
@@ -25,42 +39,44 @@
 </template>
 
 <script>
-
 export default {
-  name: 'page_test',
+  name: `page_test`,
   data() {
     return {
       blessing: [],
       pw: this.$root.weddingConfig.pw,
-      isDebug: !!this.$tool.storage.get('debug'),
+      isDebug: !!this.$tool.storage.get(`debug`),
     }
   },
-  created(){
+  created() {
     // 需要输入口令才能使用此页面， 口令错误跳回首页
-    const inputPw = prompt('', '')
-    if(inputPw === this.pw) {
+    const inputPw = prompt(``, ``)
+    if (inputPw === this.pw) {
       this.getBlessing()
     } else {
-      this.$router.push({name: `call`})
+      this.$router.push({ name: `call` })
     }
   },
   methods: {
-    getBlessing(){
-      this.$http.get(`/weddings/${this.$root.weddingId}/bless`).then(res => this.blessing = res)
+    getBlessing() {
+      this.$http
+        .get(`/weddings/${this.$root.weddingId}/bless`)
+        .then((res) => (this.blessing = res))
     },
     deleteItem(id) {
       // 放在 setTimeout 中以让浏览器响应鼠标 hover 完成
       setTimeout(() => {
-        confirm('否则删除？') && this.$http.delete(`/bless/${id}`).then(res => {
-          this.$msg('已删除')
-          this.getBlessing()
-        })
-      }, 0);
+        confirm(`否则删除？`) &&
+          this.$http.delete(`/bless/${id}`).then((res) => {
+            this.$msg(`已删除`)
+            this.getBlessing()
+          })
+      }, 300)
     },
     debug() {
-      this.isDebug = !+this.$tool.storage.get('debug')
-      this.$tool.storage.set('debug', +this.isDebug)
-      this.$msg('刷新生效')
+      this.isDebug = !+this.$tool.storage.get(`debug`)
+      this.$tool.storage.set(`debug`, +this.isDebug)
+      this.$msg(`刷新生效`)
     },
   },
 }

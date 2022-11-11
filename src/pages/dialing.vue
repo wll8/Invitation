@@ -1,15 +1,21 @@
 <template>
   <div class="page_dialing">
-    <bgimg :bg="$root.weddingConfig.pageBg.dialing"/>
+    <bgimg :bg="$root.weddingConfig.pageBg.dialing" />
     <div class="topBar">
       <div class="tabBox">
-        <div class="tab cur">所有通话</div><div class="tab">未接来电</div>
+        <div class="tab cur">所有通话</div>
+        <div class="tab">未接来电</div>
       </div>
     </div>
     <div class="telBox">
-      <a :href="`tel:${item.tel}`" :class="['telItem', item.class]" v-for="item in itemList" :key="item.tel">
+      <a
+        :href="`tel:${item.tel}`"
+        :class="['telItem', item.class]"
+        v-for="item in itemList"
+        :key="item.tel"
+      >
         <div class="member">
-          <div class="text name">{{item.name}}</div>
+          <div class="text name">{{ item.name }}</div>
           <div class="text dev">手机</div>
         </div>
         <div class="time">
@@ -21,15 +27,24 @@
     </div>
     <div class="footBar">
       <div class="icon">
-        <div class="iconImg" :style="`background-image: url('${require('../assets/images/star.png')}');`"></div>
+        <div
+          class="iconImg"
+          :style="`background-image: url('${require('../assets/images/star.png')}');`"
+        ></div>
         <div class="iconText">个人收藏</div>
       </div>
       <div class="icon cur">
-        <div class="iconImg" :style="`background-image: url('${require('../assets/images/time.png')}')`"></div>
+        <div
+          class="iconImg"
+          :style="`background-image: url('${require('../assets/images/time.png')}')`"
+        ></div>
         <div class="iconText">最近通话</div>
       </div>
       <div class="icon">
-        <div class="iconImg" :style="`background-image: url('${require('../assets/images/man.png')}');`"></div>
+        <div
+          class="iconImg"
+          :style="`background-image: url('${require('../assets/images/man.png')}');`"
+        ></div>
         <div class="iconText">通讯录</div>
       </div>
     </div>
@@ -41,41 +56,40 @@
 </template>
 
 <script>
-
 export default {
-  name: 'page_dialing',
+  name: `page_dialing`,
   data() {
     return {
       itemList: [
         {
-          name: '新郎',
+          name: `新郎`,
           tel: this.$root.weddingConfig.phone.boy,
-          class: 'animation1',
+          class: `animation1`,
         },
         {
-          name: '新娘',
+          name: `新娘`,
           tel: this.$root.weddingConfig.phone.girl,
-          class: 'animation2',
+          class: `animation2`,
         },
       ],
-      audioMp3: require('../assets/audio/dong.mp3'),
-      returnImg: require('../assets/images/return.png'),
+      audioMp3: require(`../assets/audio/dong.mp3`),
+      returnImg: require(`../assets/images/return.png`),
     }
   },
   computed: {},
   created() {},
   mounted() {
-    setTimeout(()=> {
-      this.$tool.play('dialing-audio')
+    setTimeout(() => {
+      this.$tool.play(`dialing-audio`)
     }, 100)
   },
   methods: {},
-  components: {}
-};
+  components: {},
+}
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 
 .page_dialing {
   background-color: #fff;
@@ -234,7 +248,6 @@ export default {
       }
     }
   }
-
 
   .dialing-item {
     position: absolute;

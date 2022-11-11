@@ -1,43 +1,46 @@
 <template>
   <div class="page_call full-screen oh">
-    <bgimg :bg="bgimgSrc"/>
+    <bgimg :bg="bgimgSrc" />
     <div class="mask full-screen">
       <div class="btnBox">
-        <img class="tip" src="../assets/images/tip.png"/>
-        <img class="message" src="../assets/images/message.png"/>
-        <img class="refuse" src="../assets/images/refuse.png"/>
-        <img class="answer" src="../assets/images/answer.png" @click="()=>this._redirectToTalk()"/>
+        <img class="tip" src="../assets/images/tip.png" />
+        <img class="message" src="../assets/images/message.png" />
+        <img class="refuse" src="../assets/images/refuse.png" />
+        <img
+          class="answer"
+          src="../assets/images/answer.png"
+          @click="() => this._redirectToTalk()"
+        />
       </div>
     </div>
     <audio class="hidden" id="call-audio" autoPlay loop>
-      <source :src="$root.weddingConfig.pageMp3.call" type="audio/mpeg"/>
+      <source :src="$root.weddingConfig.pageMp3.call" type="audio/mpeg" />
     </audio>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'page_call',
+  name: `page_call`,
   data() {
     return {
       bgimgSrc: this.$root.weddingConfig.pageBg.call,
-    };
+    }
   },
   mounted() {},
   computed: {},
   created() {},
   methods: {
     _redirectToTalk() {
-      this.$router.push({name: `talk`})
-    }
+      this.$router.push({ name: `talk` })
+    },
   },
-  components: {
-  }
-};
+  components: {},
+}
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 
 .page_call {
   .btnBox {
@@ -61,28 +64,28 @@ export default {
   /*接听按钮动画*/
   @keyframes call-answer-animation {
     20% {
-      .transform(scale(1.1) rotate(0deg))
+      .transform(scale(1.1) rotate(0deg));
     }
     30% {
-      .transform(scale(1.1) rotate(10deg))
+      .transform(scale(1.1) rotate(10deg));
     }
     40% {
-      .transform(scale(1.1) rotate(-10deg))
+      .transform(scale(1.1) rotate(-10deg));
     }
     50% {
-      .transform(scale(1.1) rotate(10deg))
+      .transform(scale(1.1) rotate(10deg));
     }
     60% {
-      .transform(scale(1.1) rotate(-10deg))
+      .transform(scale(1.1) rotate(-10deg));
     }
     70% {
-      .transform(scale(1.1) rotate(10deg))
+      .transform(scale(1.1) rotate(10deg));
     }
     80% {
-      .transform(scale(1.1) rotate(-10deg))
+      .transform(scale(1.1) rotate(-10deg));
     }
     90% {
-      .transform(scale(1.1) rotate(10deg))
+      .transform(scale(1.1) rotate(10deg));
     }
   }
 }

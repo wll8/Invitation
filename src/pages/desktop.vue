@@ -1,33 +1,91 @@
 <template>
   <div class="page_desktop full-screen oh">
     <div class="full-page desktop-page">
-        <!-- 背景照片 -->
-        <bgimg :bg="bgimgSrc"/>
-        <div class="bg">
-
-          <div class="videoBox" v-if="videoShow" @click="_closeVideo">
-            <d-player ref="dplayer" @click.stop="_openVideo" class="videoEr" :options="options"></d-player>
-          </div>
-
-          <div class="top iconBox">
-            <div class="iconRefBox"><hotspot :click="_openVideo" icon="icon3" foot="视频"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `invite`})" icon="icon2" :head="$tool.cnNum(new Date($root.weddingConfig.date[$root.urlStatus.type]).getMonth()) + '月'" :body="new Date($root.weddingConfig.date[$root.urlStatus.type]).getDate() + ''" foot="邀约"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `photos`})" icon="icon4" foot="相册"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `blessing`})" icon="icon5" foot="祝福"/></div>
-          </div>
-
-          <div class="buttom iconBox">
-            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `dialing`})" num="2" icon="icon6"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `wechat`})" num="1" icon="icon7"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `photograph`})" num="3" icon="icon8"/></div>
-            <div class="iconRefBox"><hotspot :click="() => $router.push({name: `map`})" num="1" icon="icon9"/></div>
-          </div>
-
+      <!-- 背景照片 -->
+      <bgimg :bg="bgimgSrc" />
+      <div class="bg">
+        <div class="videoBox" v-if="videoShow" @click="_closeVideo">
+          <d-player
+            ref="dplayer"
+            @click.stop="_openVideo"
+            class="videoEr"
+            :options="options"
+          ></d-player>
         </div>
-        <audio class="hidden" autoPlay id="desktop-audio">
-          <source :src="audioMp3" type="audio/mpeg"/>
-        </audio>
 
+        <div class="top iconBox">
+          <div class="iconRefBox">
+            <hotspot :click="_openVideo" icon="icon3" foot="视频" />
+          </div>
+          <div class="iconRefBox">
+            <hotspot
+              :click="() => $router.push({ name: `invite` })"
+              icon="icon2"
+              :head="
+                $tool.cnNum(
+                  new Date(
+                    $root.weddingConfig.date[$root.urlStatus.type]
+                  ).getMonth()
+                ) + '月'
+              "
+              :body="
+                new Date(
+                  $root.weddingConfig.date[$root.urlStatus.type]
+                ).getDate() + ''
+              "
+              foot="邀约"
+            />
+          </div>
+          <div class="iconRefBox">
+            <hotspot
+              :click="() => $router.push({ name: `photos` })"
+              icon="icon4"
+              foot="相册"
+            />
+          </div>
+          <div class="iconRefBox">
+            <hotspot
+              :click="() => $router.push({ name: `blessing` })"
+              icon="icon5"
+              foot="祝福"
+            />
+          </div>
+        </div>
+
+        <div class="buttom iconBox">
+          <div class="iconRefBox">
+            <hotspot
+              :click="() => $router.push({ name: `dialing` })"
+              num="2"
+              icon="icon6"
+            />
+          </div>
+          <div class="iconRefBox">
+            <hotspot
+              :click="() => $router.push({ name: `wechat` })"
+              num="1"
+              icon="icon7"
+            />
+          </div>
+          <div class="iconRefBox">
+            <hotspot
+              :click="() => $router.push({ name: `photograph` })"
+              num="3"
+              icon="icon8"
+            />
+          </div>
+          <div class="iconRefBox">
+            <hotspot
+              :click="() => $router.push({ name: `map` })"
+              num="1"
+              icon="icon9"
+            />
+          </div>
+        </div>
+      </div>
+      <audio class="hidden" autoPlay id="desktop-audio">
+        <source :src="audioMp3" type="audio/mpeg" />
+      </audio>
     </div>
   </div>
 </template>
@@ -37,7 +95,7 @@
 // import VueDPlayer from 'vue-dplayer'
 
 export default {
-  name: 'page_desktop',
+  name: `page_desktop`,
   data() {
     return {
       options: {
@@ -51,36 +109,35 @@ export default {
       bgimgSrc: this.$root.weddingConfig.pageBg.desktop,
       videoShow: false,
       audioMp3: this.$root.weddingConfig.pageMp3.desktop,
-      closeImg: '',
-      iconImg: require('../assets/images/icon.png'),
+      closeImg: ``,
+      iconImg: require(`../assets/images/icon.png`),
     }
   },
   computed: {},
-  mounted () {
-    this.$tool.play('desktop-audio')
+  mounted() {
+    this.$tool.play(`desktop-audio`)
   },
   methods: {
     _openVideo(ev) {
-      console.log('_openVideo', ev)
+      console.log(`_openVideo`, ev)
       this.videoShow = true
       this.$nextTick(() => {
-        this.$refs.dplayer.dp.on('ended', () => {
+        this.$refs.dplayer.dp.on(`ended`, () => {
           this.videoShow = false
           // 播放完毕直接销毁， 以避免微信嵌入广告
           // 如果不想关闭， 也可在此写回调重新打开
           // 另一个不显示广告的方法是使用 video 标签并添加 x5-video-player-type="h5" 属性
-        });
+        })
       })
-
     },
 
     _closeVideo(ev) {
-      let className = ev.target.className || ''
-      if(typeof className === 'string') {
-        if(!className.indexOf('videoBox')) {
+      let className = ev.target.className || ``
+      if (typeof className === `string`) {
+        if (!className.indexOf(`videoBox`)) {
           this.videoShow = false
         }
-        if(!className.indexOf('dplayer-video')) {
+        if (!className.indexOf(`dplayer-video`)) {
           this.$refs.dplayer.dp.play()
         }
       }
@@ -88,7 +145,7 @@ export default {
   },
   components: {
     // 'd-player': VueDPlayer,
-    hotspot: Vue.component('hotspot', {
+    hotspot: Vue.component(`hotspot`, {
       template: `
         <div :class="['icon', icon]" @click="click">
           <div v-if="num" :class="['num', 'red-point-animate-' + num]">{{num}}</div>
@@ -109,12 +166,12 @@ export default {
         foot: String, // 下部文字
       },
     }),
-  }
-};
+  },
+}
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 .page_desktop {
   .bg {
     position: absolute;
@@ -146,7 +203,7 @@ export default {
         position: absolute;
         bottom: 0;
         width: 100%;
-        background-color: hsla(0,0%,100%,.5);
+        background-color: hsla(0, 0%, 100%, 0.5);
         .icon {
           margin-bottom: 20px;
           margin-top: 20px;
@@ -162,7 +219,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 9;
     .videoEr {
       height: 40%;
@@ -198,7 +255,7 @@ export default {
       color: #fff;
       line-height: 20px;
       text-align: center;
-        font-family: SimHei;
+      font-family: SimHei;
       border-radius: 50%;
       right: -2px;
       top: -2px;
@@ -230,15 +287,29 @@ export default {
         font-family: SimHei;
         font-weight: bold;
       }
-      .icon(2)
+      .icon(2);
     }
-    &.icon3 { .icon(3) }
-    &.icon4 { .icon(4) }
-    &.icon5 { .icon(5) }
-    &.icon6 { .icon(6) }
-    &.icon7 { .icon(7) }
-    &.icon8 { .icon(8) }
-    &.icon9 { .icon(9) }
+    &.icon3 {
+      .icon(3);
+    }
+    &.icon4 {
+      .icon(4);
+    }
+    &.icon5 {
+      .icon(5);
+    }
+    &.icon6 {
+      .icon(6);
+    }
+    &.icon7 {
+      .icon(7);
+    }
+    &.icon8 {
+      .icon(8);
+    }
+    &.icon9 {
+      .icon(9);
+    }
   }
 
   /* 红点动画 1 */
@@ -268,19 +339,19 @@ export default {
   }
   @keyframes red-point-animate-2 {
     0% {
-      .transform(rotate(0deg) scale(1.1))
+      .transform(rotate(0deg) scale(1.1));
     }
     25% {
-      .transform(rotate(-20deg) scale(1.1))
+      .transform(rotate(-20deg) scale(1.1));
     }
     50% {
-      .transform(rotate(0deg) scale(1.1))
+      .transform(rotate(0deg) scale(1.1));
     }
     75% {
-      .transform(rotate(20deg) scale(1.1))
+      .transform(rotate(20deg) scale(1.1));
     }
     100% {
-      .transform(rotate(0deg) scale(1.1))
+      .transform(rotate(0deg) scale(1.1));
     }
   }
 }

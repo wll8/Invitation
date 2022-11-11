@@ -1,22 +1,46 @@
 <template>
   <div class="page_photos" v-if="coverList.length">
-    <bgimg :bg="bgimgSrc"/>
+    <bgimg :bg="bgimgSrc" />
     <div class="swpBox">
-      <div class="swiper-container" id="swiper-big" style="max-width:640px; margin:0 auto; position:relative;">
+      <div
+        class="swiper-container"
+        id="swiper-big"
+        style="max-width: 640px; margin: 0 auto; position: relative"
+      >
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item) in coverList" :key="item.id">
-            <div class="img" :style="`background-image: url(${item.img}); background-position: ${item.pos || 'center'}`"></div>
-            <div v-if="$root.weddingConfig.photosTextShow" class="bg">{{item.text || ``}}</div>
+          <div class="swiper-slide" v-for="item in coverList" :key="item.id">
+            <div
+              class="img"
+              :style="`background-image: url(${
+                item.img
+              }); background-position: ${item.pos || 'center'}`"
+            ></div>
+            <div v-if="$root.weddingConfig.photosTextShow" class="bg">
+              {{ item.text || `` }}
+            </div>
             <div v-else class="bg">&nbsp;</div>
           </div>
         </div>
-        <div v-if="$root.weddingConfig.photosSwitchShow" class="swiper-button-prev"></div>
-        <div v-if="$root.weddingConfig.photosSwitchShow" class="swiper-button-next"></div>
+        <div
+          v-if="$root.weddingConfig.photosSwitchShow"
+          class="swiper-button-prev"
+        ></div>
+        <div
+          v-if="$root.weddingConfig.photosSwitchShow"
+          class="swiper-button-next"
+        ></div>
       </div>
       <div class="swiper-container" id="swiper-small">
         <div class="swiper-wrapper">
-          <div :class="['swiper-slide', {'active-nav': index === 0}]" v-for="(item, index) in coverList" :key="item.id">
-            <div class="img" :style="`background-image: url(${item.img})`"></div>
+          <div
+            :class="['swiper-slide', { 'active-nav': index === 0 }]"
+            v-for="(item, index) in coverList"
+            :key="item.id"
+          >
+            <div
+              class="img"
+              :style="`background-image: url(${item.img})`"
+            ></div>
           </div>
         </div>
       </div>
@@ -26,18 +50,19 @@
 
 <script>
 export default {
-  name: 'page_photos',
+  name: `page_photos`,
   data() {
     return {
       bgimgSrc: this.$root.weddingConfig.pageBg.photos.src,
-      coverList: []
+      coverList: [],
     }
   },
-  mounted() {
-  },
+  mounted() {},
   computed: {},
   async created() {
-    const data = await this.$http.get(`/weddings/${this.$root.weddingId}/photos`)
+    const data = await this.$http.get(
+      `/weddings/${this.$root.weddingId}/photos`
+    )
     this.coverList = data
     this.$nextTick(() => {
       this.swiper()
@@ -45,46 +70,49 @@ export default {
   },
   methods: {
     swiper() {
-      const mySwiperBig = new Swiper('#swiper-big', {
-        prevButton:'.swiper-button-prev',
-        nextButton:'.swiper-button-next',
+      const mySwiperBig = new Swiper(`#swiper-big`, {
+        prevButton: `.swiper-button-prev`,
+        nextButton: `.swiper-button-next`,
         mousewheel: true,
-        effect: 'coverflow',
+        effect: `coverflow`,
         speed: 300,
         watchSlidesProgress: true,
-        onSlideChangeStart: function() {
+        onSlideChangeStart: function () {
           updateNavPosition()
-        }
+        },
       })
 
-      const mySwiperSmall = new Swiper('#swiper-small', {
+      const mySwiperSmall = new Swiper(`#swiper-small`, {
         watchSlidesProgress: true,
         watchSlidesVisibility: true,
         slidesPerView: 5,
-        onTap: function() {
+        onTap: function () {
           mySwiperBig.slideTo(mySwiperSmall.clickedIndex)
-        }
+        },
       })
 
       function updateNavPosition() {
-        $('#swiper-small .active-nav').removeClass('active-nav')
-        const activeNav = $($('#swiper-small .swiper-slide').eq(mySwiperBig.activeIndex)).addClass('active-nav');
-        if (!activeNav.hasClass('swiper-slide-visible')) {
+        $(`#swiper-small .active-nav`).removeClass(`active-nav`)
+        const activeNav = $(
+          $(`#swiper-small .swiper-slide`).eq(mySwiperBig.activeIndex)
+        ).addClass(`active-nav`)
+        if (!activeNav.hasClass(`swiper-slide-visible`)) {
           if (mySwiperBig.activeIndex > mySwiperSmall.activeIndex) {
-            const thumbsPerNav = Math.floor(mySwiperSmall.width / activeNav.width()) - 1
+            const thumbsPerNav =
+              Math.floor(mySwiperSmall.width / activeNav.width()) - 1
             mySwiperSmall.slideTo(mySwiperBig.activeIndex - thumbsPerNav)
           } else {
             mySwiperSmall.slideTo(mySwiperBig.activeIndex)
           }
         }
       }
-    }
+    },
   },
-};
+}
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 .page_photos {
   height: 100%;
 
@@ -99,7 +127,7 @@ export default {
     // padding-bottom: 1%;
   }
   #swiper-big .swiper-slide {
-    box-shadow: 1px 2px 4px rgba(0,0,0,.5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
     // overflow: hidden;
     .mbg;
     // background-color: #fff;
@@ -107,7 +135,7 @@ export default {
     // padding: 5px;
     &::after {
       content: '';
-      box-shadow:  100px 0 10px 20px rgba(0,0,0,.2);
+      box-shadow: 100px 0 10px 20px rgba(0, 0, 0, 0.2);
       position: absolute;
       width: 20%;
       height: 40px;
@@ -115,7 +143,6 @@ export default {
       right: 90px;
       z-index: -1;
       transform: skew(-40deg);
-
     }
   }
   #swiper-big .swiper-slide .img {
@@ -147,16 +174,16 @@ export default {
       width: 45%;
       margin: auto;
       .mbg;
-      box-shadow: 1px 2px 4px rgba(0,0,0,.5);
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
 
-      transition: all .5s;
+      transition: all 0.5s;
 
       &::after {
         display: block;
         content: '';
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,.2);
+        background-color: rgba(0, 0, 0, 0.2);
       }
     }
   }

@@ -1,24 +1,28 @@
 <template>
-  <div class="com_music" :class="play ? 'music music-play' : ' music'" @click="_toggle()">
+  <div
+    class="com_music"
+    :class="play ? 'music music-play' : ' music'"
+    @click="_toggle()"
+  >
     <i class="music-icon"></i>
     <i class="circle circle-1"></i>
     <i class="circle circle-2"></i>
     <i class="circle circle-3"></i>
 
     <audio class="hidden" loop id="bgm">
-      <source :src="bgm" type="audio/mpeg"/>
+      <source :src="bgm" type="audio/mpeg" />
     </audio>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'com_music',
-  data () {
+  name: `com_music`,
+  data() {
     return {
       bgm: this.$root.weddingConfig.pageMp3Base.audio,
       playMusicArr: this.$root.weddingConfig.pageMp3Base.page,
-      play: false
+      play: false,
     }
   },
   watch: {
@@ -29,32 +33,31 @@ export default {
   mounted() {},
   methods: {
     _play() {
-        this.play = true
-        this.$tool.play('bgm')
+      this.play = true
+      this.$tool.play(`bgm`)
     },
 
     _pause() {
-        this.play = false
-        this.$tool.pause('bgm')
+      this.play = false
+      this.$tool.pause(`bgm`)
     },
 
     _toggle() {
-        if (this.play) {
-            this._pause()
-        } else {
-            this._play()
-        }
+      if (this.play) {
+        this._pause()
+      } else {
+        this._play()
+      }
     },
   },
   props: {
     path: String,
   },
-
 }
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 .com_music {
   background-color: rgba(130, 109, 109, 0.2);
   border-radius: 50%;
@@ -95,16 +98,16 @@ export default {
 
   &.music-play {
     .music-icon {
-      .animation(musicIcon 1.5s ease infinite)
+      .animation(musicIcon 1.5s ease infinite);
     }
     .circle-1 {
-      .animation(musicIcon 0.5s 0.3s ease infinite)
+      .animation(musicIcon 0.5s 0.3s ease infinite);
     }
     .circle-2 {
-      .animation(musicIcon 0.5s 0.4s ease infinite)
+      .animation(musicIcon 0.5s 0.4s ease infinite);
     }
     .circle-3 {
-      .animation(musicIcon 0.5s 0.5s ease infinite)
+      .animation(musicIcon 0.5s 0.5s ease infinite);
     }
     @keyframes musicCircle {
       0% {

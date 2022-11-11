@@ -1,6 +1,6 @@
 <template>
   <div class="page_integrated">
-    <bgimg :bg="bgimgSrc"/>
+    <bgimg :bg="bgimgSrc" />
     <div class="bg">
       <img :src="whiteCircleImg" class="white-circle" />
       <integrateditem
@@ -8,21 +8,21 @@
         :imgSrc="require('../assets/images/circle-1-1.png')"
         title="爱的邀约"
         intro="邀请信息"
-        :click="() => $router.push({name: `invite`})"
+        :click="() => $router.push({ name: `invite` })"
       />
       <integrateditem
         position="item-2"
         :imgSrc="require('../assets/images/circle-2-1.png')"
         title="播映快照"
         intro="独家收藏"
-        :click="() => $router.push({name: `photos`})"
+        :click="() => $router.push({ name: `photos` })"
       />
       <integrateditem
         position="item-3"
         :imgSrc="require('../assets/images/circle-2-1.png')"
         title="好友动态"
         intro="祝福留言"
-        :click="() => $router.push({name: `blessing`})"
+        :click="() => $router.push({ name: `blessing` })"
       />
     </div>
   </div>
@@ -31,20 +31,19 @@
 <script>
 // import Vue from 'vue'
 export default {
-  name: "page_integrated",
+  name: `page_integrated`,
   data() {
     return {
-      whiteCircleImg: require('../assets/images/white-circle2.png'),
+      whiteCircleImg: require(`../assets/images/white-circle2.png`),
       bgimgSrc: this.$root.weddingConfig.pageBg.integrated.src,
-    };
+    }
   },
   computed: {},
   mounted() {},
   created() {},
-  methods: {
-  },
+  methods: {},
   components: {
-    integrateditem: Vue.component('integrateditem', {
+    integrateditem: Vue.component(`integrateditem`, {
       template: `
         <div :class="'integrated-item ' + position" @click="click">
           <img :src="imgSrc"/>
@@ -63,16 +62,16 @@ export default {
         position: String,
       },
     }),
-  }
-};
+  },
+}
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 .page_integrated {
   .com_bgimg {
     .bgImg {
-      transform:scaleX(-1);
+      transform: scaleX(-1);
     }
   }
   .bg {
@@ -204,6 +203,5 @@ export default {
       opacity: 0.6;
     }
   }
-
 }
 </style>

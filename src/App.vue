@@ -1,23 +1,27 @@
 <template>
   <div id="app" v-if="$store.state.weddingConfig.id">
-    <music :path="$route.name"/>
-    <div v-show="$route.path !== '/'" @click="$router.back()" class="com_back" />
+    <music :path="$route.name" />
+    <div
+      v-show="$route.path !== '/'"
+      @click="$router.back()"
+      class="com_back"
+    />
     <transition :name="transitionName">
-      <router-view class="child-view"/>
+      <router-view class="child-view" />
     </transition>
   </div>
 </template>
 
 <script>
-import music from './components/music.vue';
+import music from './components/music.vue'
 export default {
-  name: 'App',
-  data(){
+  name: `App`,
+  data() {
     return {
-      transitionName: 'slide-left',
+      transitionName: `slide-left`,
     }
   },
-  mounted(){
+  mounted() {
     const vm = this
 
     // 预加载留言
@@ -29,9 +33,10 @@ export default {
     })()
 
     // 点击页面心形
-    if(!+vm.$tool.storage.get('debug')) {
+    if (!+vm.$tool.storage.get(`debug`)) {
       // 如果不是调试模式才加心形效果
       // 这个效果加上 vconsole 会很卡
+      /* eslint-disable */
       ;((e, t, a) => {
         var heartClassName = '_click_heart_'
         function r() {
@@ -108,23 +113,24 @@ export default {
         `), n(), r()
 
       })(window, document)
+      /* eslint-enable */
     }
   },
   watch: {
-    '$route' (to, from) {
-      const arr = this.$router.options.routes.map(item => item.path)
+    $route(to, from) {
+      const arr = this.$router.options.routes.map((item) => item.path)
       const compare = arr.indexOf(to.path) > arr.indexOf(from.path)
-      this.transitionName = compare ? 'slide-right' : 'slide-left'
-    }
+      this.transitionName = compare ? `slide-right` : `slide-left`
+    },
   },
   components: {
-    music
-  }
+    music,
+  },
 }
 </script>
 
 <style lang="less">
-@import "./assets/css/util.less";
+@import './assets/css/util.less';
 #app {
   touch-action: none; // 禁止浏览器自带的页面左右滑动， 否则会产生一些 swiper 相关的 bug
   height: 100%;
@@ -155,22 +161,22 @@ export default {
     //   border-radius: 50%;
     //   z-index: -1;
     // }
-
   }
 
   .child-view {
     width: 100%;
     height: 100%;
-    transition: all .2s cubic-bezier(.55,0,.1,1);
+    transition: all 0.2s cubic-bezier(0.55, 0, 0.1, 1);
   }
-  .slide-left-enter, .slide-right-leave-active {
+  .slide-left-enter,
+  .slide-right-leave-active {
     opacity: 0;
     transform: translate(10px, 0);
   }
-  .slide-left-leave-active, .slide-right-enter {
+  .slide-left-leave-active,
+  .slide-right-enter {
     opacity: 0;
     transform: translate(-10px, 0);
   }
-
 }
 </style>

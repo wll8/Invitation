@@ -3,52 +3,55 @@
     <div :class="_getAnimagetClass">
       <!-- <img :src="bgImg" class="photo"> -->
       <div class="photo" :style="`background-image: url(${bgImg})`" />
-      <img :src="blackWhiteImg" class="black-white">
-      <img :src="borderImg" class="photo-border">
+      <img :src="blackWhiteImg" class="black-white" />
+      <img :src="borderImg" class="photo-border" />
       <div class="photograph-focus"></div>
-      <img :src="blackImg" class="black-bg">
-      <img :src="weddingImg" class="wedding">
+      <img :src="blackImg" class="black-bg" />
+      <img :src="weddingImg" class="wedding" />
       <div class="wedding-result" @click="doTimerSecond">
-        <img :src="loveImg" class="love-start">
-        <div class="start-button" @click="$router.push({name: `integrated`})">开启</div>
+        <img :src="loveImg" class="love-start" />
+        <div class="start-button" @click="$router.push({ name: `integrated` })">
+          开启
+        </div>
       </div>
     </div>
     <audio class="hidden" id="photograph-audio">
-      <source src type="audio/mpeg">
+      <source src type="audio/mpeg" />
     </audio>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: "page_photograph",
+  name: `page_photograph`,
   data() {
     return {
       animateStep: 0,
       bgImg: this.$root.weddingConfig.pageBg.photograph.src,
-      borderImg: require('../assets/images/photo-border.png'),
-      blackWhiteImg: require('../assets/images/black-white.png'),
-      blackImg: require('../assets/images/black.jpg'),
-      weddingImg: require('../assets/images/wedding.png'),
-      loveImg: require('../assets/images/love-start.png'),
-      DidiMp3: require('../assets/audio/dididi.mp3'),
-      KachaMp3: require('../assets/audio/kacha.mp3'),
-    };
+      borderImg: require(`../assets/images/photo-border.png`),
+      blackWhiteImg: require(`../assets/images/black-white.png`),
+      blackImg: require(`../assets/images/black.jpg`),
+      weddingImg: require(`../assets/images/wedding.png`),
+      loveImg: require(`../assets/images/love-start.png`),
+      DidiMp3: require(`../assets/audio/dididi.mp3`),
+      KachaMp3: require(`../assets/audio/kacha.mp3`),
+    }
   },
   computed: {
     _getAnimagetClass() {
       switch (this.animateStep) {
         case 0:
-          return "animate";
+          return `animate`
         case 1:
-          return "animate animate-first";
+          return `animate animate-first`
         case 2:
-          return "animate animate-second";
+          return `animate animate-second`
         case 3:
-          return "animate animate-third";
+          return `animate animate-third`
+        default:
+          return undefined
       }
-    }
+    },
   },
   created() {},
   mounted() {
@@ -64,60 +67,59 @@ export default {
     this.timerThird = setTimeout(this.timerThirdFn, 11500)
   },
   beforeDestroy() {
-    this.clearTimeout('timerFirst')
-    this.clearTimeout('timerFirstAudio')
+    this.clearTimeout(`timerFirst`)
+    this.clearTimeout(`timerFirstAudio`)
 
-    this.clearTimeout('timerSecond')
-    this.clearTimeout('timerSecondAudio')
+    this.clearTimeout(`timerSecond`)
+    this.clearTimeout(`timerSecondAudio`)
 
-    this.clearTimeout('timerThird')
+    this.clearTimeout(`timerThird`)
   },
   methods: {
-    clearTimeout(name){
+    clearTimeout(name) {
       this[name] && clearTimeout(this[name])
     },
-    timerFirstFn(){
+    timerFirstFn() {
       this.animateStep = 1
-      this.clearTimeout('timerFirst')
+      this.clearTimeout(`timerFirst`)
     },
-    timerFirstAudioFn(){
-      this.$tool.play('photograph-audio', this.DidiMp3)
-      this.clearTimeout('timerFirstAudio')
+    timerFirstAudioFn() {
+      this.$tool.play(`photograph-audio`, this.DidiMp3)
+      this.clearTimeout(`timerFirstAudio`)
     },
-    timerSecondFn(){
+    timerSecondFn() {
       this.animateStep = 2
-      this.clearTimeout('timerSecond')
+      this.clearTimeout(`timerSecond`)
     },
-    timerSecondAudioFn(){
-      this.$tool.play('photograph-audio', this.KachaMp3)
-      this.clearTimeout('timerSecondAudio')
+    timerSecondAudioFn() {
+      this.$tool.play(`photograph-audio`, this.KachaMp3)
+      this.clearTimeout(`timerSecondAudio`)
     },
-    timerThirdFn(){
+    timerThirdFn() {
       this.animateStep = 3
-      this.clearTimeout('timerThird')
+      this.clearTimeout(`timerThird`)
     },
     doTimerSecond() {
       // 用户手动点击拍照， 将取消之前设定的所有定时任务
-      if(this.animateStep < 2) {
+      if (this.animateStep < 2) {
         this.animateStep = 2
-        this.clearTimeout('timerFirst')
-        this.clearTimeout('timerFirstAudio')
-        this.clearTimeout('timerSecond')
-        this.clearTimeout('timerSecondAudio')
-        this.clearTimeout('timerThird')
+        this.clearTimeout(`timerFirst`)
+        this.clearTimeout(`timerFirstAudio`)
+        this.clearTimeout(`timerSecond`)
+        this.clearTimeout(`timerSecondAudio`)
+        this.clearTimeout(`timerThird`)
         this.timerSecondFn()
         this.timerSecondAudio = setTimeout(this.timerSecondAudioFn, 500)
         this.timerThird = setTimeout(this.timerThirdFn, 2500)
       }
     },
-
   },
-  components: {}
-};
+  components: {},
+}
 </script>
 
 <style lang="less">
-@import "../assets/css/util.less";
+@import '../assets/css/util.less';
 
 .page_photograph {
   overflow: hidden;
@@ -414,6 +416,5 @@ export default {
       optity: 0;
     }
   }
-
 }
 </style>
