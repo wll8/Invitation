@@ -73,4 +73,8 @@ open http://127.0.0.1:9020/love
 
 ### 参考
 - https://ruanjiafeng2013.gitee.io/confession-page-100/
-
+- https://imagestool.com/zh_CN/compress-images-to-specified-size.html
+- https://github.com/GoogleChromeLabs/squoosh
+- https://docsmall.com/image-compress
+- https://www.tukuaiya.com/
+- https://form.lljj.me/schema-generator.html#/index

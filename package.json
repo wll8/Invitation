@@ -11,13 +11,13 @@
     "mm": "npx mockm --cwd=mm"
   },
   "dependencies": {
-    "vue-baberrage": "^1.2.1",
-    "vue-dplayer": "^0.0.10",
-    "flyio": "^0.6.4",
-    "fingerprintjs2": "^1.8.6",
     "axios": "^0.21.1",
     "core-js": "^3.10.1",
+    "fingerprintjs2": "^1.8.6",
+    "flyio": "^0.6.4",
     "vue": "^2.6.12",
+    "vue-baberrage": "^1.2.1",
+    "vue-dplayer": "^0.0.10",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
   },
@@ -35,12 +35,12 @@
     "eslint-plugin-vue": "^6.2.2",
     "less": "^3.13.1",
     "less-loader": "^5.0.0",
+    "mockm": "1.1.26-alpha.42",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
     "style-resources-loader": "^1.4.1",
     "vue-cli-plugin-style-resources-loader": "^0.1.5",
-    "vue-template-compiler": "^2.6.12",
-    "mockm": "1.1.26-alpha.42"
+    "vue-template-compiler": "^2.6.12"
   },
   "eslintConfig": {
     "root": true,
@@ -55,7 +55,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "ignorePatterns": ["autoApi.js"],
+    "ignorePatterns": [
+      ""
+    ],
     "globals": {
       "Vue": "readonly",
       "Swiper": "readonly",

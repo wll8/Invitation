@@ -2,11 +2,11 @@ const api = require(`./api/index.js`)
 const { wrapApiData } = require(`./util.js`)
 
 /**
- * 配置说明请参考文档: 
+ * 配置说明请参考文档:
  * https://hongqiye.com/doc/mockm/config/option.html
  * @type {import('mockm/@types/config').Config}
  */
-module.exports = util => {
+module.exports = (util) => {
   return {
     guard: false,
     dbCover: true,
@@ -23,7 +23,8 @@ module.exports = util => {
       ...api(util).db,
     },
     static: [],
-    resHandleReplay: ({req, res}) => wrapApiData({code: 200, data: {}}),
-    resHandleJsonApi: ({req, res: {statusCode: code}, data}) => wrapApiData({code, data}),
+    resHandleReplay: ({ req, res }) => wrapApiData({ code: 200, data: {} }),
+    resHandleJsonApi: ({ req, res: { statusCode: code }, data }) =>
+      wrapApiData({ code, data }),
   }
 }
