@@ -19,6 +19,10 @@ export default new window.VueRouter({
   routes: [
     {
       path: `/:weddingId/`,
+      redirect: `/:weddingId/call`,
+    },
+    {
+      path: `/:weddingId/call`,
       name: `call`,
       component: call,
       des: `来电`,
