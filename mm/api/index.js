@@ -3,6 +3,7 @@ const {
   removeLeft,
   sweetNothing,
   randomFrom,
+  simpleSvgPlaceholder,
 } = require(`../util.js`)
 
 /** @type {import('mockm/@types/config').Config} */
@@ -13,7 +14,13 @@ module.exports = (util) => {
 
   // 随机背景色、前景色、文字图片
   const img = (size) => {
-    return mockjs.mock(`@image(${size}, @color, @color, @word)`)
+    return simpleSvgPlaceholder({
+      width: String(size).split(`x`)[0],
+      height: String(size).split(`x`)[1],
+      bgColor: mockjs.mock(`@color`),
+      textColor: mockjs.mock(`@color`),
+      text: mockjs.mock(`@word`),
+    })
   }
 
   // 随机获取一个甜言蜜语
