@@ -20,7 +20,7 @@ export default {
   name: `com_music`,
   data() {
     return {
-      bgm: this.$root.weddingConfig.pageMp3Base.audio,
+      bgm: this.$root.fileTo(this.$root.weddingConfig.pageMp3Base.audio),
       playMusicArr: this.$root.weddingConfig.pageMp3Base.page,
       play: false,
     }

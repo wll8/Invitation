@@ -91,8 +91,9 @@
 </template>
 
 <script>
-// import Vue from 'vue'
-// import VueDPlayer from 'vue-dplayer'
+import VueDPlayer from 'vue-dplayer'
+import 'vue-dplayer/dist/vue-dplayer.css'
+import hotspot from './hotspot.vue'
 
 export default {
   name: `page_desktop`,
@@ -101,14 +102,18 @@ export default {
       options: {
         screenshot: true,
         video: {
-          url: this.$root.weddingConfig.video.url,
-          pic: this.$root.weddingConfig.video.pic,
+          url: this.$root.fileTo(this.$root.weddingConfig.video.url),
+          pic: this.$root.fileTo(this.$root.weddingConfig.video.pic, {
+            min: true,
+          }),
         },
         autoplay: false,
       },
-      bgimgSrc: this.$root.weddingConfig.pageBg.desktop,
+      bgimgSrc: this.$root.fileTo(this.$root.weddingConfig.pageBg.desktop.src, {
+        min: true,
+      }),
       videoShow: false,
-      audioMp3: this.$root.weddingConfig.pageMp3.desktop,
+      audioMp3: this.$root.fileTo(this.$root.weddingConfig.pageMp3.desktop),
       closeImg: ``,
       iconImg: require(`../assets/images/icon.png`),
     }
@@ -144,28 +149,8 @@ export default {
     },
   },
   components: {
-    // 'd-player': VueDPlayer,
-    hotspot: Vue.component(`hotspot`, {
-      template: `
-        <div :class="['icon', icon]" @click="click">
-          <div v-if="num" :class="['num', 'red-point-animate-' + num]">{{num}}</div>
-          <div class="head">{{head}}</div>
-          <div class="body">{{body}}</div>
-          <div class="foot">{{foot}}</div>
-        </div>
-      `,
-      props: {
-        click: {
-          type: Function,
-          default: () => {},
-        },
-        num: String, // 角标
-        icon: String, // icon 图标
-        head: String, // 头部文字
-        body: String, // 中间文字
-        foot: String, // 下部文字
-      },
-    }),
+    'd-player': VueDPlayer,
+    hotspot,
   },
 }
 </script>
@@ -274,6 +259,11 @@ export default {
       font-size: 16px;
       font-weight: 200;
       // font-family: ZHSRXT;
+      /**
+        桌面文字描边, 避免与图片颜色混合不清
+       */
+      text-shadow: -1px -1px 0 #ccc, 1px -1px 0 #ccc, -1px 1px 0 #ccc,
+        1px 1px 0 #ccc;
     }
 
     &.icon2 {

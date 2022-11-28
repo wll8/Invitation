@@ -1,4 +1,98 @@
 /**
+ * 压缩图片
+ */
+async function minImage({
+  filePath, // 要压缩的文件地址
+  ignore, // 忽略项
+  encodeOptions = {
+    mozjpeg: {
+      _ext: `.min.jpg`, // 指定后缀名
+      quality: 80, // 图片质量
+      progressive: true, // 渐进式
+    }, // 格式转换项
+    webp: {
+      _ext: `.min.webp`,
+      quality: 80, // 图片质量
+      progressive: true, // 渐进式
+    }, // 格式转换项
+  },
+}) {
+  const fs = require(`fs`)
+  const { cpus } = require(`os`)
+
+  /**
+   * 先生成占位文件, 避免处理过程中崩溃而导致文件未生成
+   */
+  for (let cfg of Object.values(encodeOptions)) {
+    fs.copyFileSync(filePath, `${filePath}${cfg._ext}`)
+  }
+  let infoOld = {
+    width: undefined,
+    height: undefined,
+    size: undefined,
+  }
+  let infoNew = {}
+  ignore = {
+    /**
+     * 变更宽或高, 原图大于此值时执行, 小于或等于时跳过此步, 进行其他操作
+     */
+    maxWidthOrHeight: 1080,
+    /**
+     * 体积小于等于此 kb 时不做任何操作
+     */
+    minSize: 60,
+    ...ignore,
+  }
+  const squoosh = require(`@squoosh/lib`)
+  const file = fs.readFileSync(filePath)
+  const imagePool = new squoosh.ImagePool(cpus().length)
+  const image = imagePool.ingestImage(file)
+  const decodedOld = await image.decoded
+  infoOld.size = (decodedOld.size / 1024).toFixed(2)
+  infoOld.width = decodedOld.bitmap.width
+  infoOld.height = decodedOld.bitmap.height
+
+  if (infoOld.size <= ignore.minSize) {
+    const res = { infoOld }
+    await imagePool.close()
+    return res
+  }
+
+  // 得到短边
+  const minLine =
+    decodedOld.bitmap.width > decodedOld.bitmap.height ? `height` : `width`
+  // 使用短边为基线改变大小
+  const resize =
+    (decodedOld.bitmap[minLine] > ignore.maxWidthOrHeight && {
+      [minLine]: ignore.maxWidthOrHeight,
+    }) ||
+    undefined
+  const preprocessOptions = {
+    ...((resize && { resize }) || {}),
+  }
+  await image.preprocess(preprocessOptions)
+  await image.encode(encodeOptions)
+  const decodedNew = await image.decoded
+  for (let encodedImage of Object.values(image.encodedWith)) {
+    encodedImage = await encodedImage
+    const ext = encodedImage.optionsUsed._ext
+    fs.writeFileSync(`${filePath}${ext}`, encodedImage.binary)
+    infoNew[ext] = {
+      width: decodedNew.bitmap.width,
+      height: decodedNew.bitmap.height,
+      size: (encodedImage.size / 1024).toFixed(2), // 这时候的 size 应使用实际配置生成的值
+    }
+  }
+  await imagePool.close()
+  const res = {
+    infoOld,
+    infoNew,
+  }
+  console.log(`res`, res)
+  return res
+}
+
+/**
  * 一些婚礼相关正能量的句子
  */
 const sweetNothing = [
@@ -127,6 +221,7 @@ function simpleSvgPlaceholder({
 }
 
 module.exports = {
+  minImage,
   simpleSvgPlaceholder,
   sweetNothing,
   randomFrom,

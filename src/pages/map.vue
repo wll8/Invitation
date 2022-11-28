@@ -12,9 +12,15 @@ export default {
   },
   computed: {
     addrInfo() {
+      // todo 变更坐标数据类型, 使用 x/y 两个字段, 而不是一个数组
+      let { boy, girl } = this.$root.weddingConfig.addr
+      typeof boy.position === `string` &&
+        (boy.position = boy.position.split(`,`))
+      typeof girl.position === `string` &&
+        (girl.position = girl.position.split(`,`))
       return {
-        boy: this.$root.weddingConfig.addr.boy,
-        girl: this.$root.weddingConfig.addr.girl,
+        boy,
+        girl,
       }[this.$root.urlStatus.type]
     },
   },

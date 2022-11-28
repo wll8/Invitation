@@ -3,7 +3,11 @@
     <div
       class="bgImg"
       :style="`
-        ${obj.src ? `background-image: url(${obj.src}); ` : ''};
+        ${
+          obj.src
+            ? `background-image: url(${$root.fileTo(obj.src, { min: true })}); `
+            : ''
+        };
         ${obj.color ? `background-color: ${obj.color}` : ''};
         ${obj.pos ? `background-position: ${obj.pos}` : ''};
       `"

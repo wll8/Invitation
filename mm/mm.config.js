@@ -22,7 +22,12 @@ module.exports = (util) => {
     db: {
       ...api(util).db,
     },
-    static: [],
+    static: [
+      {
+        path: `/file/upload`,
+        fileDir: `./upload/`,
+      },
+    ],
     resHandleReplay: ({ req, res }) => wrapApiData({ code: 200, data: {} }),
     resHandleJsonApi: ({ req, res: { statusCode: code }, data }) =>
       wrapApiData({ code, data }),

@@ -33,11 +33,13 @@ export default {
       audioTimer: undefined,
       timestamp: Date.parse(new Date()),
       endTimestamp: Date.parse(
-        this.$root.weddingConfig.date[this.$root.urlStatus.type]
+        new Date(this.$root.weddingConfig.date[this.$root.urlStatus.type])
       ),
-      boyMp3: this.$root.weddingConfig.pageMp3.talk.boy,
-      girlMp3: this.$root.weddingConfig.pageMp3.talk.girl,
-      bgimgSrc: this.$root.weddingConfig.pageBg.talk,
+      boyMp3: this.$root.fileTo(this.$root.weddingConfig.pageMp3.talk.boy),
+      girlMp3: this.$root.fileTo(this.$root.weddingConfig.pageMp3.talk.girl),
+      bgimgSrc: this.$root.fileTo(this.$root.weddingConfig.pageBg.talk.src, {
+        min: true,
+      }),
       functionImg: require(`../assets/images/function2.png`),
       hungUpImg: require(`../assets/images/hung-up.png`),
     }

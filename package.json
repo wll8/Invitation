@@ -4,21 +4,22 @@
   "private": true,
   "scripts": {
     "dev": "cross-env VUE_APP_ENV=dev vue-cli-service serve",
-    "build": "cross-env VUE_APP_ENV=prod vue-cli-service build",
-    "build:test": "cross-env VUE_APP_ENV=test vue-cli-service build",
+    "build": "cross-env VUE_APP_ENV=prod vue-cli-service build --report",
+    "build:test": "cross-env VUE_APP_ENV=test vue-cli-service build --report",
     "start": "run-p serve mm",
     "lint": "vue-cli-service lint",
-    "mm": "npx mockm --cwd=mm"
+    "mm": "mockm --cwd=mm"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.10.1",
     "fingerprintjs2": "^1.8.6",
     "flyio": "^0.6.4",
-    "vue": "^2.6.12",
-    "vue-baberrage": "^1.2.1",
-    "vue-dplayer": "^0.0.10",
-    "vue-router": "^3.5.1",
+    "swiper": "3.4.2",
+    "vue": "^2.7.14",
+    "vue-baberrage": "2.1.9",
+    "vue-dplayer": "0.0.10",
+    "vue-router": "^3.6.5",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^6.2.2",
+    "esm": "^3.2.25",
     "less": "^3.13.1",
     "less-loader": "^5.0.0",
     "mockm": "1.1.26-alpha.42",
@@ -40,7 +42,7 @@
     "prettier": "^2.2.1",
     "style-resources-loader": "^1.4.1",
     "vue-cli-plugin-style-resources-loader": "^0.1.5",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.7.14"
   },
   "eslintConfig": {
     "root": true,
@@ -59,8 +61,6 @@
       ""
     ],
     "globals": {
-      "Vue": "readonly",
-      "Swiper": "readonly",
       "AMap": "readonly",
       "$": "readonly"
     },

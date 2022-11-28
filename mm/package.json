@@ -1,0 +1,16 @@
+{
+  "name": "mm",
+  "version": "1.0.0",
+  "description": "mm",
+  "main": "mm.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@squoosh/lib": "^0.4.0",
+    "jsdom": "^20.0.3"
+  }
+}

@@ -1,4 +1,8 @@
+const path = require(`path`)
+const fs = require(`fs`)
+
 const {
+  minImage,
   wrapApiData,
   removeLeft,
   sweetNothing,
@@ -30,6 +34,40 @@ module.exports = (util) => {
 
   return {
     api: {
+      'use /'(req, res, next) {
+        next()
+      },
+      async 'post /file/upload'(req, res) {
+        const multiparty = await util.toolObj.generate.initPackge(`multiparty`)
+        const uploadDir = `${__dirname}/../upload/`
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true })
+        }
+        const form = new multiparty.Form({
+          uploadDir,
+        })
+        form.parse(req, async (err, fields = [], files) => {
+          if (err) {
+            res.sendStatus(500).json({ msg: String(err) })
+          }
+          const file = files.file[0]
+          const isImg = (file.headers[`content-type`] || ``)
+            .trim()
+            .startsWith(`image/`)
+          const parsePath = path.parse(file.path)
+          const defaultExt = isImg ? `.jpg` : ``
+          const filePath =
+            // 如果没有后缀时, 默认为 jpg
+            parsePath.ext === ``
+              ? (fs.renameSync(file.path, `${file.path}${defaultExt}`),
+                `${file.path}${defaultExt}`)
+              : file.path
+          isImg && minImage({ filePath })
+          console.log(`file`, file)
+          let url = path.parse(filePath).base
+          res.json({ url })
+        })
+      },
       // 创建祝福
       'post /weddings/:weddingId/bless'(req, res, next) {
         const { name = ``, userId } = req.body

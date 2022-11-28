@@ -59,16 +59,20 @@ export default {
         {
           key: `boy`,
           name: `新郎`,
-          audio: this.$root.weddingConfig.wechat.boy.audio,
+          audio: this.$root.fileTo(this.$root.weddingConfig.wechat.boy.audio),
           class: `animation1`,
-          img: this.$root.weddingConfig.wechat.boy.img,
+          img: this.$root.fileTo(this.$root.weddingConfig.wechat.boy.img, {
+            min: true,
+          }),
         },
         {
           key: `girl`,
           name: `新娘`,
-          audio: this.$root.weddingConfig.wechat.girl.audio,
+          audio: this.$root.fileTo(this.$root.weddingConfig.wechat.girl.audio),
           class: `animation2`,
-          img: this.$root.weddingConfig.wechat.girl.img,
+          img: this.$root.fileTo(this.$root.weddingConfig.wechat.girl.img, {
+            min: true,
+          }),
         },
       ],
       audioMp3: require(`../assets/audio/dong.mp3`),

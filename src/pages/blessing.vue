@@ -52,6 +52,10 @@
 </template>
 
 <script>
+import { vueBaberrage } from 'vue-baberrage'
+import Vue from 'vue'
+Vue.use(vueBaberrage)
+
 export default {
   name: `page_blessing`,
   data() {

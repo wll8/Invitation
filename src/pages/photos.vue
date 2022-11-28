@@ -11,9 +11,9 @@
           <div class="swiper-slide" v-for="item in coverList" :key="item.id">
             <div
               class="img"
-              :style="`background-image: url(${
-                item.img
-              }); background-position: ${item.pos || 'center'}`"
+              :style="`background-image: url(${$root.fileTo(item.img, {
+                min: true,
+              })}); background-position: ${item.pos || 'center'}`"
             ></div>
             <div v-if="$root.weddingConfig.photosTextShow" class="bg">
               {{ item.text || `` }}
@@ -39,7 +39,9 @@
           >
             <div
               class="img"
-              :style="`background-image: url(${item.img})`"
+              :style="`background-image: url(${$root.fileTo(item.img, {
+                min: true,
+              })})`"
             ></div>
           </div>
         </div>
@@ -49,6 +51,10 @@
 </template>
 
 <script>
+import 'swiper/dist/css/swiper.min.css'
+import swiper from 'swiper'
+const Swiper = swiper
+
 export default {
   name: `page_photos`,
   data() {
@@ -63,7 +69,8 @@ export default {
     const data = await this.$http.get(
       `/weddings/${this.$root.weddingId}/photos`
     )
-    this.coverList = data
+    // todo 从接口上进行兼容处理
+    this.coverList = data.length ? data : this.$root.weddingConfig.photos || []
     this.$nextTick(() => {
       this.swiper()
     })

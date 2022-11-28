@@ -4903,6 +4903,11 @@ eslint@^6.8.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
+esm@^3.2.25:
+  version "3.2.25"
+  resolved "https://registry.npmmirror.com/esm/-/esm-3.2.25.tgz#342c18c29d56157688ba5ce31f8431fbb795cc10"
+  integrity sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==
+
 espree@^6.1.2, espree@^6.2.1:
   version "6.2.1"
   resolved "https://registry.npmmirror.com/espree/-/espree-6.2.1.tgz#77fc72e1fd744a2052c20f38a5b575832e82734a"
@@ -11592,6 +11597,11 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+swiper@3.4.2:
+  version "3.4.2"
+  resolved "https://registry.npmmirror.com/swiper/-/swiper-3.4.2.tgz#39d6b410b1a39833e1f72d3b72999df5f5e38392"
+  integrity sha512-bXolyzBIawQRluQwFbN8DYpe6Q02bKJ2/h4JV+6dzN/WX8a8ZFPa+F0o8z7hEHSyh2NzKkTWaogaTZYVfgmKTw==
+
 table@^5.2.3:
   version "5.4.6"
   resolved "https://registry.npmmirror.com/table/-/table-5.4.6.tgz#1292d19500ce3f86053b05f0e8e7e4a3bb21079e"
@@ -12310,19 +12320,19 @@ vm2@^3.9.8:
     acorn "^8.7.0"
     acorn-walk "^8.2.0"
 
-vue-baberrage@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.npmmirror.com/vue-baberrage/-/vue-baberrage-1.2.1.tgz#c0e703d25b501bca6f32d5130a47e5622b1b0a7b"
-  integrity sha512-KCNzQlmBmrAd3ImWOY9B33HcnBOFa4h6LxjSBspGHnRXUFE3y66dx1EUdFV05FZ9VTfogAksmEM/COKK72kKlg==
+vue-baberrage@2.1.9:
+  version "2.1.9"
+  resolved "https://registry.npmmirror.com/vue-baberrage/-/vue-baberrage-2.1.9.tgz#fe6db81dce6843b248d498115048f7d6384923a5"
+  integrity sha512-9KtnH/rmzy33G+PQMdaNQ5O/mMcU5IPDeM9FX1AHYr/zosfP8cjU7MhZx+OtaCjfbkA1sMvWXaOYuS6Pcna9MQ==
   dependencies:
-    vue "^2.5.2"
+    vue "^2.5.22"
 
 vue-cli-plugin-style-resources-loader@^0.1.5:
   version "0.1.5"
   resolved "https://registry.npmmirror.com/vue-cli-plugin-style-resources-loader/-/vue-cli-plugin-style-resources-loader-0.1.5.tgz#3e95f4df41f5408e1255664690698c0533648109"
   integrity sha512-LluhjWTZmpGl3tiXg51EciF+T70IN/9t6UvfmgluJBqxbrb6OV9i7L5lTd+OKtcTeghDkhcBmYhtTxxU4w/8sQ==
 
-vue-dplayer@^0.0.10:
+vue-dplayer@0.0.10:
   version "0.0.10"
   resolved "https://registry.npmmirror.com/vue-dplayer/-/vue-dplayer-0.0.10.tgz#d30b8d144c90844ba7f4e4b5ed212aa611ed3bd3"
   integrity sha512-l6d6OnhEUO87lhAees9mEBUFsG5Thqv/VeEVZlSQ993/S0oxvWTDLjjkzH59hO2PALimBK2kB6yNYsHyJBgotw==
@@ -12373,7 +12383,7 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-router@^3.5.1:
+vue-router@^3.6.5:
   version "3.6.5"
   resolved "https://registry.npmmirror.com/vue-router/-/vue-router-3.6.5.tgz#95847d52b9a7e3f1361cb605c8e6441f202afad8"
   integrity sha512-VYXZQLtjuvKxxcshuRAwjHnciqZVoXAjTjcqBTz4rKc8qih9g9pI3hbDjmqXaHdgL3v8pV6P8Z335XvHzESxLQ==
@@ -12386,7 +12396,7 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.6.12:
+vue-template-compiler@^2.7.14:
   version "2.7.14"
   resolved "https://registry.npmmirror.com/vue-template-compiler/-/vue-template-compiler-2.7.14.tgz#4545b7dfb88090744c1577ae5ac3f964e61634b1"
   integrity sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==
@@ -12399,7 +12409,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npmmirror.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.5.2, vue@^2.6.12:
+vue@^2.5.22, vue@^2.7.14:
   version "2.7.14"
   resolved "https://registry.npmmirror.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17"
   integrity sha512-b2qkFyOM0kwqWFuQmgd4o+uHGU7T+2z3T+WQp8UBjADfEv2n4FEMffzBmCKNP0IGzOEEfYjvtcC62xaSKeQDrQ==

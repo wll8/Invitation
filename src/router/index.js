@@ -1,102 +1,133 @@
-// import Vue from 'vue'
-// import Router from 'vue-router'
-// import t from '@/pages/t.vue'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import call from '@/pages/call.vue'
-import talk from '@/pages/talk.vue'
-import desktop from '@/pages/desktop.vue'
-import invite from '@/pages/invite.vue'
-import blessing from '@/pages/blessing.vue'
-import dialing from '@/pages/dialing.vue'
-import wechat from '@/pages/wechat.vue'
-import photograph from '@/pages/photograph.vue'
-// import integrated from '@/pages/integrated.vue'
-import photos from '@/pages/photos.vue'
-import map from '@/pages/map.vue'
 
-// Vue.use(Router)
+/**
+ * @see https://stackoverflow.com/questions/62223195/vue-router-uncaught-in-promise-error-redirected-from-login-to-via-a
+ */
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, resolve, reject) {
+  if (resolve || reject)
+    return originalPush.call(this, location, resolve, reject)
+  return originalPush.call(this, location).catch((e) => {})
+}
+Vue.use(VueRouter)
 
-export default new window.VueRouter({
+export default new VueRouter({
+  mode: `hash`,
+  base: process.env.BASE_URL,
   routes: [
     {
-      path: `/:weddingId/`,
-      redirect: `/:weddingId/call`,
+      path: `/`,
+      redirect: `/call`,
     },
     {
-      path: `/:weddingId/call`,
+      path: `/call`,
       name: `call`,
       component: call,
       des: `来电`,
     },
     {
-      path: `/:weddingId/talk`,
+      path: `/talk`,
       name: `talk`,
-      component: talk,
+      // component: talk,
+      component: () =>
+        import(
+          /* webpackChunkName: "talk" */ /* webpackPrefetch: true */ `@/pages/talk.vue`
+        ),
       des: `接听`,
     },
     {
-      path: `/:weddingId/desktop`,
+      path: `/desktop`,
       name: `desktop`,
-      component: desktop,
-      // component: () => import('@/pages/desktop.vue'),
+      // component: desktop,
+      component: () =>
+        import(
+          /* webpackChunkName: "desktop" */ /* webpackPrefetch: true */ `@/pages/desktop.vue`
+        ),
       des: `桌面`,
     },
     {
-      path: `/:weddingId/invite`,
+      path: `/invite`,
       name: `invite`,
-      component: invite,
-      des: `日期`,
-    },
-    {
-      path: `/:weddingId/invite`,
-      name: `invite`,
-      component: invite,
+      // component: invite,
+      component: () =>
+        import(
+          /* webpackChunkName: "invite" */ /* webpackPrefetch: true */ `@/pages/invite.vue`
+        ),
       des: `邀请`,
     },
     {
-      path: `/:weddingId/dialing`,
+      path: `/dialing`,
       name: `dialing`,
-      component: dialing,
+      // component: dialing,
+      component: () =>
+        import(
+          /* webpackChunkName: "dialing" */ /* webpackPrefetch: true */ `@/pages/dialing.vue`
+        ),
       des: `通话记录`,
     },
     {
-      path: `/:weddingId/wechat`,
+      path: `/wechat`,
       name: `wechat`,
-      component: wechat,
+      // component: wechat,
+      component: () =>
+        import(
+          /* webpackChunkName: "wechat" */ /* webpackPrefetch: true */ `@/pages/wechat.vue`
+        ),
       des: `微信`,
     },
     {
-      path: `/:weddingId/photograph`,
+      path: `/photograph`,
       name: `photograph`,
-      component: photograph,
+      // component: photograph,
+      component: () =>
+        import(
+          /* webpackChunkName: "photograph" */ /* webpackPrefetch: true */ `@/pages/photograph.vue`
+        ),
       des: `拍照`,
     },
     {
-      path: `/:weddingId/integrated`,
+      path: `/integrated`,
       name: `integrated`,
       // component: integrated,
-      component: () => import(`@/pages/integrated.vue`),
+      component: () =>
+        import(
+          /* webpackChunkName: "integrated" */ /* webpackPrefetch: true */ `@/pages/integrated.vue`
+        ),
       des: `集成`,
     },
     {
-      path: `/:weddingId/blessing`,
+      path: `/blessing`,
       name: `blessing`,
-      component: blessing,
+      component: () =>
+        import(
+          /* webpackChunkName: "blessing" */ /* webpackPrefetch: true */ `@/pages/blessing.vue`
+        ),
       des: `祝福`,
     },
     {
-      path: `/:weddingId/photos`,
+      path: `/photos`,
       name: `photos`,
-      component: photos,
+      // component: photos,
+      component: () =>
+        import(
+          /* webpackChunkName: "photos" */ /* webpackPrefetch: true */ `@/pages/photos.vue`
+        ),
       des: `相册`,
     },
     {
-      path: `/:weddingId/map`,
+      path: `/map`,
       name: `map`,
-      component: map,
+      // component: map,
+      component: () =>
+        import(
+          /* webpackChunkName: "map" */ /* webpackPrefetch: true */ `@/pages/map.vue`
+        ),
       des: `地图`,
     },
     {
-      path: `/:weddingId/t`,
+      path: `/t`,
       name: `t`,
       // component: t,
       component: () => import(`@/pages/t.vue`),

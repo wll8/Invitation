@@ -6,7 +6,9 @@
         <div class="clock clock-countdown">
           <div
             class="site-config"
-            :data-date="$root.weddingConfig.date[$root.urlStatus.type]"
+            :data-date="
+              new Date($root.weddingConfig.date[$root.urlStatus.type])
+            "
           ></div>
           <header class="header">
             <strong>婚礼倒计时</strong>

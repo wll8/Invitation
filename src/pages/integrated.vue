@@ -29,7 +29,8 @@
 </template>
 
 <script>
-// import Vue from 'vue'
+import Vue from 'vue'
+import integrateditem from './integrateditem.vue'
 export default {
   name: `page_integrated`,
   data() {
@@ -43,25 +44,7 @@ export default {
   created() {},
   methods: {},
   components: {
-    integrateditem: Vue.component(`integrateditem`, {
-      template: `
-        <div :class="'integrated-item ' + position" @click="click">
-          <img :src="imgSrc"/>
-          <p class="p-title">{{title}}</p>
-          <p class="p-intro">{{intro}}</p>
-        </div>
-      `,
-      props: {
-        click: {
-          type: Function,
-          default: () => {},
-        },
-        title: String,
-        intro: String,
-        imgSrc: String,
-        position: String,
-      },
-    }),
+    integrateditem,
   },
 }
 </script>
@@ -71,7 +54,7 @@ export default {
 .page_integrated {
   .com_bgimg {
     .bgImg {
-      transform: scaleX(-1);
+      // transform: scaleX(-1); // 此属性可以左右翻转图片
     }
   }
   .bg {

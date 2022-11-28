@@ -1,6 +1,6 @@
 // The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-// import Vue from 'vue'
+import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import '../src/assets/css/common.less'
@@ -10,12 +10,8 @@ import toast from '@/components/toast.js'
 import store from '@/store/index.js'
 import fly from 'flyio'
 
-// import vueBaberrage from 'vue-baberrage'
 // import Fingerprint2 from 'fingerprintjs2'
 
-const { Vue } = window
-
-// Vue.use(vueBaberrage)
 Vue.use(toast)
 
 Vue.prototype.$tool = tool
@@ -25,7 +21,7 @@ Vue.component(`bgimg`, bgimg) // 全局注册组件
 
 router.beforeEach(async (to, from, next) => {
   store.state.userId = store.state.userId || (await tool.getDeviceCode())
-  const weddingId = to.params.weddingId
+  const weddingId = tool.getEndDir(location.href) || `18212341234`
   store.state.weddingId = weddingId
   const data =
     store.state.weddingConfig.id === weddingId
@@ -36,7 +32,7 @@ router.beforeEach(async (to, from, next) => {
   // 页面更改时, 加上用户类型参数, 以免参数丢失导致用户分享后是另一种用户类型的页面
   const { type, tag } = store.getters.urlStatus
   if (!to.query.t) {
-    next({
+    router.push({
       path: to.path,
       query: { t: tag },
       // replace: true,
@@ -49,13 +45,20 @@ router.beforeEach(async (to, from, next) => {
 window.vm = new Vue({
   el: `#app`,
   computed: {
-    ...window.Vuex.mapState([`weddingId`, `weddingConfig`, `userId`]),
-    ...window.Vuex.mapGetters([`urlStatus`]),
+    ...Vuex.mapState([`weddingId`, `weddingConfig`, `userId`]),
+    ...Vuex.mapGetters([`urlStatus`]),
+  },
+  methods: {
+    fileTo: tool.fileTo,
   },
   store,
   router,
   components: {
     App,
   },
-  template: `<App/>`,
+  /**
+   * https://v2.vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
+   * 如果使用 template: `<App/>` 则需要编译运行时
+   */
+  render: (h) => h(App),
 })

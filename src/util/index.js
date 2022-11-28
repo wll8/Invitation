@@ -1,3 +1,14 @@
+import config from '@/config.js'
+
+function isSupportWebp() {
+  const ele = window.document.createElement(`canvas`)
+  if (ele.getContext && ele.getContext(`2d`)) {
+    return ele.toDataURL(`image/webp`).indexOf(`webp`) > -1
+  }
+  // 不支持 canvas, 那么一定不支持webp
+  return false
+}
+
 /**
  * http 请求通用处理方法
  */
@@ -293,7 +304,51 @@ function getQueryString(name) {
   return r != null ? decodeURIComponent(r[2]) : ``
 }
 
+/**
+ * 获取链接的最后一个目录
+ */
+function getEndDir(link = location.href) {
+  return new URL(link).pathname.split(`/`).pop()
+}
+
+/**
+ * 文件链接处理
+ */
+function fileTo(url, { min = false } = {}) {
+  if (!url) {
+    return url
+  }
+  url = (() => {
+    const filePreFix = config.upload
+    try {
+      // 如果 new URL 不报错就是绝对地址
+      new URL(url)
+      return url
+    } catch (error) {
+      return [
+        filePreFix,
+        url.startsWith(`/`) || filePreFix.endsWith(`/`) ? `` : `/`,
+        url,
+      ].join(``)
+    }
+  })()
+  const { origin, pathname, search } = new URL(
+    url.includes(`data:`) || url.includes(`://`) ? url : `ws://${url}`
+  )
+  if (min) {
+    const urlNew =
+      isSupportWebp() && process.env.VUE_APP_ENV === `prod`
+        ? `${origin}${pathname}.min.webp${search}`
+        : url
+    return urlNew
+  }
+  return url
+}
+
 export default {
+  fileTo: cacheFn(fileTo),
+  isSupportWebp: cacheFn(isSupportWebp),
+  getEndDir: cacheFn(getEndDir),
   http,
   cacheFn,
   getDeviceCode: cacheFn(getDeviceCode),

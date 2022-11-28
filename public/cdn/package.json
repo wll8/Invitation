@@ -1,0 +1,17 @@
+{
+  "name": "cdn",
+  "version": "1.0.0",
+  "description": "本目录用于存储一些使用到的 cdn, 便于本地化部署.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "compressing": "^1.6.2",
+    "download": "^8.0.0",
+    "shelljs": "^0.8.5"
+  }
+}

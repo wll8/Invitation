@@ -1,6 +1,7 @@
 import tool from '@/util/index.js'
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-const { Vue, Vuex } = window
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {

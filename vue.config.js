@@ -1,7 +1,22 @@
+const esm = require(`esm`)(module)
+const configSrc = esm(`./src/config.js`).default
 const path = require(`path`)
+console.log(`config`, configSrc)
 
 module.exports = {
-  publicPath: process.env.VUE_APP_ENV === `dev` ? `/` : `/web/`, // 基本路径, 建议以绝对路径跟随访问目录
+  chainWebpack: (config) => {
+    config.plugin(`html`).tap((args) => {
+      args[0].templateParameters = {
+        obj: {
+          cdnPath: configSrc.cdnPath,
+          staticPath: configSrc.staticPath,
+          indexPath: configSrc.indexPath,
+        },
+      }
+      return args
+    })
+  },
+  publicPath: configSrc.indexPath, // 基本路径, 建议以绝对路径跟随访问目录
   outputDir: `./dist`, // 输出文件目录
   pluginOptions: {
     // 第三方插件配置
