@@ -335,14 +335,14 @@ function fileTo(url, { min = false } = {}) {
   const { origin, pathname, search } = new URL(
     url.includes(`data:`) || url.includes(`://`) ? url : `ws://${url}`
   )
+  let res = url
   if (min) {
-    const urlNew =
-      isSupportWebp() && process.env.VUE_APP_ENV === `prod`
+    res =
+      isSupportWebp() && pathname.endsWith(`.min.webp`) === false
         ? `${origin}${pathname}.min.webp${search}`
         : url
-    return urlNew
   }
-  return url
+  return res
 }
 
 export default {
