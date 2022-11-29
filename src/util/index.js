@@ -338,10 +338,12 @@ function fileTo(url, { min = false } = {}) {
   let res = url
   if (min) {
     res =
-      isSupportWebp() &&
       pathname.endsWith(`.min.webp`) === false &&
+      pathname.endsWith(`.min.jpg`) === false &&
       url.includes(`data:`) === false
-        ? `${origin}${pathname}.min.webp${search}`
+        ? isSupportWebp()
+          ? `${origin}${pathname}.min.webp${search}`
+          : `${origin}${pathname}.min.jpg${search}`
         : url
   }
   return res
