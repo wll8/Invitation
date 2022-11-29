@@ -19,7 +19,7 @@ const $http = tool.http(fly, { baseURL: `http://127.0.0.1:9020/` })
 Vue.prototype.$http = $http
 Vue.component(`bgimg`, bgimg) // 全局注册组件
 
-router.beforeEach(async (to, from, next) => {
+typeof (async () => {
   store.state.userId = store.state.userId || (await tool.getDeviceCode())
   const weddingId = tool.getEndDir(location.href) || `18212341234`
   store.state.weddingId = weddingId
@@ -31,34 +31,36 @@ router.beforeEach(async (to, from, next) => {
   document.title = data.inviteText.title
   // 页面更改时, 加上用户类型参数, 以免参数丢失导致用户分享后是另一种用户类型的页面
   const { type, tag } = store.getters.urlStatus
-  if (!to.query.t) {
-    router.push({
-      path: to.path,
-      query: { t: tag },
-      // replace: true,
-    })
-  } else {
+  router.beforeEach(async (to, from, next) => {
+    if (!to.query.t) {
+      router.push({
+        path: to.path,
+        query: { t: tag },
+        // replace: true,
+      })
+    } else {
+      next()
+    }
     next()
-  }
-  next()
-})
-window.vm = new Vue({
-  el: `#app`,
-  computed: {
-    ...Vuex.mapState([`weddingId`, `weddingConfig`, `userId`]),
-    ...Vuex.mapGetters([`urlStatus`]),
-  },
-  methods: {
-    fileTo: tool.fileTo,
-  },
-  store,
-  router,
-  components: {
-    App,
-  },
-  /**
-   * https://v2.vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
-   * 如果使用 template: `<App/>` 则需要编译运行时
-   */
-  render: (h) => h(App),
-})
+  })
+  window.vm = new Vue({
+    el: `#app`,
+    computed: {
+      ...Vuex.mapState([`weddingId`, `weddingConfig`, `userId`]),
+      ...Vuex.mapGetters([`urlStatus`]),
+    },
+    methods: {
+      fileTo: tool.fileTo,
+    },
+    store,
+    router,
+    components: {
+      App,
+    },
+    /**
+     * https://v2.vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
+     * 如果使用 template: `<App/>` 则需要编译运行时
+     */
+    render: (h) => h(App),
+  })
+})()
