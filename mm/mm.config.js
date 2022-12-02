@@ -1,6 +1,8 @@
 const api = require(`./api/index.js`)
 const { wrapApiData } = require(`./util.js`)
 
+global.type = process.argv.includes(`--dev`) ? `dev` : `prod`
+
 const config = {
   dev: {
     dbCover: true,
@@ -8,7 +10,7 @@ const config = {
   prod: {
     dbCover: false,
   },
-}[process.argv.includes(`--dev`) ? `dev` : `prod`]
+}[global.type]
 
 /**
  * 配置说明请参考文档:
