@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-if="$store.state.weddingConfig.id">
+  <div id="app" v-if="$root.weddingConfig.id">
     <music :path="$route.name" />
     <div
       v-show="$route.path !== '/'"
@@ -20,6 +20,9 @@ export default {
     return {
       transitionName: `slide-left`,
     }
+  },
+  created() {
+    this.initWxSdk()
   },
   mounted() {
     const vm = this
@@ -125,6 +128,57 @@ export default {
   },
   components: {
     music,
+  },
+  methods: {
+    initWxSdk() {
+      window.loadScript(
+        `https://res.wx.qq.com/open/js/jweixin-1.4.0.js`,
+        async () => {
+          const wx = window.wx
+          const url = encodeURI(window.location.href.split(`#`)[0])
+          const config = (
+            await this.$http.get(
+              `https://hongqiye.com/wx/getSignature?url=${url}`
+            )
+          ).data
+          console.log(`configconfig`, config)
+
+          wx.config({
+            debug: false, // 开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印。
+            appId: config.appId, // 必填，公众号的唯一标识
+            timestamp: config.timestamp, // 必填，生成签名的时间戳
+            nonceStr: config.nonceStr, // 必填，生成签名的随机串
+            signature: config.signature, // 必填，签名
+            jsApiList: [
+              // 必填，需要使用的 JS 接口列表
+              `updateAppMessageShareData`, // 分享到朋友 | 分享到QQ
+              `updateTimelineShareData`, // 分享到朋友圈 | 分享到QQ空间
+            ],
+          })
+
+          wx.ready(() => {
+            //需在用户可能点分享按钮前就先调用
+            const { inviteText } = this.$root.weddingConfig
+
+            const data = {
+              title: inviteText[this.$root.urlStatus.type].title,
+              desc: inviteText[this.$root.urlStatus.type].desc,
+              link: window.location.href.replace(/#\/.+?\?/, `#/?`), // 变更为主页 url
+              imgUrl: document.querySelector(`[rel="icon"]`).href,
+              success() {
+                console.log(`更新分享数据成功`)
+              },
+            }
+            console.log(`data`, url, data)
+            wx.updateAppMessageShareData(data)
+            wx.updateTimelineShareData(data)
+            wx.error((err) => {
+              console.error(`config fail:`, err)
+            })
+          })
+        }
+      )
+    },
   },
 }
 </script>

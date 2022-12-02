@@ -1,6 +1,6 @@
 <template>
   <div class="page_blessing">
-    <bgimg :bg="bgimgSrc" />
+    <bgimg :bg="$root.weddingConfig.pageBg.blessing" />
     <vue-baberrage
       :isShow="barrageIsShow"
       :barrageList="barrageList"
@@ -68,7 +68,6 @@ export default {
         blessing: ``,
       },
       sendIcon: require(`../assets/images/send.png`),
-      bgimgSrc: this.$root.weddingConfig.pageBg.blessing.src,
       breathing: false,
       barrageIsShow: true,
       currentId: 0,

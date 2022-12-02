@@ -1,6 +1,6 @@
 <template>
   <div class="page_call full-screen oh">
-    <bgimg :bg="bgimgSrc" />
+    <bgimg :bg="$root.weddingConfig.pageBg.call" />
     <div class="mask full-screen">
       <div class="btnBox">
         <img class="tip" src="../assets/images/tip.png" />
@@ -14,7 +14,10 @@
       </div>
     </div>
     <audio class="hidden" id="call-audio" autoPlay loop>
-      <source :src="$root.weddingConfig.pageMp3.call" type="audio/mpeg" />
+      <source
+        :src="$root.fileTo($root.weddingConfig.pageMp3.call)"
+        type="audio/mpeg"
+      />
     </audio>
   </div>
 </template>
@@ -23,9 +26,7 @@
 export default {
   name: `page_call`,
   data() {
-    return {
-      bgimgSrc: this.$root.weddingConfig.pageBg.call,
-    }
+    return {}
   },
   mounted() {},
   computed: {},

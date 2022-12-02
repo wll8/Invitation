@@ -114,13 +114,51 @@ function randomColor() {
 }
 
 /**
- * 小写数字转大小数字
+ * 小写数字转大小数字, 支持 0 到 一亿
+ * https://juejin.cn/post/6892372242143903758
  * @param {*} num
  * @returns
  */
 function cnNum(num) {
-  let cn = `一二三四五六七八九十`
-  return num > 9 ? `十` + cn[(`` + num)[1]] : cn[num]
+  let arr1 = [`零`, `一`, `二`, `三`, `四`, `五`, `六`, `七`, `八`, `九`]
+  let arr2 = [
+    ``,
+    `十`,
+    `百`,
+    `千`,
+    `万`,
+    `十`,
+    `百`,
+    `千`,
+    `亿`,
+    `十`,
+    `百`,
+    `千`,
+    `万`,
+    `十`,
+    `百`,
+    `千`,
+    `亿`,
+  ] // 可继续追加更高位转换值
+  if (!num || isNaN(num)) {
+    return `零`
+  }
+  let english = num.toString().split(``)
+  let result = ``
+  for (let i = 0; i < english.length; i++) {
+    let des_i = english.length - 1 - i // 倒序排列设值
+    result = arr2[i] + result
+    let arr1_index = english[des_i]
+    result = arr1[arr1_index] + result
+  }
+  result = result.replace(/零(千|百|十)/g, `零`).replace(/十零/g, `十`)
+  result = result.replace(/零+/g, `零`)
+  result = result.replace(/零亿/g, `亿`).replace(/零万/g, `万`)
+  result = result.replace(/亿万/g, `亿`)
+  result = result.replace(/零+$/, ``)
+  // result = result.replace(/零一十/g, '零十'); // 貌似正规读法是零一十
+  result = result.replace(/^一十/g, `十`)
+  return result
 }
 
 /**
@@ -349,7 +387,26 @@ function fileTo(url, { min = false } = {}) {
   return res
 }
 
+/**
+ * 根据模板和数据渲染内容
+ * @param {*} arg.obj
+ * @param {*} arg.template
+ */
+function render({ obj, template }) {
+  let templateNew = template
+  const keyList = Object.keys(obj).map((key) => {
+    templateNew = templateNew.replace(new RegExp(`{${key}}`, `g`), `\${${key}}`)
+    return key
+  })
+  const res = eval.call(
+    null,
+    `({ ${keyList.join(`, `)} }) => \`${templateNew}\``
+  )(obj)
+  return res
+}
+
 export default {
+  render,
   fileTo: cacheFn(fileTo),
   isSupportWebp: cacheFn(isSupportWebp),
   getEndDir: cacheFn(getEndDir),

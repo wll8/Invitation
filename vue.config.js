@@ -10,13 +10,12 @@ module.exports = {
         obj: {
           cdnPath: configSrc.cdnPath,
           staticPath: configSrc.staticPath,
-          indexPath: configSrc.indexPath,
         },
       }
       return args
     })
   },
-  publicPath: configSrc.indexPath, // 基本路径, 建议以绝对路径跟随访问目录
+  publicPath: configSrc.staticPath, // 基本路径, 建议以绝对路径跟随访问目录
   outputDir: `./dist`, // 输出文件目录
   pluginOptions: {
     // 第三方插件配置

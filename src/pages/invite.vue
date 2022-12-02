@@ -1,14 +1,12 @@
 <template>
   <div class="page_invite">
-    <bgimg :bg="$root.weddingConfig.pageBg.invite.src" />
+    <bgimg :bg="$root.weddingConfig.pageBg.invite" />
     <div v-show="showClock" class="section page-when page page-cent">
       <section class="content">
         <div class="clock clock-countdown">
           <div
             class="site-config"
-            :data-date="
-              new Date($root.weddingConfig.date[$root.urlStatus.type])
-            "
+            :data-date="$dayjs($root.weddingConfig.date[$root.urlStatus.type])"
           ></div>
           <header class="header">
             <strong>婚礼倒计时</strong>
@@ -48,13 +46,10 @@
     <div class="text-box">
       <div class="text-title">
         <p class="english">Our invitation</p>
-        <p>{{ $root.weddingConfig.inviteText.title }}</p>
+        <p>{{ $root.weddingConfig.inviteText[$root.urlStatus.type].title }}</p>
       </div>
-      <div
-        :style="$root.weddingConfig.inviteText.contentStyle"
-        class="text-content"
-      >
-        {{ $root.weddingConfig.inviteText[$root.urlStatus.type] }}
+      <div class="text-content">
+        {{ $root.weddingConfig.inviteText[$root.urlStatus.type].desc }}
       </div>
     </div>
   </div>
@@ -148,7 +143,7 @@ export default {
     .text-title {
       width: 100%;
       color: rgb(247, 150, 70);
-      font-size: 18px;
+      font-size: 22px;
       font-family: '楷体', '楷体_GB2312';
       padding-left: 29px;
       padding-top: 10px;
@@ -164,11 +159,11 @@ export default {
       }
     }
     .text-content {
-      white-space: pre-wrap;
+      white-space: normal;
       width: 100%;
-      background-color: rgba(255, 255, 255, 0.45);
+      background-color: rgba(255, 255, 255, 0.7);
       color: black;
-      font-size: 15px;
+      font-size: 18px;
       font-family: '楷体', '楷体_GB2312';
       //text-shadow: rgb(0, 0, 0) 0px 0px 2px;
       box-sizing: border-box;

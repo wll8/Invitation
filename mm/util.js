@@ -220,7 +220,32 @@ function simpleSvgPlaceholder({
   return cleaned
 }
 
+/**
+ * 缓存器
+ */
+const cacheData = {
+  ticket: {
+    value: undefined,
+    createDate: undefined, // 创建时间, 毫秒
+    expires: undefined, // 有效期, 秒
+  },
+  get(key) {
+    this[key] = this[key] || {}
+    if (Date.now() - this[key].createDate > this[key].expires * 1000) {
+      this[key] = {}
+    }
+    return this[key].value
+  },
+  set(key, value, expires) {
+    this[key] = this[key] || {}
+    this[key].value = value
+    this[key].createDate = Date.now()
+    this[key].expires = expires
+  },
+}
+
 module.exports = {
+  cacheData,
   minImage,
   simpleSvgPlaceholder,
   sweetNothing,

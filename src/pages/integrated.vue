@@ -1,6 +1,6 @@
 <template>
   <div class="page_integrated">
-    <bgimg :bg="bgimgSrc" />
+    <bgimg :bg="$root.weddingConfig.pageBg.integrated" />
     <div class="bg">
       <img :src="whiteCircleImg" class="white-circle" />
       <integrateditem
@@ -36,7 +36,6 @@ export default {
   data() {
     return {
       whiteCircleImg: require(`../assets/images/white-circle2.png`),
-      bgimgSrc: this.$root.weddingConfig.pageBg.integrated.src,
     }
   },
   computed: {},

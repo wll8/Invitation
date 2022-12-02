@@ -7,7 +7,7 @@ const configBase = {
   /**
    * API 前缀地址
    */
-  baseApi: `http://localhost:9000`,
+  baseApi: `http://127.0.0.1:9020`,
   /**
    * 上传文件所在地址, 例如邀约录音
    */
@@ -16,14 +16,13 @@ const configBase = {
    * 公用 cdn 资源所在地址
    * 一些与项目无关的第三方库
    */
-  cdnPath: `/cdn/npm/`,
+  cdnPath: `/cdn/`,
   /**
    * 业务静态资源所在地址
    * 便于把业务上的一些资源放到三方平台的存储空间上以增加访问速度, 例如各种 chunk 文件
-   */
-  staticPath: `/`,
-  /**
-   * index.html 文件部署的位置
+   *
+   *
+   * 可以把 index.html 文件部署于其他服务器上
    * 便于让访问的人从地址上看起来是自己的域名
    * 例如需要对入口进行动态分析和响应, 而第三方平台上的存储空间上通常没有此功能
    *
@@ -33,19 +32,20 @@ const configBase = {
    * 或使用QQ之类的程序(自动提取html中的meta信息, 动态添加的无用),
    * 所以只能使用服务器动态渲染 index.html
    */
-  indexPath: `/`,
+  staticPath: `/`,
 }
 const map = {
   dev: {},
   prod: {
-    cdnPath: `//xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/mycdn/`,
-    staticPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/Invitation-hyy/love/`,
-    indexPath: `/love/`,
+    baseApi: `https://hongqiye.com/love`,
+    cdnPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/getcdn/`,
+    staticPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/love/`,
+    upload: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/love/upload`,
   },
   test: {
-    cdnPath: `//xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/mycdn/`,
-    staticPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/Invitation-hyy/love/`,
-    indexPath: `/love/`,
+    cdnPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/getcdn/`,
+    staticPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/love/`,
+    upload: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/love/upload`,
   },
 }
 const configCur = {

@@ -3,16 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "npx getcdn .dir=public/cdn fingerprintjs2@2.1.0 vconsole@3.15.0 zepto@1.2.0",
     "dev": "cross-env VUE_APP_ENV=dev vue-cli-service serve",
     "build": "cross-env VUE_APP_ENV=prod vue-cli-service build --report",
     "build:test": "cross-env VUE_APP_ENV=test vue-cli-service build --report",
     "start": "run-p serve mm",
     "lint": "vue-cli-service lint",
-    "mm": "mockm --cwd=mm"
+    "mm": "mockm --cwd=mm --dev"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.10.1",
+    "dayjs": "^1.11.6",
     "fingerprintjs2": "^1.8.6",
     "flyio": "^0.6.4",
     "swiper": "3.4.2",
@@ -35,6 +37,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^6.2.2",
     "esm": "^3.2.25",
+    "getcdn": "^0.0.1",
     "less": "^3.13.1",
     "less-loader": "^5.0.0",
     "mockm": "1.1.26-alpha.42",

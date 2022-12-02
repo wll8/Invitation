@@ -1,6 +1,6 @@
 <template>
   <div class="page_talk full-screen oh">
-    <bgimg :bg="bgimgSrc" />
+    <bgimg :bg="$root.weddingConfig.pageBg.talk" />
     <div class="mask full-screen">
       <div class="textInfo">
         <div class="count-down-title">婚礼倒计时</div>
@@ -33,13 +33,10 @@ export default {
       audioTimer: undefined,
       timestamp: Date.parse(new Date()),
       endTimestamp: Date.parse(
-        new Date(this.$root.weddingConfig.date[this.$root.urlStatus.type])
+        this.$dayjs(this.$root.weddingConfig.date[this.$root.urlStatus.type])
       ),
       boyMp3: this.$root.fileTo(this.$root.weddingConfig.pageMp3.talk.boy),
       girlMp3: this.$root.fileTo(this.$root.weddingConfig.pageMp3.talk.girl),
-      bgimgSrc: this.$root.fileTo(this.$root.weddingConfig.pageBg.talk.src, {
-        min: true,
-      }),
       functionImg: require(`../assets/images/function2.png`),
       hungUpImg: require(`../assets/images/hung-up.png`),
     }
@@ -69,7 +66,7 @@ export default {
   filters: {
     _countDown(timestamp, endTimestamp) {
       if (timestamp == 0 || timestamp >= endTimestamp) {
-        return `(已超过时间)`
+        return `(婚礼已经结束啦)`
       }
       let date1 = new Date(timestamp) // 开始时间
       let date2 = new Date(endTimestamp) // 结束时间

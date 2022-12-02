@@ -2,7 +2,7 @@
   <div class="page_desktop full-screen oh">
     <div class="full-page desktop-page">
       <!-- 背景照片 -->
-      <bgimg :bg="bgimgSrc" />
+      <bgimg :bg="$root.weddingConfig.pageBg.desktop" />
       <div class="bg">
         <div class="videoBox" v-if="videoShow" @click="_closeVideo">
           <d-player
@@ -23,15 +23,15 @@
               icon="icon2"
               :head="
                 $tool.cnNum(
-                  new Date(
-                    $root.weddingConfig.date[$root.urlStatus.type]
-                  ).getMonth()
+                  $dayjs($root.weddingConfig.date[$root.urlStatus.type]).format(
+                    `M`
+                  )
                 ) + '月'
               "
               :body="
-                new Date(
-                  $root.weddingConfig.date[$root.urlStatus.type]
-                ).getDate() + ''
+                $dayjs($root.weddingConfig.date[$root.urlStatus.type]).format(
+                  `D`
+                )
               "
               foot="邀约"
             />
@@ -109,9 +109,6 @@ export default {
         },
         autoplay: false,
       },
-      bgimgSrc: this.$root.fileTo(this.$root.weddingConfig.pageBg.desktop.src, {
-        min: true,
-      }),
       videoShow: false,
       audioMp3: this.$root.fileTo(this.$root.weddingConfig.pageMp3.desktop),
       closeImg: ``,

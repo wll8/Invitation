@@ -1,6 +1,15 @@
 const api = require(`./api/index.js`)
 const { wrapApiData } = require(`./util.js`)
 
+const config = {
+  dev: {
+    dbCover: true,
+  },
+  prod: {
+    dbCover: false,
+  },
+}[process.argv.includes(`--dev`) ? `dev` : `prod`]
+
 /**
  * 配置说明请参考文档:
  * https://hongqiye.com/doc/mockm/config/option.html
@@ -8,14 +17,18 @@ const { wrapApiData } = require(`./util.js`)
  */
 module.exports = (util) => {
   return {
+    ...config,
     guard: false,
-    dbCover: true,
     port: 9020,
     testPort: 9025,
     replayPort: 9021,
     watch: [`./api/`],
     apiWeb: `./apiWeb.json`,
     api: {
+      'use /'(req, res, next) {
+        res.set(`X-Powered-By`, `ASP.NET`)
+        next()
+      },
       // 在其他文件里的 api
       ...api(util).api,
     },
@@ -26,6 +39,10 @@ module.exports = (util) => {
       {
         path: `/file/upload`,
         fileDir: `./upload/`,
+      },
+      {
+        path: `/love`,
+        fileDir: `../dist/`,
       },
     ],
     resHandleReplay: ({ req, res }) => wrapApiData({ code: 200, data: {} }),

@@ -34,8 +34,26 @@ module.exports = (util) => {
 
   return {
     api: {
-      'use /'(req, res, next) {
-        next()
+      'get /:id'(req, res, next) {
+        const { id } = req.params
+        const db = global.config._db
+        const data = db.get(`weddings`).find({ id }).value()
+        console.log(`data`, data)
+        if (data) {
+          res.sendFile(path.resolve(`../dist/index.html`))
+        } else {
+          next()
+        }
+      },
+      'get /love/:id'(req, res, next) {
+        const { id } = req.params
+        const db = global.config._db
+        const data = db.get(`weddings`).find({ id }).value()
+        if (data) {
+          res.sendFile(path.resolve(`../dist/index.html`))
+        } else {
+          next()
+        }
       },
       async 'post /file/upload'(req, res) {
         const multiparty = await util.toolObj.generate.initPackge(`multiparty`)
@@ -146,12 +164,12 @@ module.exports = (util) => {
             audio: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/Invitation-hyy/static/media/bgm_min.5106e88.mp3`,
             page: [
               // 播放背景音乐的页面
-              // 'desktop', // 桌面
+              `desktop`, // 桌面
               `date`, // 日期
               `photos`, // 相册
               `blessing`, // 祝福
-              // 'dialing', // 通话记录
-              // 'wechat', // 微信
+              `dialing`, // 通话记录
+              `wechat`, // 微信
               `integrated`, // 集成
               `invite`, // 邀请
               `map`, // 地图
@@ -175,19 +193,17 @@ module.exports = (util) => {
             boy: `${new Date().getFullYear() + 1}/05/20 15:30:00`,
             girl: `${new Date().getFullYear() + 1}/05/21 12:30:00`,
           },
+          boyName: `杨过`,
+          girlName: `小龙女`,
           inviteText: {
-            // 邀约文本， 空格和换行原样显示
-            title: `小龙女 & 杨过的邀约`,
-            contentStyle: `text-align: center;`,
-            boy: removeLeft(`
-              举案齐眉心中想，白头偕老我所愿，执子之手永不变，誓言今朝终实现，百年好合盼祝愿，
-              今邀好友来捧场，一定赏光勿迟到，好酒好菜管到饱，
-              欢乐开心婚姻好。
-            `),
-            girl: removeLeft(`
-              红叶传情久，终觅佳期成佳偶;秋雁送书来，诚邀亲友话亲情;
-              佳人佳偶逢佳期，君至可添喜;亲友亲事话亲情，您来能增辉。
-            `),
+            boy: {
+              title: ``,
+              desc: ``,
+            },
+            girl: {
+              title: ``,
+              desc: ``,
+            },
           },
           phone: {
             // 电话
@@ -209,11 +225,19 @@ module.exports = (util) => {
             // 地图显示的地址
             boy: {
               // 显示名字
-              name: `天安门`,
+              name: `江西省临安牛家村本宅`,
               // 坐标
               // 使用此工具可查询经纬度
-              // www.gpsspg.com/maps.htm
+              // https://www.gpsspg.com/maps.htm
               // https://lbs.amap.com/console/show/picker 高德地图经纬查询
+              position: [119.25457, 30.220399],
+            },
+            girl: {
+              name: `陕西省户县祖庵镇本宅`,
+              position: [108.494793, 34.1055],
+            },
+          },
+        },
               position: [116.397477, 39.908692],
             },
             girl: {

@@ -2,8 +2,35 @@
 <html lang="zh-cn">
   <head>
     <meta charset="utf-8">
-    <!-- 禁止缩放 -->
+    <!-- 禁止缩放(安卓) -->
     <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- 禁止缩放(苹果) -->
+    <script>
+      document.documentElement.addEventListener(
+        "touchstart",
+        function (event) {
+          if (event.touches.length > 1) {
+            event.preventDefault();
+          }
+        },
+        false
+      );
+      var lastTouchEnd = 0;
+      document.documentElement.addEventListener(
+        "touchend",
+        function (event) {
+          var now = Date.now();
+          if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+          }
+          lastTouchEnd = now;
+        },
+        false
+      );
+      document.addEventListener("gesturestart", function (event) {
+        event.preventDefault();
+      });
+    </script>
     <title>幸福邀请函</title>
     <!-- 强制使用 chrome 内核 -->
     <meta name="renderer" content="webkit" />
@@ -11,10 +38,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
 
     <meta name="description" content="结束爱情长跑，共进爱情城堡，携手恩爱到白头，风雨同舟一起走，我们的幸福需要您的祝福与见证。" />
-    <link rel="icon" href="favicon.ico" />
-    <link rel="stylesheet" href="./static/css/loading.css">
+    <link rel="icon" href="<%= obj.staticPath %>favicon.ico" />
+    <link rel="stylesheet" href="<%= obj.staticPath %>static/css/loading.css">
     <script>
-      function loadScript(file, callbackFn) {
+      window.loadScript = function loadScript(file, callbackFn) {
         var script = document.createElement('script');
         script.src= file;
         script.type='text/javascript';
@@ -22,12 +49,13 @@
         document.getElementsByTagName('head')[0].appendChild(script)
       }
       if(!!+window.localStorage.getItem('love_debug')) {
-       loadScript('//cdn.jsdelivr.net/npm/vconsole@3.15.0/dist/vconsole.min.js', function () {
+       loadScript('<%= obj.cdnPath %>vconsole@3.15.0/dist/vconsole.min.js', function () {
          var vConsole = new VConsole();
          console.log('Hello vConsole');
        });
       }
     </script>
+    <script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
   </head>
   <body>
     <div id="app">
@@ -50,9 +78,10 @@
     </div>
     <script src="<%= obj.cdnPath %>fingerprintjs2@2.1.0/dist/fingerprint2.min.js"></script>
 
-    <script src="<%= obj.cdnPath %>/zepto@1.2.0/dist/zepto.min.js"></script>
+    <script src="<%= obj.cdnPath %>zepto@1.2.0/dist/zepto.min.js"></script>
     <script> var jQuery = $; </script>
     <script src="<%= obj.staticPath %>static/js/fx.js"></script>
+    <script src="<%= obj.cdnPath %>zepto@1.2.0/src/fx.js"></script>
     <script src="<%= obj.staticPath %>static/js/fly.js"></script>
     <script src="<%= obj.staticPath %>static/js/jquery.downCount.js"></script>
     <script src="<%= obj.staticPath %>static/js/jquery.knob.min.js"></script>

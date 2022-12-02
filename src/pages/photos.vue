@@ -1,6 +1,6 @@
 <template>
   <div class="page_photos" v-if="coverList.length">
-    <bgimg :bg="bgimgSrc" />
+    <bgimg :bg="$root.weddingConfig.pageBg.photos" />
     <div class="swpBox">
       <div
         class="swiper-container"
@@ -59,7 +59,6 @@ export default {
   name: `page_photos`,
   data() {
     return {
-      bgimgSrc: this.$root.weddingConfig.pageBg.photos.src,
       coverList: [],
     }
   },
