@@ -346,7 +346,7 @@ function getQueryString(name) {
  * 获取链接的最后一个目录
  */
 function getEndDir(link = location.href) {
-  return new URL(link).pathname.split(`/`).pop()
+  return new URL(link).pathname.split(`/`).filter(Boolean).pop()
 }
 
 /**
