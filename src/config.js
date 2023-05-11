@@ -37,10 +37,10 @@ const configBase = {
 const map = {
   dev: {},
   prod: {
-    baseApi: `https://hongqiye.com/love`,
-    cdnPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/getcdn/`,
-    staticPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/love/`,
-    upload: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/love/upload`,
+    baseApi: `http://127.0.0.1:9020`,
+    cdnPath: `http://127.0.0.1:9020/love/cdn/`,
+    staticPath: `http://127.0.0.1:9020/love/`,
+    upload: `http://127.0.0.1:9020/file/upload`,
   },
   test: {
     cdnPath: `https://xw-cq-1255591119.cos.ap-chongqing.myqcloud.com/getcdn/`,
